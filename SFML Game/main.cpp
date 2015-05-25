@@ -26,24 +26,24 @@ int main()
 				// Event Switch in dem Alle wichtigen Events registriert werden.
 				switch (event.type)
 				{
-					// Event wenn eine Taste gerückt wurde.
+				// Event wenn eine Taste gerückt wurde.
 				case sf::Event::KeyReleased:
 					switch (event.key.code)
 					{
-						case sf::Keyboard::Up:
+					case sf::Keyboard::Up:
 						{
 							if(Auswahl == 0)
 								Menü.MoveUp();
 							else
-							Optionen.MoveUp();
+								Optionen.MoveUp();
 							break;
 						}
-						case sf::Keyboard::Down:
+					case sf::Keyboard::Down:
 						{
 							if(Auswahl == 0)
 								Menü.MoveDown();
 							else
-								Optionen.MoveUp();
+								Optionen.MoveDown();
 							break;
 						}
 						// Eventfall für Enter drücken.
@@ -59,16 +59,21 @@ int main()
 									game.run();
 									break;
 								}
+								// Multiplayer Start.
 								case 1:
 								{
-									std::cout << "Option button has been pressed" << std::endl;
 									break;
 								}
+								// Optionen eingeben.
 								case 2:
 								{
 									Auswahl = 2;
 									window.draw(Optionen);
 									break;
+								}
+								case 3:
+								{
+									window.close();
 								}
 							}
 							break;
