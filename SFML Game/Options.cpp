@@ -34,6 +34,7 @@ Options::Options(float width, float height)
 	Option[4].setPosition(sf::Vector2f(width / 3, height / (MAX_MENU_ITEMS + 1) * 4));
 
 	selectedItemIndex = 0;
+	selectedWindowIndex = 0;
 }
 
 
@@ -76,6 +77,72 @@ int Options::GetPressedItem()
 
  void Options::changeWindow()
  {
-	 
-	 
- }
+	 switch(selectedWindowIndex)
+	 {
+		case 0:
+		{
+			xWindow = 800;
+			yWindow = 480;
+		}
+		case 1:
+		{
+			xWindow = 1024;
+			yWindow = 768;
+		}
+		case 2:
+		{
+			xWindow = 1280;
+			yWindow = 720;
+		}
+		case 3:
+		{
+			xWindow = 1280;
+			yWindow = 1024;
+		}
+		case 4:
+		{
+			xWindow = 1600;
+			yWindow = 900;
+		}
+	 } 
+}
+
+void Options::changeRight()
+{
+	switch(selectedItemIndex)
+	{
+		case 0:
+		{
+			xWindow = 800;
+			yWindow = 480;
+		}
+		case 1:
+		{
+			xWindow = 1024;
+			yWindow = 768;
+		}
+		case 2:
+		{
+			if(selectedWindowIndex < 5)
+			{
+				selectedWindowIndex++;
+				changeWindow();
+			}
+			else
+			{
+				selectedWindowIndex = 0;
+				changeWindow();
+			}
+		}
+		case 3:
+		{
+			xWindow = 1280;
+			yWindow = 1024;
+		}
+		case 4:
+		{
+			xWindow = 1600;
+			yWindow = 900;
+		}
+	} 
+}
