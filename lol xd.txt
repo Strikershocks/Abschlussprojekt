@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 
 
@@ -14,3 +15,6 @@
 
 
 asdf
+=======
+Test 123 von mir !
+>>>>>>> a4aaae6a4fba44c79f4e5410b60841dafdff0a8b
