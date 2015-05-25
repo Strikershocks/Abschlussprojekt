@@ -73,3 +73,9 @@ int Options::GetPressedItem()
 		target.draw(Option[i], states);
 	}
 }
+
+ void Options::changeWindow()
+ {
+	 
+	 
+ }

@@ -15,9 +15,15 @@ public:
 	void changeRight();
 	void changeLeft();
 	int GetPressedItem();
+	int getWindowX();
+	int getWindowY();
+	void changeWindow();
 
 private:
 	int selectedItemIndex;
+	int selectedWindowIndex;
+	int xWindow;
+	int yWindow;
 	sf::Font font;
 	sf::Text Option[MAX_MENU_ITEMS];
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;

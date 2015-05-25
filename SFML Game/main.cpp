@@ -10,7 +10,7 @@ int main()
 	try
 	{
 		// Erstellt ein Fenster mit der größe 600x600.
-		sf::RenderWindow window(sf::VideoMode(600, 600), "SFML WORK!");
+		sf::RenderWindow window(sf::VideoMode(600, 600), "Game Menü");
 		// Übergibt an Menue und Optionen die größe des Fensters.
 		Menu Menü(window.getSize().x, window.getSize().y);
 		Options Optionen(window.getSize().x, window.getSize().y);
@@ -82,9 +82,7 @@ int main()
 					break;
 				case sf::Event::Closed:
 					window.close();
-
 					break;
-
 				}
 			}
 			window.clear(sf::Color::Black);
