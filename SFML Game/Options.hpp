@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 // Definierung von der Maximalen Menüpunkte
-#define MAX_MENU_ITEMS 4
+#define MAX_MENU_ITEMS 5
 
 class Options : public sf::Drawable
 {

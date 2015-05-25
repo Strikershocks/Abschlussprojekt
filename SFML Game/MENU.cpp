@@ -20,14 +20,19 @@ Menu::Menu(float width, float height)
 
 	menu[2].setFont(font);
 	menu[2].setColor(sf::Color::White);
-	menu[2].setString("Optionen");
+	menu[2].setString("Ranking");
 	menu[2].setPosition(sf::Vector2f(width / 2, height / (MAX_MENU_ITEMS + 1) * 3));
-
 
 	menu[3].setFont(font);
 	menu[3].setColor(sf::Color::White);
-	menu[3].setString("Beenden");
-	menu[3].setPosition(sf::Vector2f(width / 2, height / (MAX_MENU_ITEMS + 1) * 4));
+	menu[3].setString("Optionen");
+	menu[3].setPosition(sf::Vector2f(width / 2, height / (MAX_MENU_ITEMS + 1) * 3));
+
+
+	menu[4].setFont(font);
+	menu[4].setColor(sf::Color::White);
+	menu[4].setString("Beenden");
+	menu[4].setPosition(sf::Vector2f(width / 2, height / (MAX_MENU_ITEMS + 1) * 4));
 
 	selectedItemIndex = 0;
 }
