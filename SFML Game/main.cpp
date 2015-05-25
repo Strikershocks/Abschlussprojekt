@@ -11,8 +11,11 @@ int main()
 	{
 		// Erstellt ein Fenster mit der größe 600x600.
 		sf::RenderWindow window(sf::VideoMode(600, 600), "SFML WORK!");
-		// Übergibt an Menue die größe des Fensters.
+		// Übergibt an Menue und Optionen die größe des Fensters.
 		Menu Menü(window.getSize().x, window.getSize().y);
+		Options Optionen(window.getSize().x, window.getSize().y);
+		int Auswahl = 0;
+
 		// Solange das Fenster Offen ist.
 		while (window.isOpen())
 		{
@@ -29,18 +32,24 @@ int main()
 					{
 						case sf::Keyboard::Up:
 						{
-							Menü.MoveUp();
+							if(Auswahl == 0)
+								Menü.MoveUp();
+							else
+							Optionen.MoveUp();
 							break;
 						}
 						case sf::Keyboard::Down:
 						{
-							Menü.MoveDown();
+							if(Auswahl == 0)
+								Menü.MoveDown();
+							else
+								Optionen.MoveUp();
 							break;
 						}
 						// Eventfall für Enter drücken.
 						case sf::Keyboard::Return:
 						{
-							switch (Menü.GetPressedItem())
+						    switch(Menü.GetPressedItem())
 							{
 								// Einzelspieler Start.
 								case 0:
@@ -57,9 +66,8 @@ int main()
 								}
 								case 2:
 								{
-									Options Optionen(window.getSize().x, window.getSize().y);
+									Auswahl = 2;
 									window.draw(Optionen);
-									window.close();
 									break;
 								}
 							}
@@ -75,7 +83,10 @@ int main()
 				}
 			}
 			window.clear(sf::Color::Black);
-			window.draw(Menü);
+			if(Auswahl == 0)
+				window.draw(Menü);
+			else
+				window.draw(Optionen);
 			window.display();
 		}
 	}

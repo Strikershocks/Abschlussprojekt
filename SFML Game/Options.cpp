@@ -11,23 +11,23 @@ Options::Options(float width, float height)
 	Option[0].setFont(font);
 	Option[0].setColor(sf::Color::Red);
 	Option[0].setString("Spielername");
-	Option[0].setPosition(sf::Vector2f(width / 2, height / (MAX_MENU_ITEMS + 1) * 1));
+	Option[0].setPosition(sf::Vector2f(width / 3, height / (MAX_MENU_ITEMS + 1) * 1));
 
 	Option[1].setFont(font);
 	Option[1].setColor(sf::Color::White);
 	Option[1].setString("Anti-Allaising");
-	Option[1].setPosition(sf::Vector2f(width / 2, height / (MAX_MENU_ITEMS + 1) * 2));
+	Option[1].setPosition(sf::Vector2f(width / 3, height / (MAX_MENU_ITEMS + 1) * 2));
 
 	Option[2].setFont(font);
 	Option[2].setColor(sf::Color::White);
 	Option[2].setString("Bestenliste zurücksetzen!");
-	Option[2].setPosition(sf::Vector2f(width / 2, height / (MAX_MENU_ITEMS + 1) * 3));
+	Option[2].setPosition(sf::Vector2f(width / 3, height / (MAX_MENU_ITEMS + 1) * 3));
 
 
 	Option[3].setFont(font);
 	Option[3].setColor(sf::Color::White);
 	Option[3].setString("Zurück");
-	Option[3].setPosition(sf::Vector2f(width / 2, height / (MAX_MENU_ITEMS + 1) * 4));
+	Option[3].setPosition(sf::Vector2f(width / 3, height / (MAX_MENU_ITEMS + 1) * 4));
 
 	selectedItemIndex = 0;
 }
