@@ -9,16 +9,17 @@ public:
 	Options(float width, float height);
 	~Options(void);
 	std::string getPlayerName();
-	void setPlayerName();
+	void setPlayerName(std::string);
 	void MoveUp();
 	void MoveDown();
+	void changeRight();
+	void changeLeft();
 	int GetPressedItem();
 
 private:
 	int selectedItemIndex;
 	sf::Font font;
-	sf::Text menu[MAX_MENU_ITEMS];
+	sf::Text Option[MAX_MENU_ITEMS];
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-
 };
 

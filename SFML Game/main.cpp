@@ -1,5 +1,6 @@
 #include "Include\Game.hpp"
 #include "MENU.hpp"
+#include "Options.hpp"
 
 #include <stdexcept>
 #include <iostream>
@@ -41,9 +42,9 @@ int main()
 						{
 							switch (Menü.GetPressedItem())
 							{
+								// Einzelspieler Start.
 								case 0:
 								{
-									std::cout << "Play button has been pressed" << std::endl;
 									window.close();
 									Game game;
 									game.run();
@@ -56,6 +57,8 @@ int main()
 								}
 								case 2:
 								{
+									Options Optionen(window.getSize().x, window.getSize().y);
+									window.draw(Optionen);
 									window.close();
 									break;
 								}
