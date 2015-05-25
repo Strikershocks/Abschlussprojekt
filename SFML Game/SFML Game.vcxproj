@@ -76,6 +76,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MENU.cpp" />
+    <ClCompile Include="Options.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\player.png" />
@@ -88,6 +89,7 @@
     <ClInclude Include="Include\StringHelpers.hpp" />
     <ClInclude Include="Map.hpp" />
     <ClInclude Include="MENU.hpp" />
+    <ClInclude Include="Options.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StringHelpers.inl" />

@@ -27,6 +27,9 @@
     <ClCompile Include="MENU.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="Options.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\player.png">
@@ -49,6 +52,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="MENU.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Options.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

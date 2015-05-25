@@ -7,6 +7,7 @@ const sf::Time Game::TimePerFrame = sf::seconds(1.f/60.f);
 
 Game::Game(): Window(sf::VideoMode(640, 480), "Test Game", sf::Style::Close)
 {
+	// Standard Werte Setzen.
 	Texture;
 	Player;
 	Font;
@@ -17,6 +18,7 @@ Game::Game(): Window(sf::VideoMode(640, 480), "Test Game", sf::Style::Close)
 	IsMovingDown = false;
 	IsMovingRight = false;
 	IsMovingLeft = false;
+
 	// Textur wird geladen.
 	if (!Texture.loadFromFile("Resources/Textures/playerball.png"))
 	{
@@ -27,7 +29,7 @@ Game::Game(): Window(sf::VideoMode(640, 480), "Test Game", sf::Style::Close)
 	Player.setTexture(Texture);
 	// Setzen der Position für den Spielen.
 	Player.setPosition(100.f, 100.f);
-	
+	// Schrift Art laden und Eigenschaften Setzen.
 	Font.loadFromFile("Resources/Sansation.ttf");
 	StatisticsText.setFont(Font);
 	StatisticsText.setPosition(5.f, 5.f);
