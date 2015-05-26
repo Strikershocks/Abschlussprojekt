@@ -3,6 +3,11 @@
 
 Options::Options(float width, float height)
 {
+	// Standard Werte in die Variablen füllen.
+	selectedItemIndex = 0;
+	selectedWindowIndex = 0;
+	changeWindow();
+
 		if (!font.loadFromFile("Resources/Sansation.ttf"))
 	{
 		// handle error
@@ -11,30 +16,27 @@ Options::Options(float width, float height)
 	Option[0].setFont(font);
 	Option[0].setColor(sf::Color::Red);
 	Option[0].setString("Spielername");
-	Option[0].setPosition(sf::Vector2f(width / 3, height / (MAX_MENU_ITEMS + 1) * 1));
+	Option[0].setPosition(sf::Vector2f(width / 4, height / (MAX_MENU_ITEMS + 1) * 1));
 
 	Option[1].setFont(font);
 	Option[1].setColor(sf::Color::White);
 	Option[1].setString("Anti-Allaising");
-	Option[1].setPosition(sf::Vector2f(width / 3, height / (MAX_MENU_ITEMS + 1) * 2));
+	Option[1].setPosition(sf::Vector2f(width / 4, height / (MAX_MENU_ITEMS + 1) * 2));
 
 	Option[2].setFont(font);
 	Option[2].setColor(sf::Color::White);
-	Option[2].setString("Fenstergröße");
-	Option[2].setPosition(sf::Vector2f(width / 3, height / (MAX_MENU_ITEMS + 1) * 3));
+	Option[2].setString("Fenstergröße " + toString(xWindow) + 'x' + toString(yWindow));
+	Option[2].setPosition(sf::Vector2f(width / 4, height / (MAX_MENU_ITEMS + 1) * 3));
 
 	Option[3].setFont(font);
 	Option[3].setColor(sf::Color::White);
 	Option[3].setString("Bestenliste zurücksetzen!");
-	Option[3].setPosition(sf::Vector2f(width / 3, height / (MAX_MENU_ITEMS + 1) * 4));
+	Option[3].setPosition(sf::Vector2f(width / 4, height / (MAX_MENU_ITEMS + 1) * 4));
 
 	Option[4].setFont(font);
 	Option[4].setColor(sf::Color::White);
 	Option[4].setString("Zurück");
-	Option[4].setPosition(sf::Vector2f(width / 3, height / (MAX_MENU_ITEMS + 1) * 5));
-
-	selectedItemIndex = 0;
-	selectedWindowIndex = 0;
+	Option[4].setPosition(sf::Vector2f(width / 4, height / (MAX_MENU_ITEMS + 1) * 5));
 }
 
 
@@ -83,28 +85,34 @@ int Options::GetPressedItem()
 		{
 			xWindow = 800;
 			yWindow = 480;
+			break;
 		}
 		case 1:
 		{
 			xWindow = 1024;
 			yWindow = 768;
+			break;
 		}
 		case 2:
 		{
 			xWindow = 1280;
 			yWindow = 720;
+			break;
 		}
 		case 3:
 		{
 			xWindow = 1280;
 			yWindow = 1024;
+			break;
 		}
 		case 4:
 		{
 			xWindow = 1600;
 			yWindow = 900;
+			break;
 		}
 	 } 
+	 Option[2].setString("Fenstergröße " + toString(xWindow) + 'x' + toString(yWindow));
 }
 
 void Options::changeRight()

@@ -46,6 +46,20 @@ int main()
 								Optionen.MoveDown();
 							break;
 						}
+					case sf::Keyboard::Right:
+						{
+							if(Auswahl != 0)
+							{
+								Optionen.changeRight();
+							}
+						}
+					case sf::Keyboard::Left:
+						{
+							if(Auswahl != 0)
+							{
+								// ChangeLEft
+							}
+						}
 						// Eventfall für Enter drücken.
 						case sf::Keyboard::Return:
 						{
@@ -67,13 +81,18 @@ int main()
 								// Optionen eingeben.
 								case 2:
 								{
-									Auswahl = 2;
-									window.draw(Optionen);
 									break;
 								}
 								case 3:
 								{
+									Auswahl = 2;
+									window.draw(Optionen);
+									break;
+								}
+								case 4:
+								{
 									window.close();
+									break;
 								}
 							}
 							break;

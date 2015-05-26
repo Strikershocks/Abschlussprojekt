@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Include\StringHelpers.hpp"
 // Definierung von der Maximalen Menüpunkte
 #define MAX_MENU_ITEMS 5
 
