@@ -84,10 +84,6 @@ int main()
 										break;
 									}
 									// Optionen eingeben.
-									case 2:
-									{
-										break;
-									}
 									case 3:
 									{
 										Auswahl = 3;
@@ -106,6 +102,11 @@ int main()
 							{
 								switch(Optionen.GetPressedItem())
 								{
+									case 1:
+									{
+
+										break;
+									}
 									case 4:
 									{
 										Auswahl = 0;

@@ -9,7 +9,7 @@ class Options : public sf::Drawable
 public:
 	Options(float width, float height);
 	~Options(void);
-	std::string setPlayerName();
+	std::string getPlayerName();
 	void setPlayerName(std::string);
 	
 	// Auswahl nach Oben.
@@ -36,19 +36,22 @@ public:
 	// Auflösung Ändern.
 	void changeSizeXY();
 
-	// Ändern von Aliasing level.
-	void changeAliasing(int i);
-
 private:
+	// Ausgewähltes Optionsfeld
 	int selectedItemIndex;
+	// Ausgewählte Auflösung
 	int selectedWindowIndex;
-	int selectedAliasingIndex;
+	// x Wert
 	int xWindow;
+	// y Wert
 	int yWindow;
+	// Ausgewähltes Anti-Aliasing Level max 16
 	int Aliasing; 
-	bool back;
 	sf::Font font;
+	// Array für die Optionen
 	sf::Text Option[MAX_MENU_ITEMS];
+	// Spielername
+	std::string PlayerName;
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
 

@@ -6,10 +6,8 @@ Options::Options(float width, float height)
 	// Standard Werte in die Variablen füllen.
 	selectedItemIndex = 0;
 	selectedWindowIndex = 0;
-	selectedAliasingIndex = 0;
-	changeAliasing(selectedAliasingIndex);
+	Aliasing = 0;
 	changeSizeXY();
-	back = false;
 
 	if (!font.loadFromFile("Resources/Sansation.ttf"))
 	{
@@ -124,16 +122,16 @@ void Options::changeRight()
 	{
 		case 1:
 		{
-			if(selectedAliasingIndex < 16)
+			if(Aliasing < 16)
 			{
-				selectedAliasingIndex++;
-				changeAliasing(selectedAliasingIndex);
+				Aliasing++;
+				Option[1].setString("Anti-Aliasing " + toString(Aliasing));
 				break;
 			}
 			else
 			{
-				selectedAliasingIndex = 0;
-				changeAliasing(selectedAliasingIndex);
+				Aliasing = 0;
+				Option[1].setString("Anti-Aliasing " + toString(Aliasing));
 				break;
 			}
 		}
@@ -163,10 +161,4 @@ int Options::getWindowX()
 int Options::getWindowY()
 {
 	return yWindow;
-}
-
-void Options::changeAliasing(int i)
-{
-	Aliasing = i;
-	Option[1].setString("Anti-Aliasing " + toString(Aliasing));
 }
