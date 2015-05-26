@@ -31,7 +31,7 @@ Options::Options(float width, float height)
 	Option[4].setFont(font);
 	Option[4].setColor(sf::Color::White);
 	Option[4].setString("Zurück");
-	Option[4].setPosition(sf::Vector2f(width / 3, height / (MAX_MENU_ITEMS + 1) * 4));
+	Option[4].setPosition(sf::Vector2f(width / 3, height / (MAX_MENU_ITEMS + 1) * 5));
 
 	selectedItemIndex = 0;
 	selectedWindowIndex = 0;

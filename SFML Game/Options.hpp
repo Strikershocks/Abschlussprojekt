@@ -8,15 +8,22 @@ class Options : public sf::Drawable
 public:
 	Options(float width, float height);
 	~Options(void);
-	std::string getPlayerName();
+	std::string setPlayerName();
 	void setPlayerName(std::string);
+	// Auswahl nach Oben.
 	void MoveUp();
+	// Auswahl nach Unten
 	void MoveDown();
+	// Auswahl nach Rechts
 	void changeRight();
+	// Auswahl nach Links
 	void changeLeft();
 	int GetPressedItem();
+	// Getter von xWindow
 	int getWindowX();
+	// Getter von yWindow
 	int getWindowY();
+	// Auflösung Ändern.
 	void changeWindow();
 
 private:
