@@ -5,7 +5,7 @@
 const float Game::PlayerSpeed = 800.f;
 const sf::Time Game::TimePerFrame = sf::seconds(1.f/60.f);
 
-Game::Game(): Window(sf::VideoMode(640, 480), "Test Game", sf::Style::Close)
+Game::Game(int x, int y) : Window(sf::VideoMode(x, y), "Test Game", sf::Style::Close)
 {
 	// Standard Werte Setzen.
 	Texture;

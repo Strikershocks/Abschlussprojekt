@@ -1,4 +1,4 @@
-﻿Der Buildvorgang wurde am 26.05.2015 16:06:55 gestartet.
+﻿Der Buildvorgang wurde am 26.05.2015 17:02:49 gestartet.
      1>Projekt "L:\GitHub\Abschlussprojekt\SFML Game\SFML Game.vcxproj" auf Knoten "2", Build Ziel(e).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I..\SFML\include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D SFML_STATIC /D _MBCS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Options.cpp
@@ -14,4 +14,4 @@
 
 Build erfolgreich.
 
-Verstrichene Zeit 00:00:09.21
+Verstrichene Zeit 00:00:09.78

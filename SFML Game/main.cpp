@@ -14,6 +14,7 @@ int main()
 		// Übergibt an Menue und Optionen die größe des Fensters.
 		Menu Menü(window.getSize().x, window.getSize().y);
 		Options Optionen(window.getSize().x, window.getSize().y);
+
 		int Auswahl = 0;
 
 		// Solange das Fenster Offen ist.
@@ -52,6 +53,7 @@ int main()
 							{
 								Optionen.changeRight();
 							}
+							break;
 						}
 					case sf::Keyboard::Left:
 						{
@@ -63,36 +65,52 @@ int main()
 						// Eventfall für Enter drücken.
 						case sf::Keyboard::Return:
 						{
-						    switch(Menü.GetPressedItem())
+							// Wenn das Menü Offen ist.
+							if(Auswahl == 0)
 							{
-								// Einzelspieler Start.
-								case 0:
+								switch(Menü.GetPressedItem())
 								{
-									window.close();
-									Game game;
-									game.run();
-									break;
+									// Einzelspieler Start.
+									case 0:
+									{
+										window.close();
+										Game game(Optionen.getWindowX(), Optionen.getWindowY());
+										game.run();
+										break;
+									}
+									// Multiplayer Start.
+									case 1:
+									{
+										break;
+									}
+									// Optionen eingeben.
+									case 2:
+									{
+										break;
+									}
+									case 3:
+									{
+										Auswahl = 3;
+										window.draw(Optionen);
+										break;
+									}
+									case 4:
+									{
+										window.close();
+										break;
+									}
 								}
-								// Multiplayer Start.
-								case 1:
+							}
+							// Optionen sind geöffnet.
+							else
+							{
+								switch(Optionen.GetPressedItem())
 								{
-									break;
-								}
-								// Optionen eingeben.
-								case 2:
-								{
-									break;
-								}
-								case 3:
-								{
-									Auswahl = 2;
-									window.draw(Optionen);
-									break;
-								}
-								case 4:
-								{
-									window.close();
-									break;
+									case 4:
+									{
+										Auswahl = 0;
+										break;
+									}
 								}
 							}
 							break;

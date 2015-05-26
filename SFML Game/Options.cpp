@@ -6,9 +6,12 @@ Options::Options(float width, float height)
 	// Standard Werte in die Variablen füllen.
 	selectedItemIndex = 0;
 	selectedWindowIndex = 0;
-	changeWindow();
+	selectedAliasingIndex = 0;
+	changeAliasing(selectedAliasingIndex);
+	changeSizeXY();
+	back = false;
 
-		if (!font.loadFromFile("Resources/Sansation.ttf"))
+	if (!font.loadFromFile("Resources/Sansation.ttf"))
 	{
 		// handle error
 	}
@@ -20,7 +23,7 @@ Options::Options(float width, float height)
 
 	Option[1].setFont(font);
 	Option[1].setColor(sf::Color::White);
-	Option[1].setString("Anti-Allaising");
+	Option[1].setString("Anti-Aliasing " + toString(Aliasing));
 	Option[1].setPosition(sf::Vector2f(width / 4, height / (MAX_MENU_ITEMS + 1) * 2));
 
 	Option[2].setFont(font);
@@ -77,7 +80,7 @@ int Options::GetPressedItem()
 	}
 }
 
- void Options::changeWindow()
+ void Options::changeSizeXY()
  {
 	 switch(selectedWindowIndex)
 	 {
@@ -119,38 +122,51 @@ void Options::changeRight()
 {
 	switch(selectedItemIndex)
 	{
-		case 0:
-		{
-			xWindow = 800;
-			yWindow = 480;
-		}
 		case 1:
 		{
-			xWindow = 1024;
-			yWindow = 768;
+			if(selectedAliasingIndex < 16)
+			{
+				selectedAliasingIndex++;
+				changeAliasing(selectedAliasingIndex);
+				break;
+			}
+			else
+			{
+				selectedAliasingIndex = 0;
+				changeAliasing(selectedAliasingIndex);
+				break;
+			}
 		}
 		case 2:
 		{
-			if(selectedWindowIndex < 5)
+			if(selectedWindowIndex < 4)
 			{
 				selectedWindowIndex++;
-				changeWindow();
+				changeSizeXY();
+				break;
 			}
 			else
 			{
 				selectedWindowIndex = 0;
-				changeWindow();
+				changeSizeXY();
+				break;
 			}
 		}
-		case 3:
-		{
-			xWindow = 1280;
-			yWindow = 1024;
-		}
-		case 4:
-		{
-			xWindow = 1600;
-			yWindow = 900;
-		}
 	} 
+}
+
+int Options::getWindowX()
+{
+	return xWindow;
+}
+
+int Options::getWindowY()
+{
+	return yWindow;
+}
+
+void Options::changeAliasing(int i)
+{
+	Aliasing = i;
+	Option[1].setString("Anti-Aliasing " + toString(Aliasing));
 }
