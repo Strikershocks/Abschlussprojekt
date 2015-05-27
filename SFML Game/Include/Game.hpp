@@ -5,7 +5,7 @@
 class Game : private sf::NonCopyable
 {
 	public:
-		Game(int x, int y, int Aliasing);
+		Game(int x, int y, int Aliasing, std::string PlayerModel);
 		void run();
 		
 	private:

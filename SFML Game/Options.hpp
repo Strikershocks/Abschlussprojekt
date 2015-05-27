@@ -24,7 +24,10 @@ public:
 	
 	// Auswahl nach Links
 	void changeLeft();
-	
+
+	// Auflösung Ändern.
+	void changeSizeXY();
+
 	// Getter PressedItem
 	int GetPressedItem();
 	
@@ -36,9 +39,6 @@ public:
 	
 	// Getter für Aliasing
 	int getAliasing();
-
-	// Auflösung Ändern.
-	void changeSizeXY();
 
 private:
 	// Ausgewähltes Optionsfeld

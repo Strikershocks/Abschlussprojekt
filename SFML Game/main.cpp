@@ -16,8 +16,8 @@ int main()
 		bool Eingabe = false;
 		// Erstellt ein Fenster mit der größe 600x600.
 		sf::RenderWindow window(sf::VideoMode(600, 600), "Game Menü");
-		Menu Menü(window.getSize().x, window.getSize().y);
 		Options Optionen(window.getSize().x, window.getSize().y);
+		Menu Menü(window.getSize().x, window.getSize().y);
 
 		// Solange das Fenster Offen ist.
 		while (window.isOpen())
@@ -86,6 +86,10 @@ int main()
 							{
 								Optionen.changeRight();
 							}
+							else
+							{
+								Menü.changePlayerRight();
+							}
 							break;
 						}
 					case sf::Keyboard::Left:
@@ -93,6 +97,10 @@ int main()
 							if(Auswahl != 0)
 							{
 								// ChangeLEft
+							}
+							else
+							{
+								Menü.changePlayerLeft();
 							}
 							break;
 						}
@@ -108,7 +116,7 @@ int main()
 									case 0:
 									{
 										window.close();
-										Game game(Optionen.getWindowX(), Optionen.getWindowY(), Optionen.getAliasing());
+										Game game(Optionen.getWindowX(), Optionen.getWindowY(), Optionen.getAliasing(), Menü.getPlayerModel());
 										game.run();
 										break;
 									}

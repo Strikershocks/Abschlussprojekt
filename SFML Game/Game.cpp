@@ -7,7 +7,7 @@ const sf::Time Game::TimePerFrame = sf::seconds(1.f/60.f);
 
 sf::ContextSettings settings;
 
-Game::Game(int x, int y, int Aliasing) : Window(sf::VideoMode(x, y), "Test Game", sf::Style::Close, settings)
+Game::Game(int x, int y, int Aliasing, std::string PlayerModel) : Window(sf::VideoMode(x, y), "Test Game", sf::Style::Close, settings)
 {
 	settings.antialiasingLevel = Aliasing;
 	// Standard Werte Setzen.
@@ -23,7 +23,7 @@ Game::Game(int x, int y, int Aliasing) : Window(sf::VideoMode(x, y), "Test Game"
 	IsMovingLeft = false;
 
 	// Textur wird geladen.
-	if (!Texture.loadFromFile("Resources/Textures/playerball.png"))
+	if(!Texture.loadFromFile("Resources/Textures/" + PlayerModel))
 	{
 		// Loading Error der PNG
 	}

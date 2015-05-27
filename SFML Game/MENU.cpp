@@ -3,6 +3,9 @@
 
 Menu::Menu(float width, float height)
 {
+	setPlayerModel("playerball.png");
+	selectedPlayerModelIndex = 0;
+	changePlayer();
 	if (!font.loadFromFile("Resources/Sansation.ttf"))
 	{
 		// handle error
@@ -35,6 +38,8 @@ Menu::Menu(float width, float height)
 	menu[4].setPosition(sf::Vector2f(width / 2, height / (MAX_MENU_ITEMS + 1) * 5));
 
 	selectedItemIndex = 0;
+
+
 }
 
 
@@ -48,6 +53,7 @@ Menu::~Menu()
 	{
 		target.draw(menu[i], states);
 	}
+	target.draw(Player, states);
 }
 
 void Menu::MoveUp()
@@ -73,4 +79,106 @@ void Menu::MoveDown()
 int Menu::GetPressedItem()
 {
 	 return selectedItemIndex;
+}
+
+void Menu::changePlayer()
+{
+	// Textur wird geladen.
+	if(!Texture.loadFromFile("Resources/Textures/" + PlayerModel))
+	{
+		// Loading Error
+	}
+
+	// Setzen der Texture für das Spieler Model.
+	Player.setTexture(Texture);
+	// Setzen der Position vom Spieler Model.
+	Player.setPosition(30.f, 200.f);
+}
+
+void Menu::changePlayerRight()
+{
+	selectedPlayerModelIndex++;
+	if(selectedPlayerModelIndex > 4)
+	{
+		selectedPlayerModelIndex = 0;
+	}
+
+	switch(selectedPlayerModelIndex)
+	{
+	case 0: // Für den Ball als Spieler.
+		{
+			setPlayerModel("playerball.png");
+			break;
+		}
+	case 1: // Für Player Model 2
+		{
+			setPlayerModel("grubin.gif");
+			break;
+		}
+	case 2: // Für Player Model 3
+		{
+			setPlayerModel("playerball.png");
+			break;
+		}
+	case 3: // Für Player Model 4
+		{
+			setPlayerModel("playerball.png");
+			break;
+		}
+	case 4: // Für Player Model 5
+		{
+			setPlayerModel("playerball.png");
+			break;
+		}
+	}
+	changePlayer();
+}
+
+void Menu::changePlayerLeft()
+{
+	selectedPlayerModelIndex--;
+	if(selectedPlayerModelIndex < 0)
+	{
+		selectedPlayerModelIndex = 4;
+	}
+
+	switch(selectedPlayerModelIndex)
+	{
+	case 0: // Für den Ball als Spieler.
+		{
+			setPlayerModel("playerball.png");
+			break;
+		}
+	case 1: // Für Player Model 2
+		{
+			setPlayerModel("grubin.gif");
+			break;
+		}
+	case 2: // Für Player Model 3
+		{
+			setPlayerModel("playerball.png");
+			break;
+		}
+	case 3: // Für Player Model 4
+		{
+			setPlayerModel("playerball.png");
+			break;
+		}
+	case 4: // Für Player Model 5
+		{
+			setPlayerModel("playerball.png");
+			break;
+		}
+	}
+	changePlayer();
+}
+
+void Menu::setPlayerModel(std::string PlayerModel)
+{
+	this->PlayerModel = PlayerModel;
+}
+
+std::string Menu::getPlayerModel()
+{
+	return PlayerModel;
 }
