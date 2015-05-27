@@ -5,7 +5,7 @@
 class Game : private sf::NonCopyable
 {
 	public:
-		Game(int x, int y);
+		Game(int x, int y, int Aliasing);
 		void run();
 		
 	private:

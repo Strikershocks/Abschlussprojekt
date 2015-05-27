@@ -74,7 +74,7 @@ int main()
 									case 0:
 									{
 										window.close();
-										Game game(Optionen.getWindowX(), Optionen.getWindowY());
+										Game game(Optionen.getWindowX(), Optionen.getWindowY(), Optionen.getAliasing());
 										game.run();
 										break;
 									}
@@ -103,8 +103,7 @@ int main()
 								switch(Optionen.GetPressedItem())
 								{
 									case 1:
-									{
-
+										{
 										break;
 									}
 									case 4:

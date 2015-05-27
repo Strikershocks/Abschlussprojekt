@@ -1,12 +1,15 @@
 #include "Include\Game.hpp"
 #include "Include\StringHelpers.hpp"
-
+#include <iostream>
 // Spieler Geschwindigkeit + TimePerFrame
 const float Game::PlayerSpeed = 800.f;
 const sf::Time Game::TimePerFrame = sf::seconds(1.f/60.f);
 
-Game::Game(int x, int y) : Window(sf::VideoMode(x, y), "Test Game", sf::Style::Close)
+sf::ContextSettings settings;
+
+Game::Game(int x, int y, int Aliasing) : Window(sf::VideoMode(x, y), "Test Game", sf::Style::Close, settings)
 {
+	settings.antialiasingLevel = Aliasing;
 	// Standard Werte Setzen.
 	Texture;
 	Player;

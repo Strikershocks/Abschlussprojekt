@@ -33,6 +33,9 @@ public:
 	// Getter von yWindow
 	int getWindowY();
 	
+	// Getter für Aliasing
+	int getAliasing();
+
 	// Auflösung Ändern.
 	void changeSizeXY();
 

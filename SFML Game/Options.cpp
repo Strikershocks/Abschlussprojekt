@@ -162,3 +162,9 @@ int Options::getWindowY()
 {
 	return yWindow;
 }
+
+
+int Options::getAliasing()
+{
+	return Aliasing;
+}
