@@ -16,7 +16,7 @@ Options::Options(float width, float height)
 
 	Option[0].setFont(font);
 	Option[0].setColor(sf::Color::Red);
-	Option[0].setString("Spielername");
+	Option[0].setString("Spielername " + PlayerName);
 	Option[0].setPosition(sf::Vector2f(width / 4, height / (MAX_MENU_ITEMS + 1) * 1));
 
 	Option[1].setFont(font);
@@ -167,4 +167,14 @@ int Options::getWindowY()
 int Options::getAliasing()
 {
 	return Aliasing;
+}
+
+void Options::setPlayerNameChar(char Char)
+{
+	PlayerName = PlayerName + Char;
+}
+
+void Options::delPlayerNameChar()
+{
+	PlayerName.erase(PlayerName.end()-1); 
 }

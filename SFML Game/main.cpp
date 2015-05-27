@@ -15,6 +15,7 @@ int main()
 		Menu Menü(window.getSize().x, window.getSize().y);
 		Options Optionen(window.getSize().x, window.getSize().y);
 
+		bool PlayerNameEvent = false;
 		int Auswahl = 0;
 
 		// Solange das Fenster Offen ist.
@@ -62,8 +63,8 @@ int main()
 								// ChangeLEft
 							}
 						}
-						// Eventfall für Enter drücken.
-						case sf::Keyboard::Return:
+					// Eventfall für Enter drücken.
+					case sf::Keyboard::Return:
 						{
 							// Wenn das Menü Offen ist.
 							if(Auswahl == 0)
@@ -98,12 +99,14 @@ int main()
 								}
 							}
 							// Optionen sind geöffnet.
-							else
+							else if(PlayerNameEvent == false)
 							{
 								switch(Optionen.GetPressedItem())
 								{
-									case 1:
-										{
+									// Enter auf Spielername
+									case 0:
+									{
+										PlayerNameEvent = true;
 										break;
 									}
 									case 4:
