@@ -10,8 +10,7 @@ public:
 	Options(float width, float height);
 	~Options(void);
 	std::string getPlayerName();
-	void setPlayerNameChar(char);
-	void delPlayerNameChar();
+	void setPlayerName(std::string);
 	
 	// Auswahl nach Oben.
 	void MoveUp();

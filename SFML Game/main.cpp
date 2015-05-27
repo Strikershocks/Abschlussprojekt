@@ -5,23 +5,25 @@
 #include <stdexcept>
 #include <iostream>
 
+sf::Event event;
+std::string str;
+void PlayerEingabeThread();
+
+
 int main()
 {
 	try
 	{
+		// Übergibt an Menue und Optionen die größe des Fensters.
+		int Auswahl = 0;
 		// Erstellt ein Fenster mit der größe 600x600.
 		sf::RenderWindow window(sf::VideoMode(600, 600), "Game Menü");
-		// Übergibt an Menue und Optionen die größe des Fensters.
 		Menu Menü(window.getSize().x, window.getSize().y);
 		Options Optionen(window.getSize().x, window.getSize().y);
-
-		bool PlayerNameEvent = false;
-		int Auswahl = 0;
 
 		// Solange das Fenster Offen ist.
 		while (window.isOpen())
 		{
-			sf::Event event;
 
 			while (window.pollEvent(event))
 			{
@@ -99,14 +101,16 @@ int main()
 								}
 							}
 							// Optionen sind geöffnet.
-							else if(PlayerNameEvent == false)
+							else
 							{
 								switch(Optionen.GetPressedItem())
 								{
 									// Enter auf Spielername
 									case 0:
 									{
-										PlayerNameEvent = true;
+										sf::Thread thread(&PlayerEingabeThread);
+										thread.launch();
+										Optionen.setPlayerName(str);
 										break;
 									}
 									case 4:
@@ -136,5 +140,35 @@ int main()
 	catch (std::exception& e)
 	{
 		std::cout << "\nEXCEPTION: " << e.what() << std::endl;
+	}
+}
+
+void PlayerEingabeThread()
+{
+	if (event.type == sf::Event::TextEntered)
+	{
+        //Alle Tasten außer "Backspace" (ASCII-Wert 8) erlauben
+        if (event.text.unicode < 8 || (event.text.unicode > 8 && event.text.unicode < 128))
+		{
+			//Maximal 16 Zeichen bei Namenseingabe!
+			if (static_cast<int>(str.length()) < 16)
+			{
+				str += static_cast<char>(event.text.unicode);
+			}
+			//falls "Backspace" gedrückt...
+			else if (event.text.unicode == 8)
+			{
+				//...prüfe erstmal, ob Name nicht schon leer ist!
+				if (!static_cast<int>(str.length()) == 0)
+				{
+					//wenn nicht, dann lösche das letzte Zeichen des Strings "str"
+					str.erase(str.end() - 1);
+				}
+			}
+		}
+	}
+	if(event.type == sf::Keyboard::Return)
+	{
+		return;
 	}
 }
