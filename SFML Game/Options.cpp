@@ -169,12 +169,17 @@ int Options::getAliasing()
 	return Aliasing;
 }
 
-void Options::setPlayerName(std::string str)
+void Options::setPlayerNameChar(char Char)
 {
-	PlayerName = str;
+	PlayerName += Char;
 }
 
 std::string Options::getPlayerName()
 {
 	return PlayerName;
+}
+
+void Options::delPlayerNameChar()
+{
+	PlayerName.erase(PlayerName.end() - 1);
 }

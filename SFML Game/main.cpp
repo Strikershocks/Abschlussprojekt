@@ -6,9 +6,6 @@
 #include <iostream>
 
 sf::Event event;
-std::string str;
-void PlayerEingabeThread();
-
 
 int main()
 {
@@ -16,6 +13,7 @@ int main()
 	{
 		// Übergibt an Menue und Optionen die größe des Fensters.
 		int Auswahl = 0;
+		bool Eingabe = false;
 		// Erstellt ein Fenster mit der größe 600x600.
 		sf::RenderWindow window(sf::VideoMode(600, 600), "Game Menü");
 		Menu Menü(window.getSize().x, window.getSize().y);
@@ -24,7 +22,6 @@ int main()
 		// Solange das Fenster Offen ist.
 		while (window.isOpen())
 		{
-
 			while (window.pollEvent(event))
 			{
 				// Event Switch in dem Alle wichtigen Events registriert werden.
@@ -64,6 +61,34 @@ int main()
 							{
 								// ChangeLEft
 							}
+							break;
+						}
+					case sf::Event::TextEntered:
+						{
+							if(Eingabe == true)
+							{
+								//Alle Tasten außer "Backspace" (ASCII-Wert 8) erlauben
+								if (event.text.unicode < 8 || (event.text.unicode > 8 && event.text.unicode < 128))
+								{
+									//Maximal 16 Zeichen bei Namenseingabe!
+									if (static_cast<int>(Optionen.getPlayerName().length()) < 16)
+									{
+										Optionen.setPlayerNameChar(static_cast<char>(event.text.unicode));
+										std::cout << "ASCII character typed: " << static_cast<char>(event.text.unicode) << std::endl;
+									}
+									//falls "Backspace" gedrückt...
+									else if (event.text.unicode == 8)
+									{
+										//...prüfe erstmal, ob Name nicht schon leer ist!
+										if (!static_cast<int>(Optionen.getPlayerName().length()) == 0)
+										{
+											//wenn nicht, dann lösche das letzte Zeichen des Strings "str"
+											Optionen.delPlayerNameChar();
+										}
+									}
+								}
+							}
+							break;
 						}
 					// Eventfall für Enter drücken.
 					case sf::Keyboard::Return:
@@ -108,9 +133,10 @@ int main()
 									// Enter auf Spielername
 									case 0:
 									{
-										sf::Thread thread(&PlayerEingabeThread);
-										thread.launch();
-										Optionen.setPlayerName(str);
+										if(Eingabe == true)
+											Eingabe = false;
+										else
+											Eingabe = true;
 										break;
 									}
 									case 4:
@@ -140,35 +166,5 @@ int main()
 	catch (std::exception& e)
 	{
 		std::cout << "\nEXCEPTION: " << e.what() << std::endl;
-	}
-}
-
-void PlayerEingabeThread()
-{
-	if (event.type == sf::Event::TextEntered)
-	{
-        //Alle Tasten außer "Backspace" (ASCII-Wert 8) erlauben
-        if (event.text.unicode < 8 || (event.text.unicode > 8 && event.text.unicode < 128))
-		{
-			//Maximal 16 Zeichen bei Namenseingabe!
-			if (static_cast<int>(str.length()) < 16)
-			{
-				str += static_cast<char>(event.text.unicode);
-			}
-			//falls "Backspace" gedrückt...
-			else if (event.text.unicode == 8)
-			{
-				//...prüfe erstmal, ob Name nicht schon leer ist!
-				if (!static_cast<int>(str.length()) == 0)
-				{
-					//wenn nicht, dann lösche das letzte Zeichen des Strings "str"
-					str.erase(str.end() - 1);
-				}
-			}
-		}
-	}
-	if(event.type == sf::Keyboard::Return)
-	{
-		return;
 	}
 }
