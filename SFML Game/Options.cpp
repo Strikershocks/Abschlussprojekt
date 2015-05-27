@@ -7,6 +7,7 @@ Options::Options(float width, float height)
 	selectedItemIndex = 0;
 	selectedWindowIndex = 0;
 	Aliasing = 0;
+	PlayerName = " ";
 	changeSizeXY();
 
 	if (!font.loadFromFile("Resources/Sansation.ttf"))
@@ -16,7 +17,7 @@ Options::Options(float width, float height)
 
 	Option[0].setFont(font);
 	Option[0].setColor(sf::Color::Red);
-	Option[0].setString("Spielername " + PlayerName);
+	Option[0].setString("Spielername: " + PlayerName);
 	Option[0].setPosition(sf::Vector2f(width / 4, height / (MAX_MENU_ITEMS + 1) * 1));
 
 	Option[1].setFont(font);
@@ -171,7 +172,9 @@ int Options::getAliasing()
 
 void Options::setPlayerNameChar(char Char)
 {
+	// Fügt einen Char am Ende des Strings hinzu und Aktuallisiert die Anzeige
 	PlayerName += Char;
+	Option[0].setString("Spielername: " + PlayerName);
 }
 
 std::string Options::getPlayerName()
@@ -181,5 +184,7 @@ std::string Options::getPlayerName()
 
 void Options::delPlayerNameChar()
 {
+	// Löscht den letzen Char vom String und Aktuallisiert die Anzeige.
 	PlayerName.erase(PlayerName.end() - 1);
+	Option[0].setString("Spielername: " + PlayerName);
 }

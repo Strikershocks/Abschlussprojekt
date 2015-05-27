@@ -43,17 +43,25 @@ public:
 private:
 	// Ausgewähltes Optionsfeld
 	int selectedItemIndex;
+
 	// Ausgewählte Auflösung
 	int selectedWindowIndex;
+
 	// x Wert
 	int xWindow;
+
 	// y Wert
 	int yWindow;
+
 	// Ausgewähltes Anti-Aliasing Level max 16
 	int Aliasing; 
+
+	// Font für den Text
 	sf::Font font;
+
 	// Array für die Optionen
 	sf::Text Option[MAX_MENU_ITEMS];
+
 	// Spielername
 	std::string PlayerName;
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;

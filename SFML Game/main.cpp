@@ -27,24 +27,57 @@ int main()
 				// Event Switch in dem Alle wichtigen Events registriert werden.
 				switch (event.type)
 				{
+				case sf::Event::TextEntered:
+				{
+					if(Eingabe == true)
+					{
+						//Alle Tasten außer "Backspace" (ASCII-Wert 8) und Enter (ASCII-Wert 13) erlauben
+						if (event.text.unicode < 8 || (event.text.unicode > 8 && event.text.unicode < 128 && event.text.unicode != 13))
+						{
+							//Maximal 16 Zeichen bei Namenseingabe!
+							if (static_cast<int>(Optionen.getPlayerName().length()) < 16)
+							{
+								Optionen.setPlayerNameChar(static_cast<char>(event.text.unicode));
+							}
+							
+						}
+						//falls "Backspace" gedrückt...
+						if (event.text.unicode == 8)
+						{
+							//...prüfe erstmal, ob Name nicht schon leer ist!
+							if (!static_cast<int>(Optionen.getPlayerName().length()) == 0)
+							{
+								//wenn nicht, dann lösche das letzte Zeichen des Strings "str"
+								Optionen.delPlayerNameChar();
+							}
+						}
+					}
+					break;
+				}
 				// Event wenn eine Taste gerückt wurde.
 				case sf::Event::KeyReleased:
 					switch (event.key.code)
 					{
 					case sf::Keyboard::Up:
 						{
-							if(Auswahl == 0)
-								Menü.MoveUp();
-							else
-								Optionen.MoveUp();
+							if(Eingabe == false)
+							{
+								if(Auswahl == 0)
+									Menü.MoveUp();
+								else
+									Optionen.MoveUp();
+							}
 							break;
 						}
 					case sf::Keyboard::Down:
 						{
-							if(Auswahl == 0)
-								Menü.MoveDown();
-							else
-								Optionen.MoveDown();
+							if(Eingabe == false)
+							{
+								if(Auswahl == 0)
+									Menü.MoveDown();
+								else
+									Optionen.MoveDown();
+							}
 							break;
 						}
 					case sf::Keyboard::Right:
@@ -60,33 +93,6 @@ int main()
 							if(Auswahl != 0)
 							{
 								// ChangeLEft
-							}
-							break;
-						}
-					case sf::Event::TextEntered:
-						{
-							if(Eingabe == true)
-							{
-								//Alle Tasten außer "Backspace" (ASCII-Wert 8) erlauben
-								if (event.text.unicode < 8 || (event.text.unicode > 8 && event.text.unicode < 128))
-								{
-									//Maximal 16 Zeichen bei Namenseingabe!
-									if (static_cast<int>(Optionen.getPlayerName().length()) < 16)
-									{
-										Optionen.setPlayerNameChar(static_cast<char>(event.text.unicode));
-										std::cout << "ASCII character typed: " << static_cast<char>(event.text.unicode) << std::endl;
-									}
-									//falls "Backspace" gedrückt...
-									else if (event.text.unicode == 8)
-									{
-										//...prüfe erstmal, ob Name nicht schon leer ist!
-										if (!static_cast<int>(Optionen.getPlayerName().length()) == 0)
-										{
-											//wenn nicht, dann lösche das letzte Zeichen des Strings "str"
-											Optionen.delPlayerNameChar();
-										}
-									}
-								}
 							}
 							break;
 						}
