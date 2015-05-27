@@ -30,6 +30,12 @@
     <ClCompile Include="Options.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="AnimatedSprite.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Textures\player.png">
@@ -55,6 +61,12 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Options.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedSprite.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
