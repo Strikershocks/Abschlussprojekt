@@ -3,7 +3,7 @@
 
 Menu::Menu(float width, float height)
 {
-	setPlayerModel("playerball.png");
+	setPlayerModel("GuyBlueSprite.png");
 	selectedPlayerModelIndex = 0;
 	changePlayer();
 	if (!font.loadFromFile("Resources/Sansation.ttf"))

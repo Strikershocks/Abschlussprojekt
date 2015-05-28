@@ -2,41 +2,59 @@
 #include "Include\StringHelpers.hpp"
 #include <iostream>
 // Spieler Geschwindigkeit + TimePerFrame
-const float Game::PlayerSpeed = 800.f;
+const float Game::PlayerSpeed = 200.f;
 const sf::Time Game::TimePerFrame = sf::seconds(1.f/60.f);
 
 sf::ContextSettings settings;
+// set up AnimatedSprite
+ AnimatedSprite animatedSprite(sf::seconds(0.2), true, false);
 
 Game::Game(int x, int y, int Aliasing, std::string PlayerModel) : Window(sf::VideoMode(x, y), "Test Game", sf::Style::Close, settings)
 {
 	settings.antialiasingLevel = Aliasing;
+
 	// Standard Werte Setzen.
 	Texture;
 	Player;
 	Font;
-	StatisticsText;
 	StatisticsUpdateTime;
 	StatisticsNumFrames = 0;
 	IsMovingUp = false;
 	IsMovingDown = false;
 	IsMovingRight = false;
 	IsMovingLeft = false;
+	noKeyWasPressed = true;
+
+	// Setzen eines Frame Limits
+	 Window.setFramerateLimit(60);
 
 	// Textur wird geladen.
-	if(!Texture.loadFromFile("Resources/Textures/" + PlayerModel))
+	if(!Texture.loadFromFile("Resources/Textures/" + PlayerModel )) 
 	{
 		// Loading Error der PNG
 	}
 
+	// Ausführung der Animations auswahl
+	AnimationSelect(PlayerModel);
+
+	// Setzen der Anfangsanimation
+	currentAnimation = &walkingAnimationRight;
+
+	// setzen der Fenster Dimision für die Animation.
+	 sf::Vector2i screenDimensions(x, y);
+
+	 // Setzen der Postion vom AnimationSprite
+	 animatedSprite.setPosition(sf::Vector2f(screenDimensions / 2));
+
 	// Setzen der Texture für den Spieler
 	Player.setTexture(Texture);
 	// Setzen der Position für den Spielen.
-	Player.setPosition(100.f, 100.f);
-	// Schrift Art laden und Eigenschaften Setzen.
-	Font.loadFromFile("Resources/Sansation.ttf");
-	StatisticsText.setFont(Font);
-	StatisticsText.setPosition(5.f, 5.f);
-	StatisticsText.setCharacterSize(10);
+
+	// Schrift Art laden
+	if(!Font.loadFromFile("Resources/Sansation.ttf"))
+	{
+		// Error Handling
+	}
 }
 
 // Game Start Methode.
@@ -46,8 +64,9 @@ void Game::run()
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 	while (Window.isOpen())
 	{
-		sf::Time elapsedTime = clock.restart();
-		timeSinceLastUpdate += elapsedTime;
+		sf::Time frameTime = frameClock.restart();
+		timeSinceLastUpdate += frameTime;
+
 		while (timeSinceLastUpdate > TimePerFrame)
 		{
 			timeSinceLastUpdate -= TimePerFrame;
@@ -56,12 +75,26 @@ void Game::run()
 			update(TimePerFrame);
 		}
 
-		updateStatistics(elapsedTime);
+		// Starten der gewünschten Animation
+		animatedSprite.play(*currentAnimation);
+		// Bewegen der Spielfigur / Sprite
+		animatedSprite.move(movement * frameTime.asSeconds());
+
+		// Wenn keine Taste gedrückt, Animation stoppen.
+		if (noKeyWasPressed)
+        {
+			animatedSprite.stop();
+        }
+
+		noKeyWasPressed = true;
+
+		// Animation Updaten.
+		animatedSprite.update(frameTime);
 		render();
 	}
 }
 
-// Eventhandler der die Ganzen Events verwaltet.
+// Event handler der die ganzen Events verwaltet.
 void Game::processEvents()
 {
 	sf::Event event;
@@ -84,45 +117,42 @@ void Game::processEvents()
 	}
 }
 
-//
 void Game::update(sf::Time elapsedTime)
 {
-	sf::Vector2f movement(0.f, 0.f);
+	movement.x = 0.f;
+	movement.y = 0.f;
+
+	// Wenn nach Oben laufen
 	if (IsMovingUp)
 		movement.y -= PlayerSpeed;
+
+	// Wenn nach Unten laufen
 	if (IsMovingDown)
 		movement.y += PlayerSpeed;
+	
+	// Wenn Links laufen
 	if (IsMovingLeft)
+	{
 		movement.x -= PlayerSpeed;
+		currentAnimation = &walkingAnimationLeft;	
+		noKeyWasPressed = false;
+	}
+
+	// Wenn Rechts laufen
 	if (IsMovingRight)
+	{
 		movement.x += PlayerSpeed;
-		
-	Player.move(movement * elapsedTime.asSeconds());
+		currentAnimation = &walkingAnimationRight;
+		noKeyWasPressed = false;
+	}
 }
 
 void Game::render()
 {
 	Window.clear();	
-	Window.draw(Player);
-	//Window.draw(mBackground);
-	Window.draw(StatisticsText);
+	Window.draw(animatedSprite);
+	//Window.draw(Background);
 	Window.display();
-}
-
-void Game::updateStatistics(sf::Time elapsedTime)
-{
-	StatisticsUpdateTime += elapsedTime;
-	StatisticsNumFrames += 1;
-
-	if (StatisticsUpdateTime >= sf::seconds(1.0f))
-	{
-		StatisticsText.setString(
-			"Frames / Second = " + toString(StatisticsNumFrames) + "\n" +
-			"Time / Update = " + toString(StatisticsUpdateTime.asMicroseconds() / StatisticsNumFrames) + "us");
-							 
-		StatisticsUpdateTime -= sf::seconds(1.0f);
-		StatisticsNumFrames = 0;
-	}
 }
 
 // Input Handler für die Tastatureingaben.
@@ -136,4 +166,25 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
 		IsMovingLeft = isPressed;
 	else if (key == sf::Keyboard::D || key == sf::Keyboard::Right)
 		IsMovingRight = isPressed;
+}
+
+// Animations auswahl nach Player auswahl.
+void Game::AnimationSelect(std::string PlayerModel)
+{
+	if(PlayerModel == "GuySprite.png" || PlayerModel == "GuyBlueSprite.png")
+	{
+		// Animation setzen für Rechts Bewegen.
+		walkingAnimationLeft.setSpriteSheet(Texture);
+		walkingAnimationLeft.addFrame(sf::IntRect(32, 32, 32, 32));
+		walkingAnimationLeft.addFrame(sf::IntRect(64, 32, 32, 32));
+		walkingAnimationLeft.addFrame(sf::IntRect(32, 32, 32, 32));
+		walkingAnimationLeft.addFrame(sf::IntRect( 0, 32, 32, 32));
+
+		// Animation setzen für Links Bewegen.
+		walkingAnimationRight.setSpriteSheet(Texture);
+		walkingAnimationRight.addFrame(sf::IntRect(32, 64, 32, 32));
+		walkingAnimationRight.addFrame(sf::IntRect(64, 64, 32, 32));
+		walkingAnimationRight.addFrame(sf::IntRect(32, 64, 32, 32));
+		walkingAnimationRight.addFrame(sf::IntRect( 0, 64, 32, 32));
+	}
 }

@@ -10,11 +10,18 @@ class Game : private sf::NonCopyable
 		void run();
 		
 	private:
+		// Event handler
 		void processEvents();
+
+		// Animations auswahl nach Player auswahl.
+		void AnimationSelect(std::string PlayerModel);
+
+		// Sorgt für die eigentliche vortbewegung
 		void update(sf::Time elapsedTime);
+
+		// Render sorgt für das Drawn usw.
 		void render();
 
-		void updateStatistics(sf::Time elapsedTime);	
 		void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
 		
 		// Nicht veränderbare Spielergeschwindigkeit
@@ -28,21 +35,22 @@ class Game : private sf::NonCopyable
 		Animation walkingAnimationRight;
 		Animation* currentAnimation;
 		// set up AnimatedSprite
-		AnimatedSprite animatedSprite();
+		AnimatedSprite animatedSprite;
 
 		sf::RenderWindow Window;
 		sf::Texture Texture;
 		sf::Sprite Player;
 		sf::Font Font;
-		sf::Text StatisticsText;
 		sf::Time StatisticsUpdateTime;
 		sf::Clock frameClock;
 		sf::Time frameTime;
+		sf::Vector2f movement;
 
 		std::size_t StatisticsNumFrames;
 		bool IsMovingUp;
 		bool IsMovingDown;
 		bool IsMovingRight;
 		bool IsMovingLeft;
+		bool noKeyWasPressed;
 };
 
