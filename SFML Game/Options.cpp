@@ -154,6 +154,43 @@ void Options::changeRight()
 	} 
 }
 
+void Options::changeLeft()
+{
+	switch(selectedItemIndex)
+	{
+		case 1:
+		{
+			if(Aliasing > 0)
+			{
+				Aliasing--;
+				Option[1].setString("Anti-Aliasing " + toString(Aliasing));
+				break;
+			}
+			else
+			{
+				Aliasing = 16;
+				Option[1].setString("Anti-Aliasing " + toString(Aliasing));
+				break;
+			}
+		}
+		case 2:
+		{
+			if(selectedWindowIndex > 0)
+			{
+				selectedWindowIndex--;
+				changeSizeXY();
+				break;
+			}
+			else
+			{
+				selectedWindowIndex = 4;
+				changeSizeXY();
+				break;
+			}
+		}
+	} 
+}
+
 int Options::getWindowX()
 {
 	return xWindow;

@@ -22,6 +22,9 @@ class Game : private sf::NonCopyable
 		// Render sorgt für das Drawn usw.
 		void render();
 
+		// Begrenzt die Map bzw. den Bereich in dem sich der Spieler bewegen kann.
+		void MapBegrenzung();
+
 		void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
 		
 		// Nicht veränderbare Spielergeschwindigkeit
@@ -43,10 +46,12 @@ class Game : private sf::NonCopyable
 		sf::RenderWindow Window;
 		sf::Texture Texture;
 		sf::Font Font;
-		sf::Time StatisticsUpdateTime;
 		sf::Clock frameClock;
 		sf::Time frameTime;
 		sf::Vector2f movement;
+
+		// x und y von der Größe des Fensters
+		int x, y;
 
 		std::size_t StatisticsNumFrames;
 		bool IsMovingUp;
@@ -54,5 +59,9 @@ class Game : private sf::NonCopyable
 		bool IsMovingRight;
 		bool IsMovingLeft;
 		bool noKeyWasPressed;
+		bool StopRechts;
+		bool StopLinks;
+		bool StopOben;
+		bool StopUnten;
 };
 

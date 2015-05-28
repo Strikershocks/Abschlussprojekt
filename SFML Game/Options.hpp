@@ -9,8 +9,14 @@ class Options : public sf::Drawable
 public:
 	Options(float width, float height);
 	~Options(void);
+
+	// Getter vom Spielernamen.
 	std::string getPlayerName();
+
+	// Dem Spielernamen ein Char anhängen.
 	void setPlayerNameChar(char Char);
+
+	// Letzen Char vom Spielernamen löschen.
 	void delPlayerNameChar();
 	
 	// Auswahl nach Oben.

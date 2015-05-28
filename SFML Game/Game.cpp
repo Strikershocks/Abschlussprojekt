@@ -12,16 +12,19 @@ sf::ContextSettings settings;
 Game::Game(int x, int y, int Aliasing, std::string PlayerModel) : Window(sf::VideoMode(x, y), "Test Game", sf::Style::Close, settings)
 {
 	settings.antialiasingLevel = Aliasing;
-
+	this->x = x;
+	this->y = y;
 	// Standard Werte Setzen.
 	Texture;
 	Font;
-	StatisticsUpdateTime;
-	StatisticsNumFrames = 0;
 	IsMovingUp = false;
 	IsMovingDown = false;
 	IsMovingRight = false;
 	IsMovingLeft = false;
+	StopLinks = false;
+	StopOben = false;
+	StopRechts = false;
+	StopLinks = false;
 	noKeyWasPressed = true;
 
 	// Setzen eines Frame Limits
@@ -57,12 +60,12 @@ void Game::run()
 {
 	// Initalisierung einer Uhr
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
-
 	// Solange das Fenster Offen ist.
 	while (Window.isOpen())
 	{
 		sf::Time frameTime = frameClock.restart();
 		timeSinceLastUpdate += frameTime;
+		MapBegrenzung();
 
 		while (timeSinceLastUpdate > TimePerFrame)
 		{
@@ -87,6 +90,7 @@ void Game::run()
 
 		// Animation Updaten.
 		animatedSprite.update(frameTime);
+		// Drawn des Games
 		render();
 	}
 }
@@ -120,15 +124,15 @@ void Game::update(sf::Time elapsedTime)
 	movement.y = 0.f;
 
 	// Wenn nach Oben laufen
-	if (IsMovingUp)
+	if (IsMovingUp && StopOben != true)
 		movement.y -= PlayerSpeed;
 
 	// Wenn nach Unten laufen
-	if (IsMovingDown)
+	if (IsMovingDown && StopUnten != true)
 		movement.y += PlayerSpeed;
 		
 	// Wenn Links laufen
-	if (IsMovingLeft)
+	if (IsMovingLeft && StopLinks != true)
 	{
 		movement.x -= PlayerSpeed;
 		currentAnimation = &walkingAnimationLeft;	
@@ -136,7 +140,7 @@ void Game::update(sf::Time elapsedTime)
 	}
 
 	// Wenn Rechts laufen
-	if (IsMovingRight)
+	if (IsMovingRight && StopRechts != true)
 	{
 		movement.x += PlayerSpeed;
 		currentAnimation = &walkingAnimationRight;
@@ -201,4 +205,45 @@ void Game::AnimationSelect(std::string PlayerModel)
 		walkingAnimationRight.addFrame(sf::IntRect(32, 96, 32, 48));
 		walkingAnimationRight.addFrame(sf::IntRect( 0, 96, 32, 48));
 	}
+}
+
+void Game::MapBegrenzung()
+{
+	// Damit bekommt man beide Postionen.
+	int PlayerX = animatedSprite.getPosition().x;
+	int PlayerY = animatedSprite.getPosition().y;
+	std::cout << "X: " << PlayerX << " " << "Y: " << PlayerY << std::endl;
+	// Wenn Links oder Rechts am Rand überschreitung Droht.
+	if(PlayerX >= x || PlayerX <= 0)
+	{
+		if(PlayerX >= x)
+		{
+			StopRechts = true;
+			return;
+		}
+		else
+		{
+			StopLinks = true;
+			return;
+		}
+	}
+	StopLinks = false;
+	StopRechts = false;
+
+	// Wenn Oben oder Unten überschreitung Droht.
+	if(PlayerY >= y || PlayerY <= 0)
+	{
+		if(PlayerY >= y)
+		{
+			StopUnten = true;
+			return;
+		}
+		else
+		{
+			StopOben = true;
+			return;
+		}
+	}
+	StopOben = false;
+	StopUnten = false;
 }

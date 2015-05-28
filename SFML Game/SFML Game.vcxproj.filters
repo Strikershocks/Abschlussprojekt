@@ -38,11 +38,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Resources\Textures\player.png">
-      <Filter>Ressourcendateien</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
     <Font Include="Resources\Sansation.ttf">
       <Filter>Ressourcendateien</Filter>
     </Font>
@@ -74,5 +69,34 @@
     <None Include="StringHelpers.inl">
       <Filter>Quelldateien</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\Textures\BlankSprite.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Resources\Textures\GhostSprite.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Resources\Textures\GuyBlueSprite.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Resources\Textures\GuySprite.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Resources\Textures\HinagikuSprite.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Resources\Textures\HolstaurusSprite.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Resources\Textures\MonsterGirlSprite.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Resources\Textures\MummySprite.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
+    <Image Include="Resources\Textures\SlimeSprite.png">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
   </ItemGroup>
 </Project>

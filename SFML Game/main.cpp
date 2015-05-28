@@ -24,6 +24,7 @@ int main()
 		// Solange das Fenster Offen ist.
 		while (window.isOpen())
 		{
+			// Event Handler (Abfragen)
 			while (window.pollEvent(event))
 			{
 				// Event Switch in dem Alle wichtigen Events registriert werden.
@@ -43,7 +44,7 @@ int main()
 							}
 							
 						}
-						//falls "Backspace" gedrückt...
+						// falls "Backspace" gedrückt...
 						if (event.text.unicode == 8)
 						{
 							//...prüfe erstmal, ob Name nicht schon leer ist!
@@ -98,7 +99,7 @@ int main()
 						{
 							if(Auswahl != 0)
 							{
-								// ChangeLEft
+								Optionen.changeLeft();
 							}
 							else
 							{
@@ -172,6 +173,7 @@ int main()
 				}
 			}
 			window.clear(sf::Color::Black);
+			// Drawn von Optionen oder Menü bild.
 			if(Auswahl == 0)
 				window.draw(Menü);
 			else
@@ -179,6 +181,7 @@ int main()
 			window.display();
 		}
 	}
+	// Fehler werden abgefangen und in der Console angezeigt.
 	catch (std::exception& e)
 	{
 		std::cout << "\nEXCEPTION: " << e.what() << std::endl;

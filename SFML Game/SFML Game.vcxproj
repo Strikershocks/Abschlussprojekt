@@ -81,9 +81,6 @@
     <ClCompile Include="Options.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Resources\Textures\player.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Font Include="Resources\Sansation.ttf" />
   </ItemGroup>
   <ItemGroup>
@@ -97,6 +94,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="StringHelpers.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\Textures\BlankSprite.png" />
+    <Image Include="Resources\Textures\GhostSprite.png" />
+    <Image Include="Resources\Textures\GuyBlueSprite.png" />
+    <Image Include="Resources\Textures\GuySprite.png" />
+    <Image Include="Resources\Textures\HinagikuSprite.png" />
+    <Image Include="Resources\Textures\HolstaurusSprite.png" />
+    <Image Include="Resources\Textures\MonsterGirlSprite.png" />
+    <Image Include="Resources\Textures\MummySprite.png" />
+    <Image Include="Resources\Textures\SlimeSprite.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
