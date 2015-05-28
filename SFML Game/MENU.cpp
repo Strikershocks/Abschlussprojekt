@@ -98,7 +98,7 @@ void Menu::changePlayer()
 void Menu::changePlayerRight()
 {
 	selectedPlayerModelIndex++;
-	if(selectedPlayerModelIndex > 4)
+	if(selectedPlayerModelIndex > 8)
 	{
 		selectedPlayerModelIndex = 0;
 	}
@@ -107,27 +107,47 @@ void Menu::changePlayerRight()
 	{
 	case 0: // Für den Ball als Spieler.
 		{
-			setPlayerModel("playerball.png");
+			setPlayerModel("HinagikuSprite.png");
 			break;
 		}
 	case 1: // Für Player Model 2
 		{
-			setPlayerModel("grubin.gif");
+			setPlayerModel("GuyBlueSprite.png");
 			break;
 		}
 	case 2: // Für Player Model 3
 		{
-			setPlayerModel("playerball.png");
+			setPlayerModel("GuySprite.png");
 			break;
 		}
 	case 3: // Für Player Model 4
 		{
-			setPlayerModel("playerball.png");
+			setPlayerModel("BlankSprite.png");
 			break;
 		}
 	case 4: // Für Player Model 5
 		{
-			setPlayerModel("playerball.png");
+			setPlayerModel("GhostSprite.png");
+			break;
+		}
+	case 5: // Für Player Model 6
+		{
+			setPlayerModel("HolstaurusSprite.png");
+			break;
+		}
+	case 6: // Für Player Model 7
+		{
+			setPlayerModel("MonsterGirlSprite.png");
+			break;
+		}
+	case 7: // Für Player Model 8
+		{
+			setPlayerModel("MummySprite.png");
+			break;
+		}
+	case 8: // Für Player Model 9
+		{
+			setPlayerModel("SlimeSprite.png");
 			break;
 		}
 	}
@@ -139,34 +159,54 @@ void Menu::changePlayerLeft()
 	selectedPlayerModelIndex--;
 	if(selectedPlayerModelIndex < 0)
 	{
-		selectedPlayerModelIndex = 4;
+		selectedPlayerModelIndex = 8;
 	}
 
 	switch(selectedPlayerModelIndex)
 	{
 	case 0: // Für den Ball als Spieler.
 		{
-			setPlayerModel("playerball.png");
+			setPlayerModel("HinagikuSprite.png");
 			break;
 		}
 	case 1: // Für Player Model 2
 		{
-			setPlayerModel("grubin.gif");
+			setPlayerModel("GuyBlueSprite.png");
 			break;
 		}
 	case 2: // Für Player Model 3
 		{
-			setPlayerModel("playerball.png");
+			setPlayerModel("GuySprite.png");
 			break;
 		}
 	case 3: // Für Player Model 4
 		{
-			setPlayerModel("playerball.png");
+			setPlayerModel("BlankSprite.png");
 			break;
 		}
 	case 4: // Für Player Model 5
 		{
-			setPlayerModel("playerball.png");
+			setPlayerModel("GhostSprite.png");
+			break;
+		}
+	case 5: // Für Player Model 6
+		{
+			setPlayerModel("HolstaurusSprite.png");
+			break;
+		}
+	case 6: // Für Player Model 7
+		{
+			setPlayerModel("MonsterGirlSprite.png");
+			break;
+		}
+	case 7: // Für Player Model 8
+		{
+			setPlayerModel("MummySprite.png");
+			break;
+		}
+	case 8: // Für Player Model 9
+		{
+			setPlayerModel("SlimeSprite.png");
 			break;
 		}
 	}

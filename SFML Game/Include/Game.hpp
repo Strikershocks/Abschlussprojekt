@@ -33,13 +33,15 @@ class Game : private sf::NonCopyable
 
 		// Animation für Rechts
 		Animation walkingAnimationRight;
+
+		// Zeiger auf Akutelle Animation
 		Animation* currentAnimation;
+
 		// set up AnimatedSprite
 		AnimatedSprite animatedSprite;
 
 		sf::RenderWindow Window;
 		sf::Texture Texture;
-		sf::Sprite Player;
 		sf::Font Font;
 		sf::Time StatisticsUpdateTime;
 		sf::Clock frameClock;

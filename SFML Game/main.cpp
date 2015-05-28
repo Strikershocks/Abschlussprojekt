@@ -19,6 +19,8 @@ int main()
 		Options Optionen(window.getSize().x, window.getSize().y);
 		Menu Menü(window.getSize().x, window.getSize().y);
 
+		// Setzen eines Framelimits
+		window.setFramerateLimit(60);
 		// Solange das Fenster Offen ist.
 		while (window.isOpen())
 		{

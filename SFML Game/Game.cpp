@@ -15,7 +15,6 @@ Game::Game(int x, int y, int Aliasing, std::string PlayerModel) : Window(sf::Vid
 
 	// Standard Werte Setzen.
 	Texture;
-	Player;
 	Font;
 	StatisticsUpdateTime;
 	StatisticsNumFrames = 0;
@@ -46,10 +45,6 @@ Game::Game(int x, int y, int Aliasing, std::string PlayerModel) : Window(sf::Vid
 	 // Setzen der Postion vom AnimationSprite
 	 animatedSprite.setPosition(sf::Vector2f(screenDimensions / 2));
 
-	// Setzen der Texture für den Spieler
-	Player.setTexture(Texture);
-	// Setzen der Position für den Spielen.
-
 	// Schrift Art laden
 	if(!Font.loadFromFile("Resources/Sansation.ttf"))
 	{
@@ -60,8 +55,10 @@ Game::Game(int x, int y, int Aliasing, std::string PlayerModel) : Window(sf::Vid
 // Game Start Methode.
 void Game::run()
 {
-	sf::Clock clock; // Initalisierung einer Uhr
+	// Initalisierung einer Uhr
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
+
+	// Solange das Fenster Offen ist.
 	while (Window.isOpen())
 	{
 		sf::Time frameTime = frameClock.restart();
@@ -129,7 +126,7 @@ void Game::update(sf::Time elapsedTime)
 	// Wenn nach Unten laufen
 	if (IsMovingDown)
 		movement.y += PlayerSpeed;
-	
+		
 	// Wenn Links laufen
 	if (IsMovingLeft)
 	{
@@ -171,7 +168,7 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
 // Animations auswahl nach Player auswahl.
 void Game::AnimationSelect(std::string PlayerModel)
 {
-	if(PlayerModel == "GuySprite.png" || PlayerModel == "GuyBlueSprite.png")
+	if(PlayerModel != "HinagikuSprite.png")
 	{
 		// Animation setzen für Rechts Bewegen.
 		walkingAnimationLeft.setSpriteSheet(Texture);
@@ -186,5 +183,22 @@ void Game::AnimationSelect(std::string PlayerModel)
 		walkingAnimationRight.addFrame(sf::IntRect(64, 64, 32, 32));
 		walkingAnimationRight.addFrame(sf::IntRect(32, 64, 32, 32));
 		walkingAnimationRight.addFrame(sf::IntRect( 0, 64, 32, 32));
+
+	}
+	else if(PlayerModel == "HinagikuSprite.png")
+	{
+		// Animation setzen für Rechts Bewegen.
+		walkingAnimationLeft.setSpriteSheet(Texture);
+		walkingAnimationLeft.addFrame(sf::IntRect(32, 48, 32, 48));
+		walkingAnimationLeft.addFrame(sf::IntRect(64, 48, 32, 48));
+		walkingAnimationLeft.addFrame(sf::IntRect(32, 48, 32, 48));
+		walkingAnimationLeft.addFrame(sf::IntRect( 0, 48, 32, 48));
+
+		// Animation setzen für Links Bewegen.
+		walkingAnimationRight.setSpriteSheet(Texture);
+		walkingAnimationRight.addFrame(sf::IntRect(32, 96, 32, 48));
+		walkingAnimationRight.addFrame(sf::IntRect(64, 96, 32, 48));
+		walkingAnimationRight.addFrame(sf::IntRect(32, 96, 32, 48));
+		walkingAnimationRight.addFrame(sf::IntRect( 0, 96, 32, 48));
 	}
 }
