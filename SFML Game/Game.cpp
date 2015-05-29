@@ -213,10 +213,11 @@ void Game::MapBegrenzung()
 	int PlayerX = animatedSprite.getPosition().x;
 	int PlayerY = animatedSprite.getPosition().y;
 	std::cout << "X: " << PlayerX << " " << "Y: " << PlayerY << std::endl;
+
 	// Wenn Links oder Rechts am Rand überschreitung Droht.
-	if(PlayerX >= x || PlayerX <= 0)
+	if(PlayerX >= x-30 || PlayerX <= 0)
 	{
-		if(PlayerX >= x)
+		if(PlayerX >= x-30)
 		{
 			StopRechts = true;
 			return;
@@ -231,9 +232,9 @@ void Game::MapBegrenzung()
 	StopRechts = false;
 
 	// Wenn Oben oder Unten überschreitung Droht.
-	if(PlayerY >= y || PlayerY <= 0)
+	if(PlayerY >= y-30 || PlayerY <= 0)
 	{
-		if(PlayerY >= y)
+		if(PlayerY >= y-30)
 		{
 			StopUnten = true;
 			return;
