@@ -53,6 +53,8 @@ Game::Game(int x, int y, int Aliasing, std::string PlayerModel) : Window(sf::Vid
 	{
 		// Error Handling
 	}
+
+	Map World;
 }
 
 // Game Start Methode.
@@ -212,7 +214,8 @@ void Game::MapBegrenzung()
 	// Damit bekommt man beide Postionen.
 	int PlayerX = animatedSprite.getPosition().x;
 	int PlayerY = animatedSprite.getPosition().y;
-	std::cout << "X: " << PlayerX << " " << "Y: " << PlayerY << std::endl;
+	// Zur Überprüfung der Koordinaten
+	// std::cout << "X: " << PlayerX << " " << "Y: " << PlayerY << std::endl;
 
 	// Wenn Links oder Rechts am Rand überschreitung Droht.
 	if(PlayerX >= x-30 || PlayerX <= 0)

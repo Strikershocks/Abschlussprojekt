@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include "Map.hpp";
 #include "AnimatedSprite.hpp"
 
 class Game : private sf::NonCopyable
