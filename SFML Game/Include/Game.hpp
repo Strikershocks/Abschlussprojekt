@@ -44,6 +44,8 @@ class Game : private sf::NonCopyable
 		// set up AnimatedSprite
 		AnimatedSprite animatedSprite;
 
+		Map World;
+
 		sf::RenderWindow Window;
 		sf::Texture Texture;
 		sf::Font Font;

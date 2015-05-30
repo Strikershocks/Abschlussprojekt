@@ -35,6 +35,7 @@ Game::Game(int x, int y, int Aliasing, std::string PlayerModel) : Window(sf::Vid
 	{
 		// Loading Error der PNG
 	}
+	Texture.setSmooth(true);
 
 	// Ausführung der Animations auswahl
 	AnimationSelect(PlayerModel);
@@ -54,7 +55,7 @@ Game::Game(int x, int y, int Aliasing, std::string PlayerModel) : Window(sf::Vid
 		// Error Handling
 	}
 
-	Map World;
+	
 }
 
 // Game Start Methode.
@@ -153,8 +154,8 @@ void Game::update(sf::Time elapsedTime)
 void Game::render()
 {
 	Window.clear();	
+	Window.draw(World);
 	Window.draw(animatedSprite);
-	//Window.draw(Background);
 	Window.display();
 }
 

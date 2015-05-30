@@ -3,14 +3,17 @@
 class Map  : public sf::Drawable
 {
 public:
-	Map(void);
+	Map();
 	~Map(void);
 	void SetPlayerPositon(int x, int y);
+	void SetWindowSize(int x, int y);
 	void initMap();
 
 private:
 	int PlayerX;
 	int PlayerY;
+	int WinX;
+	int WinY;
 	sf::Texture texture;
 	sf::Sprite sprite;
 

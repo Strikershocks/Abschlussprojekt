@@ -1,8 +1,12 @@
-﻿Der Buildvorgang wurde am 30.05.2015 10:44:21 gestartet.
+﻿Der Buildvorgang wurde am 30.05.2015 12:00:05 gestartet.
      1>Projekt "L:\GitHub\Abschlussprojekt\SFML Game\SFML Game.vcxproj" auf Knoten "2", Build Ziel(e).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I..\SFML\include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D SFML_STATIC /D _MBCS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Map.cpp
-         Map.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I..\SFML\include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D SFML_STATIC /D _MBCS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Game.cpp
+         Game.cpp
+     1>l:\github\abschlussprojekt\sfml game\include\game.hpp(4): warning C4067: Unerwartete Token nach Präprozessordirektive - Zeilenvorschub erwartet.
+     1>l:\github\abschlussprojekt\sfml game\game.cpp(10): warning C4305: 'Argument': Verkürzung von 'double' in 'float'
+     1>l:\github\abschlussprojekt\sfml game\game.cpp(216): warning C4244: 'Initialisierung': Konvertierung von 'const float' in 'int', möglicher Datenverlust
+     1>l:\github\abschlussprojekt\sfml game\game.cpp(217): warning C4244: 'Initialisierung': Konvertierung von 'const float' in 'int', möglicher Datenverlust
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"L:\GitHub\Abschlussprojekt\Debug\SFML Game.exe" /INCREMENTAL /NOLOGO /LIBPATH:..\SFML\lib "sfml-network-s-d.lib" "sfml-audio-s-d.lib" "sfml-graphics-s-d.lib" "sfml-window-s-d.lib" "sfml-system-s-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"L:\GitHub\Abschlussprojekt\Debug\SFML Game.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"L:\GitHub\Abschlussprojekt\Debug\SFML Game.lib" /MACHINE:X86 Debug\AnimatedSprite.obj
          Debug\Animation.obj
@@ -16,4 +20,4 @@
 
 Build erfolgreich.
 
-Verstrichene Zeit 00:00:09.18
+Verstrichene Zeit 00:00:08.63
