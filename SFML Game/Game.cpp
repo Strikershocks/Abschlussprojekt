@@ -14,6 +14,8 @@ Game::Game(int x, int y, int Aliasing, std::string PlayerModel) : Window(sf::Vid
 	settings.antialiasingLevel = Aliasing;
 	this->x = x;
 	this->y = y;
+	World.SetWindowSize(x, y);
+
 	// Standard Werte Setzen.
 	Texture;
 	Font;
@@ -215,6 +217,7 @@ void Game::MapBegrenzung()
 	// Damit bekommt man beide Postionen.
 	int PlayerX = animatedSprite.getPosition().x;
 	int PlayerY = animatedSprite.getPosition().y;
+
 	// Zur Überprüfung der Koordinaten
 	// std::cout << "X: " << PlayerX << " " << "Y: " << PlayerY << std::endl;
 

@@ -91,6 +91,7 @@ void Menu::changePlayer()
 
 	// Setzen der Texture für das Spieler Model.
 	Player.setTexture(Texture);
+
 	// Setzen der Position vom Spieler Model.
 	Player.setPosition(30.f, 200.f);
 }
@@ -105,14 +106,14 @@ void Menu::changePlayerRight()
 
 	switch(selectedPlayerModelIndex)
 	{
-	case 0: // Für den Ball als Spieler.
+	case 0: // Für Player Model 2
 		{
-			setPlayerModel("HinagikuSprite.png");
+			setPlayerModel("GuyBlueSprite.png ");
 			break;
 		}
 	case 1: // Für Player Model 2
 		{
-			setPlayerModel("GuyBlueSprite.png");
+			setPlayerModel("HinagikuSprite.png");
 			break;
 		}
 	case 2: // Für Player Model 3
@@ -164,14 +165,14 @@ void Menu::changePlayerLeft()
 
 	switch(selectedPlayerModelIndex)
 	{
-	case 0: // Für den Ball als Spieler.
+	case 0: // Für Player Model 1
 		{
-			setPlayerModel("HinagikuSprite.png");
+			setPlayerModel("GuyBlueSprite.png");
 			break;
 		}
 	case 1: // Für Player Model 2
 		{
-			setPlayerModel("GuyBlueSprite.png");
+			setPlayerModel("HinagikuSprite.png");
 			break;
 		}
 	case 2: // Für Player Model 3

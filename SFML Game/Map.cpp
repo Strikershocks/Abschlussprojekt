@@ -3,8 +3,6 @@
 
 Map::Map()
 {
-	//SetWindowSize(500, 100);
-	Ground();
 }
 
 
@@ -15,7 +13,7 @@ Map::~Map(void)
 
 void Map::Ground()
 {
-	if (!texture.loadFromFile("Resources/Textures/Ground/GrassGround.png", sf::IntRect(WinX, WinY, 476, 107)))
+	if (!texture.loadFromFile("Resources/Textures/Ground/GrassGround.png", sf::IntRect(0, 0, 476, 107)))
 	{
 		// handle error
 	}
@@ -27,12 +25,14 @@ void Map::Ground()
 
 	// setzt dem Sprite die Texture Ground.
 	sprite.setTexture(texture);
+	sprite.setPosition(0, WinY-107);
 }
 
 void Map::SetWindowSize(int x, int y)
 {
 	WinX = x;
 	WinY = y;
+	Ground();
 }
 
 void Map::draw(sf::RenderTarget& target, sf::RenderStates states) const
