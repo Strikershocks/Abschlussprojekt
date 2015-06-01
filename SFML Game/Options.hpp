@@ -1,6 +1,14 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Include\StringHelpers.hpp"
+#include "rapidxml.hpp"
+#include "rapidxml_iterators.hpp"
+#include "rapidxml_print.hpp"
+#include "rapidxml_utils.hpp"
+#include <stdio.h>
+
+using namespace rapidxml;
+
 // Definierung von der Maximalen Menüpunkte
 #define MAX_MENU_ITEMS 5
 
@@ -70,6 +78,11 @@ private:
 
 	// Spielername
 	std::string PlayerName;
+
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
+	void XMLSave();
+
+	void XMLRead();
 };
 

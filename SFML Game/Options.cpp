@@ -9,6 +9,7 @@ Options::Options(float width, float height)
 	Aliasing = 0;
 	PlayerName = " ";
 	changeSizeXY();
+	XMLSave();
 
 	if (!font.loadFromFile("Resources/Sansation.ttf"))
 	{
@@ -224,4 +225,42 @@ void Options::delPlayerNameChar()
 	// Löscht den letzen Char vom String und Aktuallisiert die Anzeige.
 	PlayerName.erase(PlayerName.end() - 1);
 	Option[0].setString("Spielername: " + PlayerName);
+}
+
+void Options::XMLSave()
+{
+/*
+
+ Test -------------------------------------------------------------------------------> */
+// Laden eines XML-Files
+xml_document<> doc;
+// Name des Files
+std::ifstream file("settings.xml");
+std::stringstream buffer;
+buffer << file.rdbuf();
+file.close();
+std::string content(buffer.str());
+doc.parse<0>(&content[0]);
+
+// Haupt Node auswählen (Hier wäre das Ergebniss <Optionen>
+xml_node<> *pRoot = doc.first_node();
+
+// Auswahl des Child Nodes mit dem Namen Playername
+xml_node<> *pNode = pRoot->first_node("Playername");
+
+// Das Attribut was in Klammern steht auslesen, aus dem Node den wir in pNode gespeichert haben.
+xml_attribute<> *pAttr = pNode->first_attribute("attribute");
+std::string strValue = pAttr->value();
+// Site: https://semidtor.wordpress.com/2013/03/29/rapidxml-mini-tutorial/
+
+}
+
+void Options::XMLRead()
+{
+	/*xml_document<> doc;
+	for (xml_attribute<> *attr = node->first_attribute(); attr; attr = attr->next_attribute())
+	{
+		cout << "Node foobar has attribute " << attr->name() << " ";
+		cout << "with value " << attr->value() << "\n";
+	}*/
 }
