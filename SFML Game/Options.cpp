@@ -5,7 +5,6 @@ Options::Options(float width, float height)
 	// Standard Werte in die Variablen füllen.
 	selectedItemIndex = 0;
 	selectedWindowIndex = 0;
-	Aliasing = XMLDoc.loadAliasing();
 	PlayerName = XMLDoc.loadPlayerName();
 	changeSizeXY();
 
@@ -21,7 +20,7 @@ Options::Options(float width, float height)
 
 	Option[1].setFont(font);
 	Option[1].setColor(sf::Color::White);
-	Option[1].setString("Anti-Aliasing " + toString(Aliasing));
+	Option[1].setString("Anti-Aliasing " + toString(XMLDoc.loadAliasing()));
 	Option[1].setPosition(sf::Vector2f(width / 4, height / (MAX_MENU_ITEMS + 1) * 2));
 
 	Option[2].setFont(font);
@@ -102,15 +101,27 @@ void Options::changeRight()
 	{
 		case 1:
 		{
-			if(Aliasing < 16)
+			if(XMLDoc.loadAliasing() < 16)
 			{
+				int Aliasing; // Aliasing int erstellen als kurzen zwischenspeicher.
+
+				// Aliasing aktuellen Wert zuweisen und dann plus 1.
+				Aliasing = XMLDoc.loadAliasing();
 				Aliasing++;
+
+				// Aliasing Stufe speichern.
+				XMLDoc.saveAliasing(Aliasing);
+
+				// Aliasing Stufe ausgeben.
 				Option[1].setString("Anti-Aliasing " + toString(XMLDoc.loadAliasing()));
 				break;
 			}
 			else
 			{
-				Aliasing = 0;
+				// Aliasing stufe auf 16 setzen und speichern.
+				XMLDoc.saveAliasing(0);
+
+				// Aliasing Stufe ausgeben.
 				Option[1].setString("Anti-Aliasing " + toString(XMLDoc.loadAliasing()));
 				break;
 			}
@@ -135,19 +146,32 @@ void Options::changeRight()
 
 void Options::changeLeft()
 {
+	
 	switch(selectedItemIndex)
 	{
 		case 1:
 		{
-			if(Aliasing > 0)
+			if(XMLDoc.loadAliasing() > 0)
 			{
+				int Aliasing; // Aliasing int erstellen als kurzen zwischenspeicher.
+
+				// Aliasing aktuellen Wert zuweisen und dann minus 1.
+				Aliasing = XMLDoc.loadAliasing();
 				Aliasing--;
+
+				// Aliasing Stufe speichern.
+				XMLDoc.saveAliasing(Aliasing);
+
+				// Aliasing Stufe ausgeben.
 				Option[1].setString("Anti-Aliasing " + toString(XMLDoc.loadAliasing()));
 				break;
 			}
 			else
 			{
-				Aliasing = 16;
+				// Aliasing stufe auf 16 setzen und speichern.
+				XMLDoc.saveAliasing(16);
+
+				// Aliasing Stufe ausgeben.
 				Option[1].setString("Anti-Aliasing " + toString(XMLDoc.loadAliasing()));
 				break;
 			}

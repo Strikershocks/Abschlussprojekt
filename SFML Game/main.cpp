@@ -1,6 +1,7 @@
 #include "Include\Game.hpp"
 #include "MENU.hpp"
 #include "Options.hpp"
+#include "XMLHandler.hpp"
 
 #include <stdexcept>
 #include <iostream>
@@ -18,6 +19,7 @@ int main()
 		sf::RenderWindow window(sf::VideoMode(600, 600), "Game Menü");
 		Options Optionen(window.getSize().x, window.getSize().y);
 		Menu Menü(window.getSize().x, window.getSize().y);
+		XMLHandler XMLDoc;
 
 		// Setzen eines Framelimits
 		window.setFramerateLimit(60);
@@ -38,7 +40,7 @@ int main()
 						if (event.text.unicode < 8 || (event.text.unicode > 8 && event.text.unicode < 128 && event.text.unicode != 13))
 						{
 							//Maximal 16 Zeichen bei Namenseingabe!
-							if (static_cast<int>(Optionen.getPlayerName().length()) < 16)
+							if (static_cast<int>(XMLDoc.loadPlayerName().length()) < 16)
 							{
 								Optionen.setPlayerNameChar(static_cast<char>(event.text.unicode));
 							}
@@ -48,7 +50,7 @@ int main()
 						if (event.text.unicode == 8)
 						{
 							//...prüfe erstmal, ob Name nicht schon leer ist!
-							if (!static_cast<int>(Optionen.getPlayerName().length()) == 0)
+							if (!static_cast<int>(XMLDoc.loadPlayerName().length()) == 0)
 							{
 								//wenn nicht, dann lösche das letzte Zeichen des Strings "str"
 								Optionen.delPlayerNameChar();
@@ -119,7 +121,7 @@ int main()
 									case 0:
 									{
 										window.close();
-										Game game(Optionen.getWindowX(), Optionen.getWindowY(), Optionen.getAliasing(), Menü.getPlayerModel());
+										Game game(XMLDoc.loadWinX(), XMLDoc.loadWinY(), XMLDoc.loadAliasing(), Menü.getPlayerModel());
 										game.run();
 										break;
 									}

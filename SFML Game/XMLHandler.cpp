@@ -152,8 +152,7 @@ void XMLHandler::XMLSave()
 
 void XMLHandler::savePlayerSkinIndex(int index)
 {
-	char pbuff[32];
-	itoa(index, pbuff, 10);
+	const char * c = toString(index).c_str();
 
 	// Auswahl des Child Nodes <Player>
 	initNode("Player");
@@ -162,13 +161,12 @@ void XMLHandler::savePlayerSkinIndex(int index)
 	initAttribut("SkinIndex");
 	
 	// Ändern des Attributs.
-	pAttr->value(doc.allocate_string(pbuff));
+	pAttr->value(doc.allocate_string(c));
 }
 
 void XMLHandler::saveAliasing(int Aliasing)
 {
-	char pbuff[32];
-	itoa(Aliasing, pbuff, 10);
+	const char * c = toString(Aliasing).c_str();
 
 	// Auswahl des Child Nodes <Aliasing>
 	initNode("Aliasing");
@@ -177,16 +175,13 @@ void XMLHandler::saveAliasing(int Aliasing)
 	initAttribut("Stufe");
 	
 	// Ändern des Attributs.
-	pAttr->value(doc.allocate_string(pbuff));
+	pAttr->value(doc.allocate_string(c));
 }
 
 void XMLHandler::saveWinXY(int x, int y)
 {
-	char pbuffX[32];
-	itoa(x, pbuffX, 10);
-
-	char pbuffY[32];
-	itoa(y, pbuffY, 10);
+	const char * cX = toString(x).c_str();
+	const char * cY = toString(y).c_str();
 
 	// Auswahl des Child Nodes <Window>
 	initNode("Window");
@@ -195,11 +190,11 @@ void XMLHandler::saveWinXY(int x, int y)
 	initAttribut("X");
 	
 	// Ändern des Attributs.
-	pAttr->value(doc.allocate_string(pbuffX));
+	pAttr->value(doc.allocate_string(cX));
 
 	// Von Child Node <Window> das Attribut Y auswählen
 	initAttribut("Y");
 
 	// Ändern des Attributs.
-	pAttr->value(doc.allocate_string(pbuffY));
+	pAttr->value(doc.allocate_string(cY));
 }

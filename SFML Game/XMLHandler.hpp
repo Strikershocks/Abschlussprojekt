@@ -3,7 +3,7 @@
 #include "rapidxml_iterators.hpp"
 #include "rapidxml_print.hpp"
 #include "rapidxml_utils.hpp"
-#include <sstream>
+#include "Include\StringHelpers.hpp"
 
 using namespace rapidxml;
 
@@ -37,8 +37,9 @@ public:
 
 private:
 	xml_document<> doc;
-	xml_node<> *pRoot ;
+	xml_node<> *pRoot;
+	// Fehler hängt hiermit zusammen
+	xml_attribute<> *pAttr; 
 	xml_node<> *pNode;
-	xml_attribute<> *pAttr;
 };
 
