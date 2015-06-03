@@ -36,6 +36,9 @@
     <ClCompile Include="Animation.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="XMLHandler.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Font Include="Resources\Sansation.ttf">
@@ -74,6 +77,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="rapidxml_utils.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="XMLHandler.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

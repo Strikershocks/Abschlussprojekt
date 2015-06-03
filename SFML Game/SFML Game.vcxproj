@@ -79,6 +79,7 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MENU.cpp" />
     <ClCompile Include="Options.cpp" />
+    <ClCompile Include="XMLHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Resources\Sansation.ttf" />
@@ -95,6 +96,7 @@
     <ClInclude Include="rapidxml_iterators.hpp" />
     <ClInclude Include="rapidxml_print.hpp" />
     <ClInclude Include="rapidxml_utils.hpp" />
+    <ClInclude Include="XMLHandler.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StringHelpers.inl" />

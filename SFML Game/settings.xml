@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Options>
+   <Player Name="Default" SkinIndex="0"/>
+   <Window X="800" Y="480"/>
+   <Aliasing Stufe="0"/>
+   <RankingPlace Place1="Leer" Place2="Leer" Place3="Leer" Place4="Leer" Place5="Leer" Place6="Leer" Place7="Leer" Place8="Leer" Place9="Leer" Place10="Leer" />
+   <RankingTime Time1="0:00" Time2="0:00" Time3="0:00" Time4="0:00" Time5="0:00" Time6="0:00" Time7="0:00" Time8="0:00" Time9="0:00" Time10="0:00" />
+</Options>

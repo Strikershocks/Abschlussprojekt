@@ -57,6 +57,5 @@ private:
 	sf::Texture Texture;
 
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-
 };
 

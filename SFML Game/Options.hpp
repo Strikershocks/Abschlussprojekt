@@ -1,13 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Include\StringHelpers.hpp"
-#include "rapidxml.hpp"
-#include "rapidxml_iterators.hpp"
-#include "rapidxml_print.hpp"
-#include "rapidxml_utils.hpp"
-#include <stdio.h>
-
-using namespace rapidxml;
+#include "XMLHandler.hpp"
 
 // Definierung von der Maximalen Menüpunkte
 #define MAX_MENU_ITEMS 5
@@ -17,9 +11,6 @@ class Options : public sf::Drawable
 public:
 	Options(float width, float height);
 	~Options(void);
-
-	// Getter vom Spielernamen.
-	std::string getPlayerName();
 
 	// Dem Spielernamen ein Char anhängen.
 	void setPlayerNameChar(char Char);
@@ -44,17 +35,9 @@ public:
 
 	// Getter PressedItem
 	int GetPressedItem();
-	
-	// Getter von xWindow
-	int getWindowX();
-	
-	// Getter von yWindow
-	int getWindowY();
-	
-	// Getter für Aliasing
-	int getAliasing();
 
 private:
+	XMLHandler XMLDoc;
 	// Ausgewähltes Optionsfeld
 	int selectedItemIndex;
 
@@ -67,9 +50,6 @@ private:
 	// y Wert
 	int yWindow;
 
-	// Ausgewähltes Anti-Aliasing Level max 16
-	int Aliasing; 
-
 	// Font für den Text
 	sf::Font font;
 
@@ -80,9 +60,5 @@ private:
 	std::string PlayerName;
 
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-
-	void XMLSave();
-
-	void XMLRead();
 };
 

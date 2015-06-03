@@ -1,15 +1,13 @@
 #include "Options.hpp"
 
-
 Options::Options(float width, float height)
 {
 	// Standard Werte in die Variablen füllen.
 	selectedItemIndex = 0;
 	selectedWindowIndex = 0;
-	Aliasing = 0;
-	PlayerName = " ";
+	Aliasing = XMLDoc.loadAliasing();
+	PlayerName = XMLDoc.loadPlayerName();
 	changeSizeXY();
-	XMLSave();
 
 	if (!font.loadFromFile("Resources/Sansation.ttf"))
 	{
@@ -86,36 +84,16 @@ int Options::GetPressedItem()
 	 {
 		case 0:
 		{
-			xWindow = 800;
-			yWindow = 480;
+			XMLDoc.saveWinXY(800, 600);
 			break;
 		}
 		case 1:
 		{
-			xWindow = 1024;
-			yWindow = 768;
-			break;
-		}
-		case 2:
-		{
-			xWindow = 1280;
-			yWindow = 720;
-			break;
-		}
-		case 3:
-		{
-			xWindow = 1280;
-			yWindow = 1024;
-			break;
-		}
-		case 4:
-		{
-			xWindow = 1600;
-			yWindow = 900;
+			XMLDoc.saveWinXY(1024, 768);
 			break;
 		}
 	 } 
-	 Option[2].setString("Fenstergröße " + toString(xWindow) + 'x' + toString(yWindow));
+	 Option[2].setString("Fenstergröße " + toString(XMLDoc.loadWinX()) + 'x' + toString(XMLDoc.loadWinY()));
 }
 
 void Options::changeRight()
@@ -127,19 +105,19 @@ void Options::changeRight()
 			if(Aliasing < 16)
 			{
 				Aliasing++;
-				Option[1].setString("Anti-Aliasing " + toString(Aliasing));
+				Option[1].setString("Anti-Aliasing " + toString(XMLDoc.loadAliasing()));
 				break;
 			}
 			else
 			{
 				Aliasing = 0;
-				Option[1].setString("Anti-Aliasing " + toString(Aliasing));
+				Option[1].setString("Anti-Aliasing " + toString(XMLDoc.loadAliasing()));
 				break;
 			}
 		}
 		case 2:
 		{
-			if(selectedWindowIndex < 4)
+			if(selectedWindowIndex < 1)
 			{
 				selectedWindowIndex++;
 				changeSizeXY();
@@ -164,13 +142,13 @@ void Options::changeLeft()
 			if(Aliasing > 0)
 			{
 				Aliasing--;
-				Option[1].setString("Anti-Aliasing " + toString(Aliasing));
+				Option[1].setString("Anti-Aliasing " + toString(XMLDoc.loadAliasing()));
 				break;
 			}
 			else
 			{
 				Aliasing = 16;
-				Option[1].setString("Anti-Aliasing " + toString(Aliasing));
+				Option[1].setString("Anti-Aliasing " + toString(XMLDoc.loadAliasing()));
 				break;
 			}
 		}
@@ -184,7 +162,7 @@ void Options::changeLeft()
 			}
 			else
 			{
-				selectedWindowIndex = 4;
+				selectedWindowIndex = 1;
 				changeSizeXY();
 				break;
 			}
@@ -192,32 +170,12 @@ void Options::changeLeft()
 	} 
 }
 
-int Options::getWindowX()
-{
-	return xWindow;
-}
-
-int Options::getWindowY()
-{
-	return yWindow;
-}
-
-
-int Options::getAliasing()
-{
-	return Aliasing;
-}
-
 void Options::setPlayerNameChar(char Char)
 {
 	// Fügt einen Char am Ende des Strings hinzu und Aktuallisiert die Anzeige
 	PlayerName += Char;
 	Option[0].setString("Spielername: " + PlayerName);
-}
-
-std::string Options::getPlayerName()
-{
-	return PlayerName;
+	XMLDoc.savePlayerName(PlayerName);
 }
 
 void Options::delPlayerNameChar()
@@ -225,42 +183,4 @@ void Options::delPlayerNameChar()
 	// Löscht den letzen Char vom String und Aktuallisiert die Anzeige.
 	PlayerName.erase(PlayerName.end() - 1);
 	Option[0].setString("Spielername: " + PlayerName);
-}
-
-void Options::XMLSave()
-{
-/*
-
- Test -------------------------------------------------------------------------------> */
-// Laden eines XML-Files
-xml_document<> doc;
-// Name des Files
-std::ifstream file("settings.xml");
-std::stringstream buffer;
-buffer << file.rdbuf();
-file.close();
-std::string content(buffer.str());
-doc.parse<0>(&content[0]);
-
-// Haupt Node auswählen (Hier wäre das Ergebniss <Optionen>
-xml_node<> *pRoot = doc.first_node();
-
-// Auswahl des Child Nodes mit dem Namen Playername
-xml_node<> *pNode = pRoot->first_node("Playername");
-
-// Das Attribut was in Klammern steht auslesen, aus dem Node den wir in pNode gespeichert haben.
-xml_attribute<> *pAttr = pNode->first_attribute("attribute");
-std::string strValue = pAttr->value();
-// Site: https://semidtor.wordpress.com/2013/03/29/rapidxml-mini-tutorial/
-
-}
-
-void Options::XMLRead()
-{
-	/*xml_document<> doc;
-	for (xml_attribute<> *attr = node->first_attribute(); attr; attr = attr->next_attribute())
-	{
-		cout << "Node foobar has attribute " << attr->name() << " ";
-		cout << "with value " << attr->value() << "\n";
-	}*/
 }
