@@ -77,8 +77,10 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Meldungen.cpp" />
     <ClCompile Include="MENU.cpp" />
     <ClCompile Include="Options.cpp" />
+    <ClCompile Include="Spieler.cpp" />
     <ClCompile Include="XMLHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -90,12 +92,14 @@
     <ClInclude Include="Include\Game.hpp" />
     <ClInclude Include="Include\StringHelpers.hpp" />
     <ClInclude Include="Map.hpp" />
+    <ClInclude Include="Meldungen.hpp" />
     <ClInclude Include="MENU.hpp" />
     <ClInclude Include="Options.hpp" />
     <ClInclude Include="rapidxml.hpp" />
     <ClInclude Include="rapidxml_iterators.hpp" />
     <ClInclude Include="rapidxml_print.hpp" />
     <ClInclude Include="rapidxml_utils.hpp" />
+    <ClInclude Include="Spieler.hpp" />
     <ClInclude Include="XMLHandler.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -111,6 +115,9 @@
     <Image Include="Resources\Textures\MonsterGirlSprite.png" />
     <Image Include="Resources\Textures\MummySprite.png" />
     <Image Include="Resources\Textures\SlimeSprite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="settings.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -39,6 +39,12 @@
     <ClCompile Include="XMLHandler.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="Spieler.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Meldungen.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Font Include="Resources\Sansation.ttf">
@@ -82,6 +88,12 @@
     <ClInclude Include="XMLHandler.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="Spieler.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Meldungen.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="StringHelpers.inl">
@@ -116,5 +128,10 @@
     <Image Include="Resources\Textures\SlimeSprite.png">
       <Filter>Ressourcendateien</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="settings.xml">
+      <Filter>Ressourcendateien</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

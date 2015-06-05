@@ -4,9 +4,9 @@ Options::Options(float width, float height)
 {
 	// Standard Werte in die Variablen füllen.
 	selectedItemIndex = 0;
-	selectedWindowIndex = 0;
 	PlayerName = XMLDoc.loadPlayerName();
 	changeSizeXY();
+	int i = 7;
 
 	if (!font.loadFromFile("Resources/Sansation.ttf"))
 	{
@@ -25,18 +25,37 @@ Options::Options(float width, float height)
 
 	Option[2].setFont(font);
 	Option[2].setColor(sf::Color::White);
-	Option[2].setString("Fenstergröße " + toString(xWindow) + 'x' + toString(yWindow));
+	Option[2].setString("Fenstergröße " + toString(XMLDoc.loadWinX()) + 'x' + toString(XMLDoc.loadWinY()));
 	Option[2].setPosition(sf::Vector2f(width / 4, height / (MAX_MENU_ITEMS + 1) * 3));
 
 	Option[3].setFont(font);
 	Option[3].setColor(sf::Color::White);
-	Option[3].setString("Bestenliste zurücksetzen!");
+	Option[3].setString("Steuerung " + toString(XMLDoc.loadSteuerung()));
 	Option[3].setPosition(sf::Vector2f(width / 4, height / (MAX_MENU_ITEMS + 1) * 4));
 
 	Option[4].setFont(font);
 	Option[4].setColor(sf::Color::White);
-	Option[4].setString("Zurück");
+	Option[4].setString("Musik " + toString(XMLDoc.loadMusic()));
 	Option[4].setPosition(sf::Vector2f(width / 4, height / (MAX_MENU_ITEMS + 1) * 5));
+
+	Option[5].setFont(font);
+	Option[5].setColor(sf::Color::White);
+	Option[5].setString("Schwierigkeit " + toString(XMLDoc.loadSchwierigkeit()));
+	Option[5].setPosition(sf::Vector2f(width / 4, height / (MAX_MENU_ITEMS + 1) * 6));
+
+	if(PlayerName == "Gott")
+	{
+		Option[6].setFont(font);
+		Option[6].setColor(sf::Color::White);
+		Option[6].setString("Bestenliste zurücksetzen!");
+		Option[6].setPosition(sf::Vector2f(width / 4, height / (MAX_MENU_ITEMS + 1) * 7));
+		i++;
+	}
+
+	Option[7].setFont(font);
+	Option[7].setColor(sf::Color::White);
+	Option[7].setString("Zurück");
+	Option[7].setPosition(sf::Vector2f(width / 4, height / (MAX_MENU_ITEMS + 1) * i));
 }
 
 
@@ -79,7 +98,7 @@ int Options::GetPressedItem()
 
  void Options::changeSizeXY()
  {
-	 switch(selectedWindowIndex)
+	 switch(XMLDoc.loadWindowIndex())
 	 {
 		case 0:
 		{
@@ -128,25 +147,90 @@ void Options::changeRight()
 		}
 		case 2:
 		{
-			if(selectedWindowIndex < 1)
+			if(XMLDoc.loadWindowIndex() < 1)
 			{
-				selectedWindowIndex++;
+				XMLDoc.saveWindowIndex(1);
 				changeSizeXY();
 				break;
 			}
 			else
 			{
-				selectedWindowIndex = 0;
+				XMLDoc.saveWindowIndex(0);
 				changeSizeXY();
 				break;
 			}
+		}
+		case 3:
+		{
+			if(XMLDoc.loadSteuerung() == "Maus")
+			{
+				XMLDoc.saveSteuerung("Tastatur");
+				Option[3].setString("Steuerung " + toString(XMLDoc.loadSteuerung()));
+				break;
+			}
+			else
+			{
+				XMLDoc.saveSteuerung("Maus");
+				Option[3].setString("Steuerung " + toString(XMLDoc.loadSteuerung()));
+				break;
+			}
+		}
+		case 4:
+		{
+			if(XMLDoc.loadMusic() == "An")
+			{
+				XMLDoc.saveMusic("Aus");
+				Option[4].setString("Musik " + toString(XMLDoc.loadMusic()));
+				break;
+			}
+			else
+			{
+				XMLDoc.saveMusic("An");
+				Option[4].setString("Musik " + toString(XMLDoc.loadMusic()));
+				break;
+			}
+		}
+		case 5:
+		{
+			if(XMLDoc.loadSchwierigkeitIndex() < 2)
+			{
+				if(XMLDoc.loadSchwierigkeitIndex() == 0)
+				{
+					XMLDoc.saveSchwierigkeitIndex(1);
+					XMLDoc.saveSchwierigkeit("Mittel");
+					Option[5].setString("Schwierigkeit " + toString(XMLDoc.loadSchwierigkeit()));
+					break;
+				}
+				else
+				{
+					XMLDoc.saveSchwierigkeitIndex(2);
+					XMLDoc.saveSchwierigkeit("Schwer");
+					Option[5].setString("Schwierigkeit " + toString(XMLDoc.loadSchwierigkeit()));			
+					break;
+				}
+			}
+			else
+			{
+				XMLDoc.saveSchwierigkeitIndex(0);
+				XMLDoc.saveSchwierigkeit("Leicht");
+				Option[5].setString("Schwierigkeit " + toString(XMLDoc.loadSchwierigkeit()));
+				break;
+			}
+		}
+		case 6:
+		{
+			if(XMLDoc.loadPlayerName() == "Gott")
+			{
+				// Bestenliste zurücksetzen.
+				break;
+			}
+			break;
 		}
 	} 
 }
 
 void Options::changeLeft()
 {
-	
 	switch(selectedItemIndex)
 	{
 		case 1:
@@ -178,18 +262,84 @@ void Options::changeLeft()
 		}
 		case 2:
 		{
-			if(selectedWindowIndex > 0)
+			if(XMLDoc.loadWindowIndex() > 0)
 			{
-				selectedWindowIndex--;
+				XMLDoc.saveWindowIndex(0);
 				changeSizeXY();
 				break;
 			}
 			else
 			{
-				selectedWindowIndex = 1;
+				XMLDoc.saveWindowIndex(1);
 				changeSizeXY();
 				break;
 			}
+		}
+		case 3:
+		{
+			if(XMLDoc.loadSteuerung() == "Tastatur")
+			{
+				XMLDoc.saveSteuerung("Maus");
+				Option[3].setString("Steuerung " + toString(XMLDoc.loadSteuerung()));
+				break;
+			}
+			else
+			{
+				XMLDoc.saveSteuerung("Tastatur");
+				Option[3].setString("Steuerung " + toString(XMLDoc.loadSteuerung()));
+				break;
+			}
+		}
+		case 4:
+		{
+			if(XMLDoc.loadMusic() == "Aus")
+			{
+				XMLDoc.saveMusic("An");
+				Option[4].setString("Musik " + toString(XMLDoc.loadMusic()));
+				break;
+			}
+			else
+			{
+				XMLDoc.saveMusic("Aus");
+				Option[4].setString("Musik " + toString(XMLDoc.loadMusic()));
+				break;
+			}
+		}
+		case 5:
+		{
+			if(XMLDoc.loadSchwierigkeitIndex() > 0)
+			{
+				if(XMLDoc.loadSchwierigkeitIndex() == 2)
+				{
+					XMLDoc.saveSchwierigkeitIndex(1);
+					XMLDoc.saveSchwierigkeit("Mittel");
+					Option[5].setString("Schwierigkeit " + toString(XMLDoc.loadSchwierigkeit()));
+					break;
+				}
+				else
+				{
+					XMLDoc.saveSchwierigkeitIndex(0);
+					XMLDoc.saveSchwierigkeit("Leicht");
+					Option[5].setString("Schwierigkeit " + toString(XMLDoc.loadSchwierigkeit()));			
+					break;
+				}
+			}
+			else
+			{
+				XMLDoc.saveSchwierigkeitIndex(2);
+				XMLDoc.saveSchwierigkeit("Schwer");
+				Option[5].setString("Schwierigkeit " + toString(XMLDoc.loadSchwierigkeit()));
+				break;
+			}
+		}
+		case 6:
+		{
+			if(XMLDoc.loadPlayerName() == "Gott")
+			{
+				// Bestenliste zurücksetzen.
+				break;
+			}
+			break;
 		}
 	} 
 }

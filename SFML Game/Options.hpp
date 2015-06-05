@@ -4,7 +4,7 @@
 #include "XMLHandler.hpp"
 
 // Definierung von der Maximalen Menüpunkte
-#define MAX_MENU_ITEMS 5
+#define MAX_MENU_ITEMS 8
 
 class Options : public sf::Drawable
 {
@@ -41,14 +41,6 @@ private:
 	// Ausgewähltes Optionsfeld
 	int selectedItemIndex;
 
-	// Ausgewählte Auflösung
-	int selectedWindowIndex;
-
-	// x Wert
-	int xWindow;
-
-	// y Wert
-	int yWindow;
 
 	// Font für den Text
 	sf::Font font;

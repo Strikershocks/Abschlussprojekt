@@ -158,7 +158,7 @@ int main()
 											Eingabe = true;
 										break;
 									}
-									case 4:
+									case 7:
 									{
 										Auswahl = 0;
 										break;

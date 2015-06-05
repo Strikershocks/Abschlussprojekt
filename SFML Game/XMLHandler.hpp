@@ -1,7 +1,7 @@
 #pragma once
 #include "rapidxml.hpp"
-#include "rapidxml_iterators.hpp"
 #include "rapidxml_print.hpp"
+#include "rapidxml_iterators.hpp"
 #include "rapidxml_utils.hpp"
 #include "Include\StringHelpers.hpp"
 
@@ -13,15 +13,18 @@ public:
 	XMLHandler(void);
 	~XMLHandler(void);
 
-	// Reinladen des XMLDocs
-	void parseXMLDoc();
-
 	// XML Getter
 	std::string loadPlayerName();
 	int loadPlayerSkinIndex();
 	int loadWinX();
 	int loadWinY();
 	int loadAliasing();
+	std::string loadMusic();
+	std::string loadSchwierigkeit();
+	std::string loadSteuerung();
+	int loadWindowIndex();
+	int loadSchwierigkeitIndex();
+
 	std::string loadRanking(int index);
 
 	// XML Setter
@@ -29,17 +32,17 @@ public:
 	void savePlayerSkinIndex(int index);
 	void saveWinXY(int x, int y);
 	void saveAliasing(int Stufe);
-	void initNode(std::string ChildNode);
-	void initAttribut(std::string Attribut);
+	void saveRanking(std::string name, std::string Time, int index);
+	void saveSchwierigkeit(std::string Schwierigkeit);
+	void saveMusic(std::string An);
+	void saveSteuerung(std::string Steuerung);
+	void saveWindowIndex(int index);
+	void saveSchwierigkeitIndex(int index);
 
 	// Speichern des Dokuments
 	void XMLSave();
 
 private:
 	xml_document<> doc;
-	xml_node<> *pRoot;
-	// Fehler hängt hiermit zusammen
-	xml_attribute<> *pAttr; 
-	xml_node<> *pNode;
 };
 
