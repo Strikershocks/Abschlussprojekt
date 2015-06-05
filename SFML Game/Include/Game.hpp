@@ -1,8 +1,12 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "Map.hpp";
+#include "Map.hpp"
 #include "AnimatedSprite.hpp"
+#include "XMLHandler.hpp"
+#include "Include\StringHelpers.hpp"
+#include "Spieler.hpp"
+#include <iostream>
 
 class Game : private sf::NonCopyable
 {
@@ -13,6 +17,12 @@ class Game : private sf::NonCopyable
 	private:
 		// Event handler
 		void processEvents();
+
+		// Maussteuerung
+		void MausSteuerung();
+
+		// Aktualisieren Playerposition.
+		void initPlayerPosition();
 
 		// Animations auswahl nach Player auswahl.
 		void AnimationSelect(std::string PlayerModel);
@@ -31,6 +41,11 @@ class Game : private sf::NonCopyable
 		// Nicht veränderbare Spielergeschwindigkeit
 		static const float PlayerSpeed;
 		static const sf::Time TimePerFrame;
+
+		//einfügen des XML Handlers.
+		XMLHandler XMLDoc;
+
+		//Spieler Player(std::string Model, std::string Name);
 
 		// Animation für Links
 		Animation walkingAnimationLeft;
@@ -66,5 +81,7 @@ class Game : private sf::NonCopyable
 		bool StopLinks;
 		bool StopOben;
 		bool StopUnten;
+		int PlayerX;
+		int PlayerY;
 };
 

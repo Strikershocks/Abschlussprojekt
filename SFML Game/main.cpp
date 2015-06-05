@@ -2,7 +2,6 @@
 #include "MENU.hpp"
 #include "Options.hpp"
 #include "XMLHandler.hpp"
-
 #include <stdexcept>
 #include <iostream>
 

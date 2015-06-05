@@ -1,6 +1,5 @@
 #include "Include\Game.hpp"
-#include "Include\StringHelpers.hpp"
-#include <iostream>
+
 // Spieler Geschwindigkeit + TimePerFrame
 const float Game::PlayerSpeed = 200.f;
 const sf::Time Game::TimePerFrame = sf::seconds(1.f/60.f);
@@ -14,7 +13,8 @@ Game::Game(int x, int y, int Aliasing, std::string PlayerModel) : Window(sf::Vid
 	settings.antialiasingLevel = Aliasing;
 	this->x = x;
 	this->y = y;
-	World.SetWindowSize(x, y);
+	World.SetWindowSize(1 ,x, y);
+	//Player(PlayerModel, XMLDoc.loadPlayerName());
 
 	// Standard Werte Setzen.
 	Texture;
@@ -70,7 +70,7 @@ void Game::run()
 	{
 		sf::Time frameTime = frameClock.restart();
 		timeSinceLastUpdate += frameTime;
-		MapBegrenzung();
+		initPlayerPosition();
 
 		while (timeSinceLastUpdate > TimePerFrame)
 		{
@@ -109,13 +109,32 @@ void Game::processEvents()
 		switch (event.type)
 		{
 			case sf::Event::KeyPressed:
-				handlePlayerInput(event.key.code, true);
-				break;
-
+				{
+					if(XMLDoc.loadSteuerung() == "Tastatur")
+					{
+						handlePlayerInput(event.key.code, true);
+						break;
+					}
+					break;
+				}
 			case sf::Event::KeyReleased:
-				handlePlayerInput(event.key.code, false);
-				break;
-
+				{
+					if(XMLDoc.loadSteuerung() == "Tastatur")
+					{
+						handlePlayerInput(event.key.code, false);
+						break;
+					}
+					break;
+				}
+			case sf::Event::MouseButtonPressed:
+				{
+					if(XMLDoc.loadSteuerung() == "Maus")
+					{
+						MausSteuerung();
+						break;
+					}
+					break;
+				}
 			case sf::Event::Closed:
 				Window.close();
 				break;
@@ -128,20 +147,10 @@ void Game::update(sf::Time elapsedTime)
 	movement.x = 0.f;
 	movement.y = 0.f;
 
-	// Wenn nach Oben laufen
+	// Wenn nach Oben Springen
 	if (IsMovingUp && StopOben != true)
-		movement.y -= PlayerSpeed;
-
-	// Wenn nach Unten laufen
-	if (IsMovingDown && StopUnten != true)
-		movement.y += PlayerSpeed;
-		
-	// Wenn Links laufen
-	if (IsMovingLeft && StopLinks != true)
 	{
-		movement.x -= PlayerSpeed;
-		currentAnimation = &walkingAnimationLeft;	
-		noKeyWasPressed = false;
+		movement.y -= PlayerSpeed;
 	}
 
 	// Wenn Rechts laufen
@@ -176,30 +185,15 @@ void Game::AnimationSelect(std::string PlayerModel)
 	if(PlayerModel != "HinagikuSprite.png")
 	{
 		// Animation setzen für Rechts Bewegen.
-		walkingAnimationLeft.setSpriteSheet(Texture);
-		walkingAnimationLeft.addFrame(sf::IntRect(32, 32, 32, 32));
-		walkingAnimationLeft.addFrame(sf::IntRect(64, 32, 32, 32));
-		walkingAnimationLeft.addFrame(sf::IntRect(32, 32, 32, 32));
-		walkingAnimationLeft.addFrame(sf::IntRect( 0, 32, 32, 32));
-
-		// Animation setzen für Links Bewegen.
 		walkingAnimationRight.setSpriteSheet(Texture);
 		walkingAnimationRight.addFrame(sf::IntRect(32, 64, 32, 32));
 		walkingAnimationRight.addFrame(sf::IntRect(64, 64, 32, 32));
 		walkingAnimationRight.addFrame(sf::IntRect(32, 64, 32, 32));
 		walkingAnimationRight.addFrame(sf::IntRect( 0, 64, 32, 32));
-
 	}
 	else if(PlayerModel == "HinagikuSprite.png")
 	{
 		// Animation setzen für Rechts Bewegen.
-		walkingAnimationLeft.setSpriteSheet(Texture);
-		walkingAnimationLeft.addFrame(sf::IntRect(32, 48, 32, 48));
-		walkingAnimationLeft.addFrame(sf::IntRect(64, 48, 32, 48));
-		walkingAnimationLeft.addFrame(sf::IntRect(32, 48, 32, 48));
-		walkingAnimationLeft.addFrame(sf::IntRect( 0, 48, 32, 48));
-
-		// Animation setzen für Links Bewegen.
 		walkingAnimationRight.setSpriteSheet(Texture);
 		walkingAnimationRight.addFrame(sf::IntRect(32, 96, 32, 48));
 		walkingAnimationRight.addFrame(sf::IntRect(64, 96, 32, 48));
@@ -208,46 +202,14 @@ void Game::AnimationSelect(std::string PlayerModel)
 	}
 }
 
-void Game::MapBegrenzung()
+void Game::initPlayerPosition()
 {
 	// Damit bekommt man beide Postionen.
-	int PlayerX = animatedSprite.getPosition().x;
-	int PlayerY = animatedSprite.getPosition().y;
+	PlayerX = animatedSprite.getPosition().x;
+	PlayerY = animatedSprite.getPosition().y;
+	World.set_player_pos(PlayerX, PlayerY);
+}
 
-	// Zur Überprüfung der Koordinaten
-	// std::cout << "X: " << PlayerX << " " << "Y: " << PlayerY << std::endl;
-
-	// Wenn Links oder Rechts am Rand überschreitung Droht.
-	if(PlayerX >= x-30 || PlayerX <= 0)
-	{
-		if(PlayerX >= x-30)
-		{
-			StopRechts = true;
-			return;
-		}
-		else
-		{
-			StopLinks = true;
-			return;
-		}
-	}
-	StopLinks = false;
-	StopRechts = false;
-
-	// Wenn Oben oder Unten überschreitung Droht.
-	if(PlayerY >= y-30 || PlayerY <= 0)
-	{
-		if(PlayerY >= y-30)
-		{
-			StopUnten = true;
-			return;
-		}
-		else
-		{
-			StopOben = true;
-			return;
-		}
-	}
-	StopOben = false;
-	StopUnten = false;
+void Game::MausSteuerung()
+{
 }

@@ -12,7 +12,7 @@ class Spieler : public sf::Drawable
 {
 public:
 	//Konstruktor mit Namen und Figur
-	Spieler(std::string model,std::string name);
+	Spieler(std::string model, std::string name);
 
 	//Modelnamen setzen
 	void setModel(std::string model);

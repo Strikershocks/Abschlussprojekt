@@ -7,6 +7,6 @@
 	<RankingTime Time1="0:00" Time2="0:00" Time3="0:00" Time4="0:00" Time5="0:00" Time6="0:00" Time7="0:00" Time8="0:00" Time9="0:00" Time10="0:00"/>
 	<Schwierigkeit Auswahl="Leicht" Index="0"/>
 	<Music An="Aus"/>
-	<Steuerung Maus="Maus"/>
+	<Steuerung Maus="Tastatur"/>
 </Options>
 

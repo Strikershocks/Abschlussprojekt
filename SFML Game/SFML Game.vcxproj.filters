@@ -45,6 +45,12 @@
     <ClCompile Include="Meldungen.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="Obstacle.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Wall.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Font Include="Resources\Sansation.ttf">
@@ -92,6 +98,12 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Meldungen.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Obstacle.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Wall.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
