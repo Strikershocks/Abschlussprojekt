@@ -2,6 +2,9 @@
 
 // Spieler Geschwindigkeit + TimePerFrame
 const float Game::PlayerSpeed = 200.f;
+const float Game::JumpSpeed = 100.0f;
+const float Game::Gravity = 50;
+
 const sf::Time Game::TimePerFrame = sf::seconds(1.f/60.f);
 
 sf::ContextSettings settings;
@@ -14,7 +17,6 @@ Game::Game(int x, int y, int Aliasing, std::string PlayerModel) : Window(sf::Vid
 	this->x = x;
 	this->y = y;
 	World.SetWindowSize(1 ,x, y);
-	//Player(PlayerModel, XMLDoc.loadPlayerName());
 
 	// Standard Werte Setzen.
 	Texture;
@@ -23,10 +25,10 @@ Game::Game(int x, int y, int Aliasing, std::string PlayerModel) : Window(sf::Vid
 	IsMovingDown = false;
 	IsMovingRight = false;
 	IsMovingLeft = false;
-	StopLinks = false;
-	StopOben = false;
+	Jump = false;
+	blockJump = false;
+	JumpHighest = false;
 	StopRechts = false;
-	StopLinks = false;
 	noKeyWasPressed = true;
 
 	// Setzen eines Frame Limits
@@ -72,16 +74,18 @@ void Game::run()
 		timeSinceLastUpdate += frameTime;
 		initPlayerPosition();
 
+
 		while (timeSinceLastUpdate > TimePerFrame)
 		{
 			timeSinceLastUpdate -= TimePerFrame;
-
 			processEvents();
 			update(TimePerFrame);
 		}
 
 		// Starten der gewünschten Animation
 		animatedSprite.play(*currentAnimation);
+		
+		GravityFall();
 		// Bewegen der Spielfigur / Sprite
 		animatedSprite.move(movement * frameTime.asSeconds());
 
@@ -130,7 +134,16 @@ void Game::processEvents()
 				{
 					if(XMLDoc.loadSteuerung() == "Maus")
 					{
-						MausSteuerung();
+						MausSteuerung(true);
+						break;
+					}
+					break;
+				}
+			case sf::Event::MouseButtonReleased:
+				{
+					if(XMLDoc.loadSteuerung() == "Maus")
+					{
+						MausSteuerung(false);
 						break;
 					}
 					break;
@@ -146,12 +159,6 @@ void Game::update(sf::Time elapsedTime)
 {
 	movement.x = 0.f;
 	movement.y = 0.f;
-
-	// Wenn nach Oben Springen
-	if (IsMovingUp && StopOben != true)
-	{
-		movement.y -= PlayerSpeed;
-	}
 
 	// Wenn Rechts laufen
 	if (IsMovingRight && StopRechts != true)
@@ -174,7 +181,12 @@ void Game::render()
 void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
 {	
 	if (key == sf::Keyboard::W || key == sf::Keyboard::Up)
-		IsMovingUp = isPressed;
+	{
+		if(Jump == false)
+		{
+			Jump = true;
+		}
+	}
 	else if (key == sf::Keyboard::D || key == sf::Keyboard::Right)
 		IsMovingRight = isPressed;
 }
@@ -210,6 +222,64 @@ void Game::initPlayerPosition()
 	World.set_player_pos(PlayerX, PlayerY);
 }
 
-void Game::MausSteuerung()
+void Game::MausSteuerung(bool isPressed)
 {
+	// Speichern der Mausposition X,Y im Fenster.
+	localPositionMouse = sf::Mouse::getPosition(Window); 
+
+	if(localPositionMouse.x > PlayerX && isPressed == true)
+	{
+		IsMovingRight = true;
+		return;
+	}
+	else
+	{
+		IsMovingRight = false;
+	}
+
+	// Ansonsten Prüfen ob die Maus weiter rechts als der Player ist.
+	if(localPositionMouse.y < PlayerY + 10 && isPressed == true)
+	{
+		// Fehler liegt im Jump.
+		if(blockJump == false)
+		{
+			Jump = true;
+		}
+		return;
+	}
+}
+
+void Game::GravityFall()
+{
+	if(JumpHighest == true)
+	{
+		// 535 GroundY Position
+		if(PlayerY + 32 < 535 || movement.y < 0)
+		{
+			movement.y += Gravity;
+		}
+		else
+		{
+			// Postion über dem Boden Setzen.
+			animatedSprite.setPosition(PlayerX, 535 - 32);
+			movement.y = 0;
+			JumpHighest = false;
+			Jump = false;
+			blockJump = false;
+		}
+	}
+	else if(Jump == true)
+	{
+		if(PlayerY - 32 > 200 || movement.y < 0)
+		{
+			movement.y += JumpSpeed;
+		}
+		else
+		{
+			// Position kurz unter Höchsten Jump Punkt setzen.
+			animatedSprite.setPosition(PlayerX, 200 + 32);
+			movement.y = 0;
+			JumpHighest = true;
+		}
+	}
 }

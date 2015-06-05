@@ -18,8 +18,9 @@ class Game : private sf::NonCopyable
 		// Event handler
 		void processEvents();
 
+		void GravityFall();
 		// Maussteuerung
-		void MausSteuerung();
+		void MausSteuerung(bool isPressed);
 
 		// Aktualisieren Playerposition.
 		void initPlayerPosition();
@@ -33,13 +34,10 @@ class Game : private sf::NonCopyable
 		// Render sorgt für das Drawn usw.
 		void render();
 
-		// Begrenzt die Map bzw. den Bereich in dem sich der Spieler bewegen kann.
-		void MapBegrenzung();
-
 		void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
 		
 		// Nicht veränderbare Spielergeschwindigkeit
-		static const float PlayerSpeed;
+		static const float PlayerSpeed, JumpSpeed, Gravity;
 		static const sf::Time TimePerFrame;
 
 		//einfügen des XML Handlers.
@@ -59,6 +57,7 @@ class Game : private sf::NonCopyable
 		// set up AnimatedSprite
 		AnimatedSprite animatedSprite;
 
+		// Laden der Welt
 		Map World;
 
 		sf::RenderWindow Window;
@@ -72,15 +71,17 @@ class Game : private sf::NonCopyable
 		int x, y;
 
 		std::size_t StatisticsNumFrames;
+		sf::Vector2i localPositionMouse;
 		bool IsMovingUp;
 		bool IsMovingDown;
 		bool IsMovingRight;
 		bool IsMovingLeft;
 		bool noKeyWasPressed;
 		bool StopRechts;
-		bool StopLinks;
-		bool StopOben;
+		bool blockJump;
+		bool Jump;
 		bool StopUnten;
+		bool JumpHighest;
 		int PlayerX;
 		int PlayerY;
 };
