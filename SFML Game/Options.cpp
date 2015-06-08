@@ -15,35 +15,26 @@ Options::Options(float width, float height)
 		// handle error
 	}
 
-	Option[0].setFont(font);
+	for(int j = 0; j < MAX_MENU_ITEMS; j++)
+	{
+		Option[j].setFont(font);
+		Option[j].setColor(sf::Color::White);
+		Option[j].setPosition(sf::Vector2f(width / 4, height / (MAX_MENU_ITEMS + 1) * (j+1)));
+	}
+
+
 	Option[0].setColor(sf::Color::Red);
 	Option[0].setString("Spielername: " + PlayerName);
-	Option[0].setPosition(sf::Vector2f(width / 4, height / (MAX_MENU_ITEMS + 1) * 1));
 
-	Option[1].setFont(font);
-	Option[1].setColor(sf::Color::White);
 	Option[1].setString("Anti-Aliasing " + toString(XMLDoc.loadAliasing()));
-	Option[1].setPosition(sf::Vector2f(width / 4, height / (MAX_MENU_ITEMS + 1) * 2));
 
-	Option[2].setFont(font);
-	Option[2].setColor(sf::Color::White);
 	Option[2].setString("Fenstergröße " + toString(XMLDoc.loadWinX()) + 'x' + toString(XMLDoc.loadWinY()));
-	Option[2].setPosition(sf::Vector2f(width / 4, height / (MAX_MENU_ITEMS + 1) * 3));
 
-	Option[3].setFont(font);
-	Option[3].setColor(sf::Color::White);
 	Option[3].setString("Steuerung " + toString(XMLDoc.loadSteuerung()));
-	Option[3].setPosition(sf::Vector2f(width / 4, height / (MAX_MENU_ITEMS + 1) * 4));
-
-	Option[4].setFont(font);
-	Option[4].setColor(sf::Color::White);
+	
 	Option[4].setString("Musik " + toString(XMLDoc.loadMusic()));
-	Option[4].setPosition(sf::Vector2f(width / 4, height / (MAX_MENU_ITEMS + 1) * 5));
 
-	Option[5].setFont(font);
-	Option[5].setColor(sf::Color::White);
 	Option[5].setString("Schwierigkeit " + toString(XMLDoc.loadSchwierigkeit()));
-	Option[5].setPosition(sf::Vector2f(width / 4, height / (MAX_MENU_ITEMS + 1) * 6));
 
 	if(PlayerName == "Gott")
 	{
@@ -54,8 +45,6 @@ Options::Options(float width, float height)
 		i++;
 	}
 
-	Option[7].setFont(font);
-	Option[7].setColor(sf::Color::White);
 	Option[7].setString("Zurück");
 	Option[7].setPosition(sf::Vector2f(width / 4, height / (MAX_MENU_ITEMS + 1) * i));
 }

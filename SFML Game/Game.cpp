@@ -9,7 +9,7 @@ const sf::Time Game::TimePerFrame = sf::seconds(1.f/60.f);
 
 sf::ContextSettings settings;
 // set up AnimatedSprite
- AnimatedSprite animatedSprite(sf::seconds(0.2), true, false);
+AnimatedSprite animatedSprite(sf::seconds(0.2), true, false);
 
 Game::Game(int x, int y, int Aliasing, std::string PlayerModel) : Window(sf::VideoMode(x, y), "Test Game", sf::Style::Close, settings)
 {
@@ -17,6 +17,11 @@ Game::Game(int x, int y, int Aliasing, std::string PlayerModel) : Window(sf::Vid
 	this->x = x;
 	this->y = y;
 	World.SetWindowSize(1 ,x, y);
+	Spieler Player;
+
+	Player.setModel(PlayerModel);
+	Player.setName(XMLDoc.loadPlayerName());
+	Player.initSpieler();
 
 	// Standard Werte Setzen.
 	Font;
@@ -60,24 +65,25 @@ void Game::run()
 			update(TimePerFrame);
 		}
 
-		
 		// Starten der gewünschten Animation
-		animatedSprite.play(*currentAnimation);
-		
+		Player.StartAnimation();
+	
 		GravityFall();
+
 		// Bewegen der Spielfigur / Sprite
-		animatedSprite.move(movement * frameTime.asSeconds());
+		Player.BewegenSpieler(movement, frameTime);
 
 		// Wenn keine Taste gedrückt, Animation stoppen.
 		if (noKeyWasPressed)
         {
-			animatedSprite.stop();
+			Player.StopAnimation();
         }
 
 		noKeyWasPressed = true;
 
 		// Animation Updaten.
-		animatedSprite.update(frameTime);
+		Player.UpdateAnimation(frameTime);
+
 		// Drawn des Games
 		render();
 	}
@@ -143,7 +149,7 @@ void Game::update(sf::Time elapsedTime)
 	if (IsMovingRight && StopRechts != true)
 	{
 		movement.x += PlayerSpeed;
-		currentAnimation = &walkingAnimationRight;
+		Player.ChangeAnimation(1);
 		noKeyWasPressed = false;
 	}
 }
@@ -152,7 +158,7 @@ void Game::render()
 {
 	Window.clear();	
 	Window.draw(World);
-	Window.draw(animatedSprite);
+	Window.draw(Player);
 	Window.display();
 }
 
@@ -170,35 +176,11 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
 		IsMovingRight = isPressed;
 }
 
-// Animations auswahl nach Player auswahl.
-void Game::AnimationSelect(std::string PlayerModel)
-{
-	if(PlayerModel != "HinagikuSprite.png")
-	{
-		// Animation setzen für Rechts Bewegen.
-		walkingAnimationRight.setSpriteSheet(Texture);
-		walkingAnimationRight.addFrame(sf::IntRect(32, 64, 32, 32));
-		walkingAnimationRight.addFrame(sf::IntRect(64, 64, 32, 32));
-		walkingAnimationRight.addFrame(sf::IntRect(32, 64, 32, 32));
-		walkingAnimationRight.addFrame(sf::IntRect( 0, 64, 32, 32));
-	}
-	else if(PlayerModel == "HinagikuSprite.png")
-	{
-		// Animation setzen für Rechts Bewegen.
-		walkingAnimationRight.setSpriteSheet(Texture);
-		walkingAnimationRight.addFrame(sf::IntRect(32, 96, 32, 48));
-		walkingAnimationRight.addFrame(sf::IntRect(64, 96, 32, 48));
-		walkingAnimationRight.addFrame(sf::IntRect(32, 96, 32, 48));
-		walkingAnimationRight.addFrame(sf::IntRect( 0, 96, 32, 48));
-	}
-}
-
 void Game::initPlayerPosition()
 {
-	// Damit bekommt man beide Postionen.
-	PlayerX = animatedSprite.getPosition().x;
-	PlayerY = animatedSprite.getPosition().y;
-	World.set_player_pos(PlayerX, PlayerY);
+	// Der Welt wird die Spielerposition übergeben.
+	std::cout << Player.getX() << Player.getY() << std::endl;
+	World.set_player_pos(Player.getX(), Player.getY());
 }
 
 void Game::MausSteuerung(bool isPressed)
@@ -233,14 +215,14 @@ void Game::GravityFall()
 	if(JumpHighest == true)
 	{
 		// 535 GroundY Position
-		if(PlayerY + 32 < 535 || movement.y < 0)
+		if(Player.getY() + 32 < 535 || movement.y < 0)
 		{
 			movement.y += Gravity;
 		}
 		else
 		{
 			// Postion über dem Boden Setzen.
-			animatedSprite.setPosition(PlayerX, 535 - 32);
+			Player.SetAnimationPosition(Player.getX(),503);
 			movement.y = 0;
 			JumpHighest = false;
 			Jump = false;
@@ -249,14 +231,14 @@ void Game::GravityFall()
 	}
 	else if(Jump == true)
 	{
-		if(PlayerY - 32 > 200 || movement.y < 0)
+		if(Player.getY() - 32 > 200 || movement.y < 0)
 		{
 			movement.y += JumpSpeed;
 		}
 		else
 		{
 			// Position kurz unter Höchsten Jump Punkt setzen.
-			animatedSprite.setPosition(PlayerX, 200 + 32);
+			Player.SetAnimationPosition(Player.getX(), 232);
 			movement.y = 0;
 			JumpHighest = true;
 		}

@@ -17,7 +17,9 @@ class Game : private sf::NonCopyable
 		// Event handler
 		void processEvents();
 
+		//Gravitation nach unten.
 		void GravityFall();
+
 		// Maussteuerung
 		void MausSteuerung(bool isPressed);
 
@@ -43,7 +45,7 @@ class Game : private sf::NonCopyable
 		Map World;
 
 		// Laden des Spielers
-		Spieler Player(std::string Model, std::string Name);
+		Spieler Player;
 
 		sf::RenderWindow Window;
 		sf::Font Font;

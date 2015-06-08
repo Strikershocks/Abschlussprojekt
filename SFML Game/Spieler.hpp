@@ -13,7 +13,7 @@ class Spieler : public sf::Drawable
 {
 public:
 	//Konstruktor mit Namen und Figur
-	Spieler(std::string model, std::string name);
+	Spieler();
 
 	//Modelnamen setzen
 	void setModel(std::string model);
@@ -21,8 +21,25 @@ public:
 	// Start der Animation
 	void StartAnimation();
 
+	// Initialisierung Spieler
+	void initSpieler();
+
+	// Animationsauswahl
+	void AnimationSelect(std::string PlayerModel);
+
+	// Setzen der Animationspostion
+	void SetAnimationPosition(float x, float y);
+
 	// Stop der Animation.
 	void StopAnimation();
+
+	// Ändern der Animation
+	void ChangeAnimation(int index);
+
+	// Aktuallisiert Animation
+	void UpdateAnimation(sf::Time frameTime);
+
+	void BewegenSpieler(sf::Vector2f movement, sf::Time frameTime);
 
 	//Spielernamen setzen
 	void setName(std::string name);
@@ -66,12 +83,6 @@ private:
 	//Anzahl der Leben
 	int Leben;
 
-	//setzt die Spielfigur anhand des Modelnamen
-	void setTextureModel(std::string name);
-
-	// Animations auswahl nach Player auswahl.
-	void AnimationSelect(std::string PlayerModel);
-
 	// Animation für Links
 	Animation walkingAnimationLeft;
 
@@ -83,10 +94,6 @@ private:
 
 	// set up AnimatedSprite
 	AnimatedSprite animatedSprite;
-
-	//Spielfigur
-	sf::Sprite Model;
-	sf::Texture texture;
 
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
