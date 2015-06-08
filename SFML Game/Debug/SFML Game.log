@@ -1,25 +1,16 @@
-﻿Der Buildvorgang wurde am 05.06.2015 14:06:31 gestartet.
+﻿Der Buildvorgang wurde am 08.06.2015 11:16:23 gestartet.
      1>Projekt "C:\Users\Niklas\Documents\GitHub\Abschlussprojekt\SFML Game\SFML Game.vcxproj" auf Knoten "2", Build Ziel(e).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I..\SFML\include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D SFML_STATIC /D _MBCS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Game.cpp Map.cpp Obstacle.cpp Wall.cpp main.cpp
-         Wall.cpp
-         Obstacle.cpp
-     1>c:\users\niklas\documents\github\abschlussprojekt\sfml game\obstacle.cpp(20): warning C4244: 'Argument': Konvertierung von 'int' in 'float', möglicher Datenverlust
-         Map.cpp
-     1>c:\users\niklas\documents\github\abschlussprojekt\sfml game\map.cpp(79): warning C4244: 'Argument': Konvertierung von 'int' in 'float', möglicher Datenverlust
-     1>c:\users\niklas\documents\github\abschlussprojekt\sfml game\map.cpp(106): warning C4244: 'Argument': Konvertierung von 'int' in 'float', möglicher Datenverlust
-     1>c:\users\niklas\documents\github\abschlussprojekt\sfml game\map.cpp(152): warning C4018: '<': Konflikt zwischen 'signed' und 'unsigned'
-     1>c:\users\niklas\documents\github\abschlussprojekt\sfml game\map.cpp(159): warning C4018: '<': Konflikt zwischen 'signed' und 'unsigned'
-     1>c:\users\niklas\documents\github\abschlussprojekt\sfml game\map.cpp(166): warning C4018: '<': Konflikt zwischen 'signed' und 'unsigned'
-         Game.cpp
-     1>c:\users\niklas\documents\github\abschlussprojekt\sfml game\game.cpp(12): warning C4305: 'Argument': Verkürzung von 'double' in 'float'
-     1>c:\users\niklas\documents\github\abschlussprojekt\sfml game\game.cpp(220): warning C4244: '=': Konvertierung von 'const float' in 'int', möglicher Datenverlust
-     1>c:\users\niklas\documents\github\abschlussprojekt\sfml game\game.cpp(221): warning C4244: '=': Konvertierung von 'const float' in 'int', möglicher Datenverlust
-     1>c:\users\niklas\documents\github\abschlussprojekt\sfml game\game.cpp(264): warning C4244: 'Argument': Konvertierung von 'int' in 'float', möglicher Datenverlust
-     1>c:\users\niklas\documents\github\abschlussprojekt\sfml game\game.cpp(280): warning C4244: 'Argument': Konvertierung von 'int' in 'float', möglicher Datenverlust
-         Code wird generiert...
-         Überspringen... (keine relevanten Änderungen gefunden)
-         main.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I..\SFML\include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D SFML_STATIC /D _MBCS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Options.cpp
+         Options.cpp
+     1>c:\users\niklas\documents\github\abschlussprojekt\sfml game\options.cpp(7): warning C4244: '=': Konvertierung von 'float' in 'int', möglicher Datenverlust
+     1>c:\users\niklas\documents\github\abschlussprojekt\sfml game\options.cpp(8): warning C4244: '=': Konvertierung von 'float' in 'int', möglicher Datenverlust
+     1>c:\users\niklas\documents\github\abschlussprojekt\sfml game\options.cpp(372): warning C4244: 'Argument': Konvertierung von 'int' in 'float', möglicher Datenverlust
+     1>c:\users\niklas\documents\github\abschlussprojekt\sfml game\options.cpp(373): warning C4244: 'Argument': Konvertierung von 'int' in 'float', möglicher Datenverlust
+     1>c:\users\niklas\documents\github\abschlussprojekt\sfml game\options.cpp(378): warning C4244: 'Argument': Konvertierung von 'int' in 'float', möglicher Datenverlust
+     1>c:\users\niklas\documents\github\abschlussprojekt\sfml game\options.cpp(395): warning C4244: 'Argument': Konvertierung von 'int' in 'float', möglicher Datenverlust
+     1>c:\users\niklas\documents\github\abschlussprojekt\sfml game\options.cpp(396): warning C4244: 'Argument': Konvertierung von 'int' in 'float', möglicher Datenverlust
+     1>c:\users\niklas\documents\github\abschlussprojekt\sfml game\options.cpp(401): warning C4244: 'Argument': Konvertierung von 'int' in 'float', möglicher Datenverlust
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Niklas\Documents\GitHub\Abschlussprojekt\Debug\SFML Game.exe" /INCREMENTAL /NOLOGO /LIBPATH:..\SFML\lib "sfml-network-s-d.lib" "sfml-audio-s-d.lib" "sfml-graphics-s-d.lib" "sfml-window-s-d.lib" "sfml-system-s-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Niklas\Documents\GitHub\Abschlussprojekt\Debug\SFML Game.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Niklas\Documents\GitHub\Abschlussprojekt\Debug\SFML Game.lib" /MACHINE:X86 Debug\AnimatedSprite.obj
          Debug\Animation.obj
@@ -38,4 +29,4 @@
 
 Build erfolgreich.
 
-Verstrichene Zeit 00:00:03.97
+Verstrichene Zeit 00:00:01.90

@@ -4,6 +4,8 @@ Options::Options(float width, float height)
 {
 	// Standard Werte in die Variablen füllen.
 	selectedItemIndex = 0;
+	WinX = width;
+	WinY = height;
 	PlayerName = XMLDoc.loadPlayerName();
 	changeSizeXY();
 	int i = 7;
@@ -69,6 +71,12 @@ void Options::MoveUp()
 	{
 		Option[selectedItemIndex].setColor(sf::Color::White);
 		selectedItemIndex--;
+		// Überspringen des Versteckten Menüpunktes
+		if(PlayerName != "Gott")
+		{
+			if(selectedItemIndex == 6)
+				selectedItemIndex--;
+		}
 		Option[selectedItemIndex].setColor(sf::Color::Red);
 	}
 }
@@ -79,6 +87,12 @@ void Options::MoveDown()
 	{
 		Option[selectedItemIndex].setColor(sf::Color::White);
 		selectedItemIndex++;
+		// Überspringen des Versteckten Menüpunktes
+		if(PlayerName != "Gott")
+		{
+			if(selectedItemIndex == 6)
+				selectedItemIndex++;
+		}
 		Option[selectedItemIndex].setColor(sf::Color::Red);
 	}
 }
@@ -350,11 +364,40 @@ void Options::setPlayerNameChar(char Char)
 	PlayerName += Char;
 	Option[0].setString("Spielername: " + PlayerName);
 	XMLDoc.savePlayerName(PlayerName);
+	if(PlayerName == "Gott")
+	{
+		Option[6].setFont(font);
+		Option[6].setColor(sf::Color::White);
+		Option[6].setString("Bestenliste zurücksetzen!");
+		Option[6].setPosition(sf::Vector2f(WinX / 4, WinY / (MAX_MENU_ITEMS + 1) * 7));
+		Option[7].setPosition(sf::Vector2f(WinX / 4, WinY / (MAX_MENU_ITEMS + 1) * 8));
+	}
+	else
+	{
+		Option[6].setColor(sf::Color::Transparent);
+		Option[7].setPosition(sf::Vector2f(WinX / 4, WinY / (MAX_MENU_ITEMS + 1) * 7));
+	}
 }
 
 void Options::delPlayerNameChar()
 {
 	// Löscht den letzen Char vom String und Aktuallisiert die Anzeige.
-	PlayerName.erase(PlayerName.end() - 1);
+	if(PlayerName.size() != 0)
+	{
+		PlayerName.erase(PlayerName.end() - 1);
+	}
 	Option[0].setString("Spielername: " + PlayerName);
+	if(PlayerName == "Gott")
+	{
+		Option[6].setFont(font);
+		Option[6].setColor(sf::Color::White);
+		Option[6].setString("Bestenliste zurücksetzen!");
+		Option[6].setPosition(sf::Vector2f(WinX / 4, WinY / (MAX_MENU_ITEMS + 1) * 7));
+		Option[7].setPosition(sf::Vector2f(WinX / 4, WinY / (MAX_MENU_ITEMS + 1) * 8));
+	}
+	else
+	{
+		Option[6].setColor(sf::Color::Transparent);
+		Option[7].setPosition(sf::Vector2f(WinX / 4, WinY / (MAX_MENU_ITEMS + 1) * 7));
+	}
 }

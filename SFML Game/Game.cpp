@@ -58,8 +58,6 @@ Game::Game(int x, int y, int Aliasing, std::string PlayerModel) : Window(sf::Vid
 	{
 		// Error Handling
 	}
-
-	
 }
 
 // Game Start Methode.

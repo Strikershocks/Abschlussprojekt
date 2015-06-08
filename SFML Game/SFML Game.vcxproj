@@ -75,6 +75,7 @@
     <ClCompile Include="AnimatedSprite.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="HintergrundSounds.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Meldungen.cpp" />
@@ -91,6 +92,7 @@
   <ItemGroup>
     <ClInclude Include="AnimatedSprite.hpp" />
     <ClInclude Include="Animation.hpp" />
+    <ClInclude Include="HintergrundSounds.hpp" />
     <ClInclude Include="Include\Game.hpp" />
     <ClInclude Include="Include\StringHelpers.hpp" />
     <ClInclude Include="Map.hpp" />

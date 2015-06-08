@@ -14,6 +14,17 @@ int main()
 		// Übergibt an Menue und Optionen die größe des Fensters.
 		int Auswahl = 0;
 		bool Eingabe = false;
+
+		// Background erstellen.
+		sf::Texture Background;
+		sf::Sprite BackgroundSprite;
+		
+		if (!Background.loadFromFile("Resources/Background/Aura.jpg"))
+		{
+			// error...
+		}
+		BackgroundSprite.setTexture(Background);
+
 		// Erstellt ein Fenster mit der größe 600x600.
 		sf::RenderWindow window(sf::VideoMode(600, 600), "Game Menü");
 		Options Optionen(window.getSize().x, window.getSize().y);
@@ -174,6 +185,7 @@ int main()
 				}
 			}
 			window.clear(sf::Color::Black);
+			window.draw(BackgroundSprite);
 			// Drawn von Optionen oder Menü bild.
 			if(Auswahl == 0)
 				window.draw(Menü);

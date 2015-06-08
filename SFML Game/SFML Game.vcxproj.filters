@@ -51,6 +51,9 @@
     <ClCompile Include="Wall.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="HintergrundSounds.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Font Include="Resources\Sansation.ttf">
@@ -104,6 +107,9 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Wall.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="HintergrundSounds.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

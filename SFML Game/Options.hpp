@@ -50,6 +50,10 @@ private:
 
 	// Spielername
 	std::string PlayerName;
+	
+	// Windows Größe
+	int WinX;
+	int WinY;
 
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
