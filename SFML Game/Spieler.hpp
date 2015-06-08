@@ -7,6 +7,7 @@
 **gesammelte Daten des Spielers (Spielfigur, Spielname)*/
 #include <iostream>
 #include "SFML/Graphics.hpp"
+#include "AnimatedSprite.hpp"
 
 class Spieler : public sf::Drawable
 {
@@ -16,6 +17,12 @@ public:
 
 	//Modelnamen setzen
 	void setModel(std::string model);
+
+	// Start der Animation
+	void StartAnimation();
+
+	// Stop der Animation.
+	void StopAnimation();
 
 	//Spielernamen setzen
 	void setName(std::string name);
@@ -48,6 +55,9 @@ private:
 	
 	//Spielername
 	std::string PlayerName;
+
+	// Texture vom Player
+	sf::Texture Texture;
 		
 	//Positionen x und y
 	int x;
@@ -58,6 +68,21 @@ private:
 
 	//setzt die Spielfigur anhand des Modelnamen
 	void setTextureModel(std::string name);
+
+	// Animations auswahl nach Player auswahl.
+	void AnimationSelect(std::string PlayerModel);
+
+	// Animation für Links
+	Animation walkingAnimationLeft;
+
+	// Animation für Rechts
+	Animation walkingAnimationRight;
+
+	// Zeiger auf Akutelle Animation
+	Animation* currentAnimation;
+
+	// set up AnimatedSprite
+	AnimatedSprite animatedSprite;
 
 	//Spielfigur
 	sf::Sprite Model;

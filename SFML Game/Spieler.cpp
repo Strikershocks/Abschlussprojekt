@@ -11,6 +11,25 @@ Spieler::Spieler(std::string model, std::string name)
 	setModel(model);
 	setName(name);
 	this->Leben = 3;
+
+	// Animation Standards setzen.
+	// Ausführung der Animations auswahl
+	AnimationSelect(PlayerModel);
+
+	// Setzen der Anfangsanimation
+	currentAnimation = &walkingAnimationRight;
+
+	// Setzen der Postion vom AnimationSprite
+	animatedSprite.setPosition(sf::Vector2f(535, 100));
+
+		// Textur wird geladen.
+	if(!Texture.loadFromFile("Resources/Textures/" + PlayerModel )) 
+	{
+		// Loading Error der PNG
+	}
+	Texture.setSmooth(true);
+
+
 }
 
 void Spieler::setModel(std::string model)

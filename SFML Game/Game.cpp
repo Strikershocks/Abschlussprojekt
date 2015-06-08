@@ -19,7 +19,6 @@ Game::Game(int x, int y, int Aliasing, std::string PlayerModel) : Window(sf::Vid
 	World.SetWindowSize(1 ,x, y);
 
 	// Standard Werte Setzen.
-	Texture;
 	Font;
 	IsMovingUp = false;
 	IsMovingDown = false;
@@ -33,25 +32,6 @@ Game::Game(int x, int y, int Aliasing, std::string PlayerModel) : Window(sf::Vid
 
 	// Setzen eines Frame Limits
 	 Window.setFramerateLimit(60);
-
-	// Textur wird geladen.
-	if(!Texture.loadFromFile("Resources/Textures/" + PlayerModel )) 
-	{
-		// Loading Error der PNG
-	}
-	Texture.setSmooth(true);
-
-	// Ausführung der Animations auswahl
-	AnimationSelect(PlayerModel);
-
-	// Setzen der Anfangsanimation
-	currentAnimation = &walkingAnimationRight;
-
-	// setzen der Fenster Dimision für die Animation.
-	 sf::Vector2i screenDimensions(x, y);
-
-	 // Setzen der Postion vom AnimationSprite
-	 animatedSprite.setPosition(sf::Vector2f(screenDimensions / 2));
 
 	// Schrift Art laden
 	if(!Font.loadFromFile("Resources/Sansation.ttf"))
@@ -80,6 +60,7 @@ void Game::run()
 			update(TimePerFrame);
 		}
 
+		
 		// Starten der gewünschten Animation
 		animatedSprite.play(*currentAnimation);
 		

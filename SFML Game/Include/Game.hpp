@@ -1,11 +1,10 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "Map.hpp"
-#include "AnimatedSprite.hpp"
-#include "XMLHandler.hpp"
 #include "Include\StringHelpers.hpp"
 #include "Spieler.hpp"
+#include "Map.hpp"
+#include "XMLHandler.hpp"
 #include <iostream>
 
 class Game : private sf::NonCopyable
@@ -25,9 +24,6 @@ class Game : private sf::NonCopyable
 		// Aktualisieren Playerposition.
 		void initPlayerPosition();
 
-		// Animations auswahl nach Player auswahl.
-		void AnimationSelect(std::string PlayerModel);
-
 		// Sorgt für die eigentliche vortbewegung
 		void update(sf::Time elapsedTime);
 
@@ -43,25 +39,13 @@ class Game : private sf::NonCopyable
 		//einfügen des XML Handlers.
 		XMLHandler XMLDoc;
 
-		//Spieler Player(std::string Model, std::string Name);
-
-		// Animation für Links
-		Animation walkingAnimationLeft;
-
-		// Animation für Rechts
-		Animation walkingAnimationRight;
-
-		// Zeiger auf Akutelle Animation
-		Animation* currentAnimation;
-
-		// set up AnimatedSprite
-		AnimatedSprite animatedSprite;
-
 		// Laden der Welt
 		Map World;
 
+		// Laden des Spielers
+		Spieler Player(std::string Model, std::string Name);
+
 		sf::RenderWindow Window;
-		sf::Texture Texture;
 		sf::Font Font;
 		sf::Clock frameClock;
 		sf::Time frameTime;

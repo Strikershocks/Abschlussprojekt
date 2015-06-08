@@ -21,7 +21,9 @@ public:
 
 	void Window_failNetwork();
 
+	void Window_failMusic();
 
+	void Abspann(float, float);
 
 private:
 	void CreateMeldung(std::string Titel, std::string MeldungText);
