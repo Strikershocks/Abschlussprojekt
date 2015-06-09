@@ -26,6 +26,7 @@ public:
 
 	// Getter PlayerModel
 	std::string getPlayerModel();
+
 	// Auswahl nach Rechts Player Model
 	void changePlayerRight();
 

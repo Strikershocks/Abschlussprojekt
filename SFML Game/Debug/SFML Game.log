@@ -1,13 +1,10 @@
-﻿Der Buildvorgang wurde am 08.06.2015 14:26:49 gestartet.
+﻿Der Buildvorgang wurde am 09.06.2015 14:45:01 gestartet.
      1>Projekt "C:\Users\Niklas\Documents\GitHub\Abschlussprojekt\SFML Game\SFML Game.vcxproj" auf Knoten "2", Build Ziel(e).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I..\SFML\include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D SFML_STATIC /D _MBCS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Meldungen.cpp Spieler.cpp
-         Spieler.cpp
-     1>c:\users\niklas\documents\github\abschlussprojekt\sfml game\spieler.cpp(44): warning C4244: 'return': Konvertierung von 'const float' in 'int', möglicher Datenverlust
-     1>c:\users\niklas\documents\github\abschlussprojekt\sfml game\spieler.cpp(49): warning C4244: 'return': Konvertierung von 'const float' in 'int', möglicher Datenverlust
-         Meldungen.cpp
-     1>c:\users\niklas\documents\github\abschlussprojekt\sfml game\meldungen.cpp(76): warning C4244: 'Argument': Konvertierung von 'float' in 'int', möglicher Datenverlust
-         Code wird generiert...
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I..\SFML\include /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D SFML_STATIC /D _MBCS /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Game.cpp
+         Game.cpp
+     1>c:\users\niklas\documents\github\abschlussprojekt\sfml game\game.cpp(18): warning C4244: 'Argument': Konvertierung von 'int' in 'float', möglicher Datenverlust
+     1>c:\users\niklas\documents\github\abschlussprojekt\sfml game\game.cpp(250): warning C4244: 'Argument': Konvertierung von 'int' in 'float', möglicher Datenverlust
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Niklas\Documents\GitHub\Abschlussprojekt\Debug\SFML Game.exe" /INCREMENTAL /NOLOGO /LIBPATH:..\SFML\lib "sfml-network-s-d.lib" "sfml-audio-s-d.lib" "sfml-graphics-s-d.lib" "sfml-window-s-d.lib" "sfml-system-s-d.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Niklas\Documents\GitHub\Abschlussprojekt\Debug\SFML Game.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Niklas\Documents\GitHub\Abschlussprojekt\Debug\SFML Game.lib" /MACHINE:X86 Debug\AnimatedSprite.obj
          Debug\Animation.obj
@@ -27,4 +24,4 @@
 
 Build erfolgreich.
 
-Verstrichene Zeit 00:00:02.41
+Verstrichene Zeit 00:00:01.74

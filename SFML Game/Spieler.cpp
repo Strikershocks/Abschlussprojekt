@@ -6,38 +6,38 @@
 **gesammelte Daten des Spielers (Spielfigur, Spielname)*/
 #include "Spieler.hpp"
 
+// Einstellen der animatedSprite
+AnimatedSprite animatedSprite(sf::seconds(0.2), true, false);
+
 Spieler::Spieler()
 {
 	this->Leben = 3;
-	SetAnimationPosition(100, 100);
-}
-
-void Spieler::setModel(std::string model)
-{
-	this->PlayerModel = model;
+	animatedSprite.setPosition(200, 200);
 }
 
 void Spieler::setName(std::string name)
 {this->PlayerName = name;}
 
-void Spieler::setposition(int x, int y)
+void Spieler::setPosition(int x, int y)
 {
 	this->x = x;
 	this->y = y;
 }
 
 void Spieler::MinusLeben(void)
-{this->Leben--;}
+{
+	this->Leben--;
+}
 
 void Spieler::PlusLeben(void)
-{this->Leben++;}
-
-
-std::string Spieler::getModel(void)
-{return this->PlayerModel;}
+{
+	this->Leben++;
+}
 
 std::string Spieler::getName(void)
-{return this->PlayerName;}
+{
+	return this->PlayerName;
+}
 
 int Spieler::getX()
 {
@@ -50,42 +50,19 @@ int Spieler::getY()
 }
 
 int Spieler::getLeben()
-{return this->Leben;}
-
-void Spieler::StartAnimation()
 {
-	animatedSprite.play(*currentAnimation);
+	return this->Leben;
 }
 
-void Spieler::StopAnimation()
+void Spieler::AnimationTest(sf::Vector2f movement, sf::Time frameTime, int index, std::string PlayerModel)
 {
-	animatedSprite.stop();
-}
-
-void Spieler::BewegenSpieler(sf::Vector2f movement, sf::Time frameTime)
-{
-	animatedSprite.move(movement * frameTime.asSeconds());
-}
-
-void Spieler::UpdateAnimation(sf::Time frameTime)
-{
-	animatedSprite.update(frameTime);
-}
-
-void Spieler::ChangeAnimation(int index)
-{
-	if(index == 1)
+	if(!Texture.loadFromFile("Resources/Textures/" + PlayerModel)) 
 	{
-		currentAnimation = &walkingAnimationRight;
+		// Loading Error der PNG
 	}
-	else
-	{
-	}
-}
 
-// Animations auswahl nach Player auswahl.
-void Spieler::AnimationSelect(std::string PlayerModel)
-{
+	Texture.setSmooth(true);
+
 	if(PlayerModel != "HinagikuSprite.png")
 	{
 		// Animation setzen für Rechts Bewegen.
@@ -104,31 +81,21 @@ void Spieler::AnimationSelect(std::string PlayerModel)
 		walkingAnimationRight.addFrame(sf::IntRect(32, 96, 32, 48));
 		walkingAnimationRight.addFrame(sf::IntRect( 0, 96, 32, 48));
 	}
-}
 
-void Spieler::SetAnimationPosition(float x, float y)
-{
-	animatedSprite.setPosition(x, y);
-}
+	Animation* currentAnimation = &walkingAnimationRight;
 
-void Spieler::initSpieler()
-{
-	// Animation Standards setzen.
-	// Ausführung der Animations auswahl
-	AnimationSelect(PlayerModel);
-
-	// Setzen der Anfangsanimation
-	currentAnimation = &walkingAnimationRight;
-
-	// Setzen der Postion vom AnimationSprite
-	animatedSprite.setPosition(sf::Vector2f(535, 100));
-
-		// Textur wird geladen.
-	if(!Texture.loadFromFile("Resources/Textures/" + PlayerModel)) 
+	if(index == 0)
 	{
-		// Loading Error der PNG
+		animatedSprite.play(*currentAnimation);
 	}
-	Texture.setSmooth(true);
+	else
+	{
+		animatedSprite.stop();
+	}
+	animatedSprite.move(movement * frameTime.asSeconds());
+	
+	// update AnimatedSprite
+    animatedSprite.update(frameTime);
 }
 
 void Spieler::draw(sf::RenderTarget& target, sf::RenderStates states) const

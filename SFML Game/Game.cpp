@@ -6,22 +6,20 @@ const float Game::JumpSpeed = 100.0f;
 const float Game::Gravity = 50;
 
 const sf::Time Game::TimePerFrame = sf::seconds(1.f/60.f);
-
 sf::ContextSettings settings;
-// set up AnimatedSprite
-AnimatedSprite animatedSprite(sf::seconds(0.2), true, false);
 
+// set up AnimatedSprite
 Game::Game(int x, int y, int Aliasing, std::string PlayerModel) : Window(sf::VideoMode(x, y), "Test Game", sf::Style::Close, settings)
 {
 	settings.antialiasingLevel = Aliasing;
 	this->x = x;
 	this->y = y;
-	World.SetWindowSize(1 ,x, y);
-	Spieler Player;
+	//
+	viewPlayer.setCenter(Player.getX()/2, Player.getY()/2);
+	viewPlayer.setViewport(sf::FloatRect(0, 0, 1.75f, 1.75f));
 
-	Player.setModel(PlayerModel);
-	Player.setName(XMLDoc.loadPlayerName());
-	Player.initSpieler();
+	World.SetWindowSize(1 ,x, y);
+	this->PlayerModel = PlayerModel;
 
 	// Standard Werte Setzen.
 	Font;
@@ -29,8 +27,8 @@ Game::Game(int x, int y, int Aliasing, std::string PlayerModel) : Window(sf::Vid
 	IsMovingDown = false;
 	IsMovingRight = false;
 	IsMovingLeft = false;
-	Jump = false;
-	blockJump = false;
+	StopJump = true;
+	StartJump = false;
 	JumpHighest = false;
 	StopRechts = false;
 	noKeyWasPressed = true;
@@ -50,39 +48,34 @@ void Game::run()
 {
 	// Initalisierung einer Uhr
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
+	Player.setName(XMLDoc.loadPlayerName());
+	Player.setPosition(200,200);
+
 	// Solange das Fenster Offen ist.
 	while (Window.isOpen())
 	{
 		sf::Time frameTime = frameClock.restart();
 		timeSinceLastUpdate += frameTime;
 		initPlayerPosition();
-
-
 		while (timeSinceLastUpdate > TimePerFrame)
 		{
 			timeSinceLastUpdate -= TimePerFrame;
 			processEvents();
 			update(TimePerFrame);
 		}
-
-		// Starten der gewünschten Animation
-		Player.StartAnimation();
 	
 		GravityFall();
+		GravityUp();
 
-		// Bewegen der Spielfigur / Sprite
-		Player.BewegenSpieler(movement, frameTime);
-
+		Player.AnimationTest(movement, frameTime, 0, PlayerModel);
+		viewUpdate();
 		// Wenn keine Taste gedrückt, Animation stoppen.
 		if (noKeyWasPressed)
         {
-			Player.StopAnimation();
+			Player.AnimationTest(movement, frameTime, 1, PlayerModel);
         }
 
 		noKeyWasPressed = true;
-
-		// Animation Updaten.
-		Player.UpdateAnimation(frameTime);
 
 		// Drawn des Games
 		render();
@@ -149,7 +142,7 @@ void Game::update(sf::Time elapsedTime)
 	if (IsMovingRight && StopRechts != true)
 	{
 		movement.x += PlayerSpeed;
-		Player.ChangeAnimation(1);
+		//Player.ChangeAnimation(1);
 		noKeyWasPressed = false;
 	}
 }
@@ -157,6 +150,7 @@ void Game::update(sf::Time elapsedTime)
 void Game::render()
 {
 	Window.clear();	
+	Window.setView(viewPlayer);
 	Window.draw(World);
 	Window.draw(Player);
 	Window.display();
@@ -167,10 +161,11 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
 {	
 	if (key == sf::Keyboard::W || key == sf::Keyboard::Up)
 	{
-		if(Jump == false)
+		if(StopJump == true)
 		{
-			Jump = true;
+			StartJump = true;
 		}
+		StopJump = false;
 	}
 	else if (key == sf::Keyboard::D || key == sf::Keyboard::Right)
 		IsMovingRight = isPressed;
@@ -188,7 +183,7 @@ void Game::MausSteuerung(bool isPressed)
 	// Speichern der Mausposition X,Y im Fenster.
 	localPositionMouse = sf::Mouse::getPosition(Window); 
 
-	if(localPositionMouse.x > PlayerX && isPressed == true)
+	if(localPositionMouse.x > Player.getX() && isPressed == true)
 	{
 		IsMovingRight = true;
 		return;
@@ -199,14 +194,34 @@ void Game::MausSteuerung(bool isPressed)
 	}
 
 	// Ansonsten Prüfen ob die Maus weiter rechts als der Player ist.
-	if(localPositionMouse.y < PlayerY + 10 && isPressed == true)
+	if(localPositionMouse.y < Player.getY() + 10 && isPressed == true)
 	{
-		// Fehler liegt im Jump.
-		if(blockJump == false)
+		if(StopJump = true)
 		{
-			Jump = true;
+			StartJump = true;
+			StopJump = false;
 		}
 		return;
+	}
+}
+
+void Game::GravityUp()
+{
+	// Wenn Sprung Gedrückt, solange nach Oben bis Sprungmax erreicht ist.
+	if(StartJump == true)
+	{
+		if(Player.getY() - 32 > 200 || movement.y < 0)
+		{
+			movement.y -= JumpSpeed;
+		}
+		else
+		{
+			// Position kurz unter Höchsten Jump Punkt setzen.
+			Player.setPosition(Player.getX(), 232);
+			movement.y = 0;
+			JumpHighest = true;
+			StartJump = false;
+		}
 	}
 }
 
@@ -222,25 +237,15 @@ void Game::GravityFall()
 		else
 		{
 			// Postion über dem Boden Setzen.
-			Player.SetAnimationPosition(Player.getX(),503);
+			Player.setPosition(Player.getX(), 590);
 			movement.y = 0;
 			JumpHighest = false;
-			Jump = false;
-			blockJump = false;
+			StopJump = true;
 		}
 	}
-	else if(Jump == true)
-	{
-		if(Player.getY() - 32 > 200 || movement.y < 0)
-		{
-			movement.y += JumpSpeed;
-		}
-		else
-		{
-			// Position kurz unter Höchsten Jump Punkt setzen.
-			Player.SetAnimationPosition(Player.getX(), 232);
-			movement.y = 0;
-			JumpHighest = true;
-		}
-	}
+}
+
+void Game::viewUpdate()
+{
+	viewPlayer.setCenter(Player.getX(), 535);
 }

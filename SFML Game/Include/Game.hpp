@@ -1,3 +1,22 @@
+/******************************************************************************
+    Name: Siderunner Game C++ Projekt
+    Autor: Stefanie Dautz, Niklas Kraßmann, Lukas Riebesel, Kai Blume
+	Projektbetreuer: Herr Hunstock
+    Datum: 30.06.2015
+    Version: 1.5
+
+    Beschreibung:
+	Es handelt sich um ein Siderunner Jump and Run Game das
+	mit C++ und der Grafikbibliothek SFML erstellt wird.
+	Das Projekt dient als Werbemaßname für die Schule.
+	Es entsteht wärend der Projektphase 2015 mit der Klasse B2IA13.
+
+	Besonderheiten:
+	- Ein paar Eastereggs für den Spieler
+
+	Referenzen:
+	- 
+******************************************************************************/
 #pragma once
 
 #include <SFML/Graphics.hpp>
@@ -17,8 +36,14 @@ class Game : private sf::NonCopyable
 		// Event handler
 		void processEvents();
 
-		//Gravitation nach unten.
+		//Gravitation nach Unten
 		void GravityFall();
+
+		// Gravitation nach Oben
+		void GravityUp();
+
+		// Update vom View
+		void viewUpdate();
 
 		// Maussteuerung
 		void MausSteuerung(bool isPressed);
@@ -44,6 +69,9 @@ class Game : private sf::NonCopyable
 		// Laden der Welt
 		Map World;
 
+		// String für das SpielerModel
+		std::string PlayerModel;
+
 		// Laden des Spielers
 		Spieler Player;
 
@@ -57,6 +85,7 @@ class Game : private sf::NonCopyable
 		int x, y;
 
 		std::size_t StatisticsNumFrames;
+		sf::View viewPlayer;
 		sf::Vector2i localPositionMouse;
 		bool IsMovingUp;
 		bool IsMovingDown;
@@ -64,11 +93,9 @@ class Game : private sf::NonCopyable
 		bool IsMovingLeft;
 		bool noKeyWasPressed;
 		bool StopRechts;
-		bool blockJump;
-		bool Jump;
-		bool StopUnten;
+		bool StopJump;
+		bool StartJump;
 		bool JumpHighest;
-		int PlayerX;
-		int PlayerY;
+		bool StopUnten;
 };
 

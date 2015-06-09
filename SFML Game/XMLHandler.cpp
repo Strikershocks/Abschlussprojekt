@@ -134,7 +134,7 @@ std::string XMLHandler::loadRanking(int index)
 	xml_node<> *pNode = pRoot->first_node("RankingPlace");
 
 	// Von Child Node <RankingPlace> das Attribut Place + index auswählen
-	xml_attribute<> *pAttr = pNode->first_attribute("Place " + index);
+	xml_attribute<> *pAttr = pNode->first_attribute("Place" + index);
 
 	// Name wird gespeichert
 	Name = pAttr->value();
