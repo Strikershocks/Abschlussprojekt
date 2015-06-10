@@ -1,4 +1,4 @@
-#include "Include\Game.hpp"
+#include "Game.hpp"
 
 // Spieler Geschwindigkeit + TimePerFrame
 const float Game::PlayerSpeed = 200.f;
@@ -57,6 +57,27 @@ void Game::run()
 		sf::Time frameTime = frameClock.restart();
 		timeSinceLastUpdate += frameTime;
 		initPlayerPosition();
+
+		// Auswertung Kollision.
+		if(World.checkKollision())
+		{
+			Player.setPosition(Player.getX() - 30, Player.getY());
+			Player.MinusLeben();
+		}
+
+		// Überprüfung ob man gewonnen hat.
+		if(World.checkGoal())
+		{
+			InfoFenster.Window_Success();
+			Window.close();
+		}
+
+		// Game Over wenn 0 Leben.
+		if(Player.getLeben() == 0)
+		{
+			InfoFenster.Abspann(600, 600);
+		}
+
 		while (timeSinceLastUpdate > TimePerFrame)
 		{
 			timeSinceLastUpdate -= TimePerFrame;
@@ -64,11 +85,16 @@ void Game::run()
 			update(TimePerFrame);
 		}
 	
+		// Gravitation erstellen.
 		GravityFall();
 		GravityUp();
-
+		
+		//Bewegung ausführen
 		Player.AnimationTest(movement, frameTime, 0, PlayerModel);
+
+		// View anpassen.
 		viewUpdate();
+
 		// Wenn keine Taste gedrückt, Animation stoppen.
 		if (noKeyWasPressed)
         {
@@ -159,7 +185,7 @@ void Game::render()
 // Input Handler für die Tastatureingaben.
 void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
 {	
-	if (key == sf::Keyboard::W || key == sf::Keyboard::Up)
+	if (key == sf::Keyboard::W || key == sf::Keyboard::Up || key == sf::Keyboard::Space)
 	{
 		if(StopJump == true)
 		{
@@ -173,9 +199,11 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
 
 void Game::initPlayerPosition()
 {
-	// Der Welt wird die Spielerposition übergeben.
-	std::cout << Player.getX() << Player.getY() << std::endl;
-	World.set_player_pos(Player.getX(), Player.getY());
+	sf::Vector2f PlayerCoords;
+	PlayerCoords.x = Player.getX();
+	PlayerCoords.y = Player.getY();
+	std::cout << "PosX: " << Player.getX() << " PosY: " << Player.getY() << std::endl;
+	World.set_player_pos(PlayerCoords);
 }
 
 void Game::MausSteuerung(bool isPressed)
@@ -247,5 +275,5 @@ void Game::GravityFall()
 
 void Game::viewUpdate()
 {
-	viewPlayer.setCenter(Player.getX(), 535);
+	viewPlayer.setCenter(Player.getX() + 300, 520);
 }

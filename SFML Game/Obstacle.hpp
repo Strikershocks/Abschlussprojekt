@@ -14,12 +14,19 @@ public:
 	//Sprite für das Hindernis
 	sf::Sprite s_obs;
 
+	// Setzen der Position.
+	void setPosition(int PosX, int PosY);
+
+	// Getter für getBoundingBox (Kollisionsabfrage)
+	sf::FloatRect getBoundingBox();
+
 	//Draw-Methode
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-protected:
 
+protected:
 	//Fenstergröße
 	int WinX;
 	int WinY;
+	sf::FloatRect boundingBox;
 };
 

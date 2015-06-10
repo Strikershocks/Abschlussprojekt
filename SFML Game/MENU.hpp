@@ -35,8 +35,9 @@ public:
 
 	// Setter PlayerModel
 	void setPlayerModel(std::string PlayerModel);
-	
+
 private:
+
 	int selectedItemIndex;
 
 	// Player Model
@@ -55,8 +56,7 @@ private:
 	// im Menü.
 	sf::Text menu[MAX_MENU_ITEMS];
 	sf::Sprite Player;
-	sf::Texture Texture;
-
+	sf::Texture Texture, TexturePL, TexturePR;
+	sf::Sprite PfeilLinks, PfeilRechts;
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
-

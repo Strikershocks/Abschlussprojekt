@@ -6,30 +6,29 @@ Map::Map()
 	//create_map(1);
 }
 
-Map::Map(int lv_num, int WinX, int WinY)
+Map::Map(int lv_num, int WinX, int WinY, sf::Vector2f CoordinatePlayer)
 {
 	//Damit die Map weiß, wie groß das Fenster ist
-	this->WinX=WinX;
-	this->WinY=WinY;
-
-	//Die Map wird erstellt
+	this->WinX = WinX;
+	this->WinY = WinY;
+	this->CoordinatePlayer = CoordinatePlayer;
+	//Die Map wird erstellt, mit dem Lvl das übergeben wurde.
 	create_map(lv_num);
 }
 
-void Map::set_player_pos(int player_xpos, int player_ypos)
+void Map::set_player_pos(sf::Vector2f CoordinatePlayers)
 {
-	this->player_xpos=player_xpos;
-	this->player_ypos=player_ypos;
+	this->CoordinatePlayer = CoordinatePlayer;
 }
 
 int Map::get_player_xpos()
 {
-	return player_xpos;
+	return CoordinatePlayer.x;
 }
 
 int Map::get_player_ypos()
 {
-	return player_ypos;
+	return CoordinatePlayer.y;
 }
 
 
@@ -57,7 +56,7 @@ void Map::create_map(int lv_num)
 
 void Map::create_lv1()
 {
-
+	bodenHindernisse(1);
 	//Die Textur für den Boden wird geladen
 	if (!t_floor.loadFromFile("Resources/Textures/Ground/Grass2.png", sf::IntRect(0, 0, 1024, 64)))
 	{
@@ -107,24 +106,88 @@ void Map::create_lv1()
 			s_bg.push_back(new_bg);
 		}
 	}
+}
 
-	//Eine neue Wand wird erstellt
-	Wall new_wall;
 
-	//Die Textur für die Wand wird geladen
-	if (!t_wall.loadFromFile("Resources/Textures/Ground/Flappy-Ground.png", sf::IntRect(0, 17, 10, 40)))
+void Map::bodenHindernisse(int lvl)
+{
+	Obstacle groundObstacle;
+	std::string NameTexture;
+	// Anzahl Hindernisse
+	int iBHindernisse = 0;
+	int xPos = 0;
+
+	// Zufällige Hinderniss anzahl je nach lvl.
+	if(lvl == 1)
 	{
-		// handle error
+		iBHindernisse = Random(10, 100);
+	}
+	else
+	{
+		iBHindernisse = Random(30, 200);
 	}
 
-	//Die Textur für die Wand wird gesetzt
-	new_wall.s_obs.setTexture(t_wall);
+	// Solange keine x Elemente erstellt wurden.
+	for(int i = 0; i < iBHindernisse; i++)
+	{
+		int a = Random(0, 3);
+		switch(a)
+		{
+		case 0: 
+			{
+				NameTexture = "catMonster.png";
+				break;
+			}
+		case 1:
+			{
+				NameTexture = "catSand.png";
+				break;
+			}
+		case 2:
+			{
+				NameTexture = "lasertrap1.png";
+				break;
+			}
+		case 3:
+			{
+				NameTexture = "LaserTrap2.png";
+				break;
+			}
+		default: 
+			{
+				NameTexture = "LaserTrap2.png";
+				break;
+			}
+		}
 
-	//Der Wand wird mitgeteilt wie groß das Fenster ist
-	new_wall.set_windowsize(WinX, WinY);
+		//Die Textur für die Wand wird geladen
+		if (!t_obstacle[i].loadFromFile("Resources/Textures/Traps/" + NameTexture))
+		{
+			// handle error
+		}
 
-	//Eine Kopie der Wand wird der Map hinzugefügt
-	s_wall.push_back(new_wall);
+		//Die Textur für die Wand wird gesetzt
+		groundObstacle.s_obs.setTexture(t_obstacle[i]);
+
+		//Dem Hindernis wird mitgeteilt wie groß das Fenster ist
+		groundObstacle.set_windowsize(WinX, WinY);
+
+		// xPos wird immer mit neuen Abstand + gerechnet.
+		xPos= xPos+Random(150, 500);
+
+		// Zufälliger Abstand zwischen 80 und 150 px auf der X Achse.
+		groundObstacle.setPosition(xPos, 470);
+
+		//Eine Kopie der Wand wird der Map hinzugefügt
+		s_obstacle.push_back(groundObstacle);
+	}
+}
+
+// Random rückgabe zwischen min und max.
+int Map::Random(int min, int max)
+{
+	srand(time(NULL));
+	return rand()%(max-min) + min;
 }
 
 void Map::create_lv2()
@@ -145,11 +208,45 @@ void Map::SetWindowSize(int lv_num, int x, int y)
 	//Die Map wird erstellt
 	create_map(lv);
 }
+// Kollisionsabfrage ob der Player Kollsision verursacht.
+bool Map::checkKollision()
+{
+	// Hindernisse kollisionsabfrage.
+	for(int i=0; i < s_obstacle.size(); i++)
+	{
+		if(s_obstacle[i].getBoundingBox().contains(CoordinatePlayer))
+		{
+			return true;
+		}
+	}
+
+	for(int i=0; i < s_wall.size(); i++)
+	{
+		if(s_wall[i].getBoundingBox().contains(CoordinatePlayer))
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool Map::checkGoal()
+{
+	if(Goal.getGlobalBounds().contains(CoordinatePlayer))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
 
 void Map::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	//Malen aller Hintergründe
-	for(int i=0; i<s_bg.size(); i++)
+	//Zeichnen aller Hintergründe
+	for(int i = 0; i < s_bg.size(); i++)
 	{
 		target.draw(s_bg[i], states);
 
@@ -168,4 +265,9 @@ void Map::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		target.draw(s_wall[i], states);
 	}
 
+	// Hindernisse.
+	for(int i=0; i < s_obstacle.size(); i++)
+	{
+		target.draw(s_obstacle[i],states);
+	}
 }

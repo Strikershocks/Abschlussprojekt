@@ -32,7 +32,21 @@ Menu::Menu(float width, float height)
 
 	selectedItemIndex = 0;
 
-
+	PfeilLinks.scale(0.4, 0.4);
+	PfeilRechts.scale(0.4, 0.4);
+	if(!TexturePL.loadFromFile("Resources/Textures/Pfeil.png", sf::IntRect(-10, 80, 120, 130)))
+	{
+		// Loading Error 
+	}
+	PfeilLinks.setTexture(TexturePL);
+	PfeilLinks.setPosition(10.f, 225.f);
+	if(!TexturePR.loadFromFile("Resources/Textures/Pfeil.png", sf::IntRect(510, 80, 120, 130)))
+	{
+		// Loading Error 
+	}
+	PfeilRechts.setTexture(TexturePR);
+	PfeilRechts.setPosition(220.f, 225.f);
+	
 }
 
 
@@ -47,7 +61,9 @@ Menu::~Menu()
 		target.draw(menu[i], states);
 	}
 	target.draw(Player, states);
-}
+	target.draw(PfeilLinks, states);
+	target.draw(PfeilRechts, states);
+ }
 
 void Menu::MoveUp()
 {
@@ -86,7 +102,7 @@ void Menu::changePlayer()
 	Player.setTexture(Texture);
 
 	// Setzen der Position vom Spieler Model.
-	Player.setPosition(30.f, 200.f);
+	Player.setPosition(90.f, 190.f);
 }
 
 void Menu::changePlayerRight()

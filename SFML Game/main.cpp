@@ -1,4 +1,4 @@
-#include "Include\Game.hpp"
+#include "Game.hpp"
 #include "MENU.hpp"
 #include "Options.hpp"
 #include "XMLHandler.hpp"

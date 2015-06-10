@@ -8,7 +8,7 @@
 
 #include <iostream>
 #include "SFML/Graphics.hpp"
-
+#include <dos.h>
 
 class Meldungen
 {
