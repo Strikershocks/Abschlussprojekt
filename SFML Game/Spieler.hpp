@@ -42,17 +42,19 @@ public:
 	
 private:
 	//Spielername
-	std::string PlayerName;
+	sf::Text Name;
+	sf::Font font;
 
 	// Texture vom Player
 	sf::Texture Texture;
+	sf::Texture Herz;
 		
 	//Positionen x und y
 	int x;
 	int y;
 
 	//Anzahl der Leben
-	int Leben;
+	std::vector<sf::Sprite> Lebensanzeige;
 
 	// Animation für Rechts
 	Animation walkingAnimationRight;

@@ -24,6 +24,7 @@ void Obstacle::set_windowsize(int WinX, int WinY) //Muss noch überarbeitet werde
 
 sf::FloatRect Obstacle::getBoundingBox()
 {
+	boundingBox = s_obs.getGlobalBounds();
 	return boundingBox;
 }
 

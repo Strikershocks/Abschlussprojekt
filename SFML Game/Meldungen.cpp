@@ -9,11 +9,17 @@
 #define MAX_MENU_ITEMS 5
 
 Meldungen::Meldungen()
-{}
-
-void Meldungen::Window_Success()
 {
-	CreateMeldung("Success!", "You are the Winner!");
+	sprite.scale(0.4, 0.4);
+}
+
+void Meldungen::Window_Success(bool RankingSuccsess)
+{
+	if(RankingSuccsess == true)
+		CreateMeldung("Success!", "You are the Winner! \n Du wurdest im Ranking hinzugefügt!");
+	else
+		CreateMeldung("Success!", "You are the Winner!");
+		
 }
 
 void Meldungen::Player_Died()
@@ -36,7 +42,7 @@ void Meldungen::Abspann(float width, float height)
 	sf::RenderWindow window(sf::VideoMode(600, 600), "Credits", sf::Style::Close);
 	sf::Text Mitwirkende[MAX_MENU_ITEMS];
 	sf::Texture Background;
-	sf::Sprite sprite;
+	//sf::Sprite sprite;
 	sf::Font font;
 
 	while (window.isOpen())
@@ -73,7 +79,7 @@ void Meldungen::Abspann(float width, float height)
 			Mitwirkende[4].setString("Erstellt für die Georg-Sonnin-Schule \n zu Werbezwecken");
 		}
 
-		if (!Background.loadFromFile("Resources/Textures/GSS_Skyline.png", sf::IntRect(0, 0, width, 130)))
+		if (!Background.loadFromFile("Resources/Textures/GSS_Skyline.png", sf::IntRect(0, 0, 3607, 793))) 
 		{
 			// handle error
 		}
@@ -85,7 +91,7 @@ void Meldungen::Abspann(float width, float height)
 
 		// setzt dem Sprite die Texture Ground.
 		sprite.setTexture(Background);
-		sprite.setPosition(0, height-107);
+		sprite.setPosition(25, 480);
 
 		window.draw(sprite);
 

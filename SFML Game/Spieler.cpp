@@ -11,12 +11,29 @@ AnimatedSprite animatedSprite(sf::seconds(0.2), true, false);
 
 Spieler::Spieler()
 {
-	this->Leben = 3;
+	if(!Herz.loadFromFile("Resources/Textures/heart.png")) 
+	{
+		// Loading Error der PNG
+	}
+	Herz.setSmooth(true);
+
+	this->PlusLeben();
+	this->PlusLeben();
+	this->PlusLeben();
+
 	animatedSprite.setPosition(200, 200);
 }
 
 void Spieler::setName(std::string name)
-{this->PlayerName = name;}
+{
+	if (!font.loadFromFile("Resources/Sansation.ttf"))
+	{
+		// handle error
+	}
+	Name.setFont(font);
+	Name.setPosition( 40, 80);
+	this->Name.setString(name);
+}
 
 void Spieler::setPosition(int x, int y)
 {
@@ -25,18 +42,20 @@ void Spieler::setPosition(int x, int y)
 }
 
 void Spieler::MinusLeben(void)
-{
-	this->Leben--;
-}
+{this->Lebensanzeige.pop_back();}
 
 void Spieler::PlusLeben(void)
 {
-	this->Leben++;
+	sf::Sprite Leben;
+	Leben.setTexture(Herz);
+	Leben.setPosition(40 + getLeben() * 40, 40);
+
+	this->Lebensanzeige.push_back(Leben);
 }
 
 std::string Spieler::getName(void)
 {
-	return this->PlayerName;
+	return this->Name.getString();
 }
 
 int Spieler::getX()
@@ -51,7 +70,7 @@ int Spieler::getY()
 
 int Spieler::getLeben()
 {
-	return this->Leben;
+	return this->Lebensanzeige.size();
 }
 
 void Spieler::AnimationTest(sf::Vector2f movement, sf::Time frameTime, int index, std::string PlayerModel)
@@ -80,6 +99,7 @@ void Spieler::AnimationTest(sf::Vector2f movement, sf::Time frameTime, int index
 		walkingAnimationRight.addFrame(sf::IntRect(64, 96, 32, 48));
 		walkingAnimationRight.addFrame(sf::IntRect(32, 96, 32, 48));
 		walkingAnimationRight.addFrame(sf::IntRect( 0, 96, 32, 48));
+
 	}
 
 	Animation* currentAnimation = &walkingAnimationRight;
@@ -87,18 +107,33 @@ void Spieler::AnimationTest(sf::Vector2f movement, sf::Time frameTime, int index
 	if(index == 0)
 	{
 		animatedSprite.play(*currentAnimation);
+		
 	}
 	else
 	{
 		animatedSprite.stop();
+
 	}
 	animatedSprite.move(movement * frameTime.asSeconds());
+	Name.move(movement.x * frameTime.asSeconds(), 0);
+
+	for(int i = 0; i <Lebensanzeige.size(); i++)
+		Lebensanzeige[i].move(movement.x * frameTime.asSeconds(), 0);
 	
 	// update AnimatedSprite
     animatedSprite.update(frameTime);
+	
+	
+
 }
 
 void Spieler::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(animatedSprite, states);
+	target.draw(Name, states);
+
+	for(int i = 0; i < Lebensanzeige.size(); i++)
+	{
+		target.draw(Lebensanzeige[i], states);
+	}
 }

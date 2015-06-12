@@ -54,6 +54,9 @@
     <ClCompile Include="HintergrundSounds.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="Ranking.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Font Include="Resources\Sansation.ttf">
@@ -61,9 +64,6 @@
     </Font>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Include\Game.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="Include\StringHelpers.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
@@ -110,6 +110,12 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="HintergrundSounds.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.hpp">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Ranking.hpp">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

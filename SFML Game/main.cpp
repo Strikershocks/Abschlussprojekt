@@ -2,6 +2,7 @@
 #include "MENU.hpp"
 #include "Options.hpp"
 #include "XMLHandler.hpp"
+#include "Ranking.hpp"
 #include <stdexcept>
 #include <iostream>
 
@@ -30,6 +31,7 @@ int main()
 		Options Optionen(window.getSize().x, window.getSize().y);
 		Menu Menü(window.getSize().x, window.getSize().y);
 		XMLHandler XMLDoc;
+		Ranking Rank;
 
 		// Setzen eines Framelimits
 		window.setFramerateLimit(60);
@@ -50,7 +52,7 @@ int main()
 						if (event.text.unicode < 8 || (event.text.unicode > 8 && event.text.unicode < 128 && event.text.unicode != 13))
 						{
 							//Maximal 16 Zeichen bei Namenseingabe!
-							if (static_cast<int>(XMLDoc.loadPlayerName().length()) < 16)
+							if (static_cast<int>(XMLDoc.loadPlayerName().length()) < 13)
 							{
 								Optionen.setPlayerNameChar(static_cast<char>(event.text.unicode));
 							}
@@ -140,6 +142,12 @@ int main()
 									{
 										break;
 									}
+									case 2:
+									{	
+										Auswahl = 2;
+										window.draw(Rank);
+										break;
+									}
 									// Optionen eingeben.
 									case 3:
 									{
@@ -189,6 +197,8 @@ int main()
 			// Drawn von Optionen oder Menü bild.
 			if(Auswahl == 0)
 				window.draw(Menü);
+			else if(Auswahl == 2)
+				window.draw(Rank);
 			else
 				window.draw(Optionen);
 			window.display();

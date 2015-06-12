@@ -1,9 +1,9 @@
 #include "XMLHandler.hpp"
+#include <iostream>
 
 
 XMLHandler::XMLHandler(void)
 {
-	//parseXMLDoc();
 }
 
 
@@ -118,8 +118,66 @@ int XMLHandler::loadWinY()
 	return atoi(pAttr->value());
 }
 
-std::string XMLHandler::loadRanking(int index)
+std::string XMLHandler::loadRanking(int index, int auswahl)
 {
+	std::string indexName;
+	switch(index)
+	{
+	case 1: 
+		{
+			indexName = "One";
+			break;
+		}
+	case 2:
+		{
+			indexName = "Two";
+			break;
+		}
+	case 3:
+		{
+			indexName = "Three";
+			break;
+		}
+	case 4:
+		{
+			indexName = "Four";
+			break;
+		}
+	case 5:
+		{
+			indexName = "Five";
+			break;
+		}
+	case 6:
+		{
+			indexName = "Six";
+			break;
+		}
+	case 7:
+		{
+			indexName = "Seven";
+			break;
+		}
+	case 8:
+		{
+			indexName = "Eight";
+			break;
+		}
+	case 9:
+		{
+			indexName = "Nine";
+			break;
+		}
+	case 10:
+		{
+			indexName = "Ten";
+			break;
+		}
+	}
+
+	// Benötigten Variablen
+	std::string Name, Time, Platz, Returntext;
+
 	// Name des Files
 	std::ifstream file("settings.xml");
 	std::stringstream buffer;
@@ -129,32 +187,41 @@ std::string XMLHandler::loadRanking(int index)
 	doc.parse<0>(&content[0]);
 
 	xml_node<> *pRoot = doc.first_node();
-	std::string Name, Time, Platz, Returntext;
+	
 	// Auswahl des Child Nodes <RankingPlace>
 	xml_node<> *pNode = pRoot->first_node("RankingPlace");
 
 	// Von Child Node <RankingPlace> das Attribut Place + index auswählen
-	xml_attribute<> *pAttr = pNode->first_attribute("Place" + index);
+	std::string strPlace = "Place" + indexName;
+	const char *cstrPlace = strPlace.c_str();
+	xml_attribute<> *pAttr = pNode->first_attribute(cstrPlace);
 
 	// Name wird gespeichert
 	Name = pAttr->value();
 
 	// Auswahl des Child Nodes <RankingTime>
-	 pNode = pRoot->first_node("RankingTime");
+	pNode = pRoot->first_node("RankingTime");
 
 	// Von Child Node <RankingTime> das Attribut Time + index auswählen
-	pAttr = pNode->first_attribute("Time" + index);
+	std::string strTime = "Time" + indexName;
+	const char *cstrTime = strTime.c_str();
+	pAttr = pNode->first_attribute(cstrTime);
 	
 	// Zeit wird gespeichert
 	Time = pAttr->value();
 
-	// Zusammenstellung des Platz Textes 
-	Platz = "Platz: " + index;
-	Name = " Spieler: " + Name;
-	Time = " Zeit: " + Time;
-	Returntext = Platz + Name + Time; 
+	if(auswahl == 0)
+	{
+		// Zusammenstellung des Platz Textes 
+		Platz = "Platz: " + toString(index);
+		Name = " Spieler: " + Name;
+		Time = " Zeit: " + Time;
+		Returntext = Platz + Name + Time; 
 
-	return Returntext;
+		return Returntext;
+	}
+	else
+		return Time;
 }
 
 void XMLHandler::savePlayerName(std::string player)
@@ -505,8 +572,63 @@ int XMLHandler::loadSchwierigkeitIndex()
 	return atoi(pAttr->value());
 }
 
-void XMLHandler::saveRanking(std::string Name, std::string Time, int index)
+void XMLHandler::saveRanking(std::string Name, float Time, int index)
 {
+	std::string indexName;
+	switch(index)
+	{
+	case 1: 
+		{
+			indexName = "One";
+			break;
+		}
+	case 2:
+		{
+			indexName = "Two";
+			break;
+		}
+	case 3:
+		{
+			indexName = "Three";
+			break;
+		}
+	case 4:
+		{
+			indexName = "Four";
+			break;
+		}
+	case 5:
+		{
+			indexName = "Five";
+			break;
+		}
+	case 6:
+		{
+			indexName = "Six";
+			break;
+		}
+	case 7:
+		{
+			indexName = "Seven";
+			break;
+		}
+	case 8:
+		{
+			indexName = "Eight";
+			break;
+		}
+	case 9:
+		{
+			indexName = "Nine";
+			break;
+		}
+	case 10:
+		{
+			indexName = "Ten";
+			break;
+		}
+	}
+
 	// Name des Files
 	std::ifstream file("settings.xml");
 	std::stringstream buffer;
@@ -516,7 +638,8 @@ void XMLHandler::saveRanking(std::string Name, std::string Time, int index)
 	doc.parse<0>(&content[0]);
 
 	const char * cName = Name.c_str();
-	const char * cTime = Time.c_str();
+	char pbuff[20];
+	_itoa_s(Time, pbuff, 10);
 
 	xml_node<> *pRoot = doc.first_node();
 
@@ -524,7 +647,9 @@ void XMLHandler::saveRanking(std::string Name, std::string Time, int index)
 	xml_node<> *pNode = pRoot->first_node("RankingPlace");
 
 	// Von Child Node <RankingPlace> das Attribut Place + index auswählen
-	xml_attribute<> *pAttr = pNode->first_attribute("Place" + index);
+	std::string strPlace = "Place" + indexName;
+	const char *cstrPlace = strPlace.c_str();
+	xml_attribute<> *pAttr = pNode->first_attribute(cstrPlace);
 	
 	// Ändern des Attributs.
 	pAttr->value(doc.allocate_string(cName));
@@ -533,9 +658,11 @@ void XMLHandler::saveRanking(std::string Name, std::string Time, int index)
 	pNode = pRoot->first_node("RankingTime");
 	
 	// Von Child Node <Window> das Attribut Time + index auswählen
-	pAttr = pNode->first_attribute("Time" + index);
+	std::string strTime = "Time" + indexName;
+	const char *cstrTime = strTime.c_str();
+	pAttr = pNode->first_attribute(cstrTime);
 
 	// Ändern des Attributs.
-	pAttr->value(doc.allocate_string(cTime));
+	pAttr->value(doc.allocate_string(pbuff));
 	XMLSave();
 }

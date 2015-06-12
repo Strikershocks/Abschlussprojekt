@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <random>
+#include <iostream>
 #include "Wall.hpp"
 class Map  : public sf::Drawable
 {

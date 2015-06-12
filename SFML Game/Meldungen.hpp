@@ -15,7 +15,7 @@ class Meldungen
 public:
 	Meldungen(void);
 
-	void Window_Success();
+	void Window_Success(bool RankingSuccess);
 
 	void Player_Died();
 
@@ -28,5 +28,7 @@ public:
 private:
 	void CreateMeldung(std::string Titel, std::string MeldungText);
 
+	//Bild der GSS
+	sf::Sprite sprite;
 };
 

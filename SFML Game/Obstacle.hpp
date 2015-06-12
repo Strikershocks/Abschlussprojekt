@@ -11,6 +11,7 @@ public:
 	//Methode um die Fenstergröße mitzuteilen
 	void set_windowsize(int WinX, int WinY);
 
+	
 	//Sprite für das Hindernis
 	sf::Sprite s_obs;
 

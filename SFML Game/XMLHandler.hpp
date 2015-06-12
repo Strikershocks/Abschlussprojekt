@@ -25,14 +25,15 @@ public:
 	int loadWindowIndex();
 	int loadSchwierigkeitIndex();
 
-	std::string loadRanking(int index);
+	// 
+	std::string loadRanking(int index, int auswahl);
 
 	// XML Setter
 	void savePlayerName(std::string Name);
 	void savePlayerSkinIndex(int index);
 	void saveWinXY(int x, int y);
 	void saveAliasing(int Stufe);
-	void saveRanking(std::string name, std::string Time, int index);
+	void saveRanking(std::string name, float Time, int index);
 	void saveSchwierigkeit(std::string Schwierigkeit);
 	void saveMusic(std::string An);
 	void saveSteuerung(std::string Steuerung);

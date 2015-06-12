@@ -2,11 +2,11 @@
 <Options>
 	<Player Name="Gott" SkinIndex="0"/>
 	<Window X="800" Y="600" Index="0"/>
-	<Aliasing Stufe="0"/>
-	<RankingPlace Place1="Leer" Place2="Leer" Place3="Leer" Place4="Leer" Place5="Leer" Place6="Leer" Place7="Leer" Place8="Leer" Place9="Leer" Place10="Leer"/>
-	<RankingTime Time1="0:00" Time2="0:00" Time3="0:00" Time4="0:00" Time5="0:00" Time6="0:00" Time7="0:00" Time8="0:00" Time9="0:00" Time10="0:00"/>
-	<Schwierigkeit Auswahl="Leicht" Index="0"/>
+	<Aliasing Stufe="10"/>
+	<RankingPlace PlaceOne="Gott" PlaceTwo="Gott" PlaceThree="Gott" PlaceFour="Dönermann" PlaceFive="Mr.Sinister" PlaceSix="AFKBoy" PlaceSeven="SevenEleven" PlaceEight="Gott" PlaceNine="Gott" PlaceTen="TenforMan"/>
+	<RankingTime TimeOne="30" TimeTwo="32" TimeThree="35" TimeFour="43" TimeFive="48" TimeSix="52" TimeSeven="53" TimeEight="56" TimeNine="60" TimeTen="80.00"/>
+	<Schwierigkeit Auswahl="Schwer" Index="2"/>
 	<Music An="Aus"/>
-	<Steuerung Maus="Maus"/>
+	<Steuerung Maus="Tastatur"/>
 </Options>
 

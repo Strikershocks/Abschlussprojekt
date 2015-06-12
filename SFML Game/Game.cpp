@@ -9,7 +9,7 @@ const sf::Time Game::TimePerFrame = sf::seconds(1.f/60.f);
 sf::ContextSettings settings;
 
 // set up AnimatedSprite
-Game::Game(int x, int y, int Aliasing, std::string PlayerModel) : Window(sf::VideoMode(x, y), "Test Game", sf::Style::Close, settings)
+Game::Game(int x, int y, int Aliasing, std::string PlayerModel) : Window(sf::VideoMode(x, y), "Side Runner", sf::Style::Close, settings)
 {
 	settings.antialiasingLevel = Aliasing;
 	this->x = x;
@@ -20,6 +20,15 @@ Game::Game(int x, int y, int Aliasing, std::string PlayerModel) : Window(sf::Vid
 
 	World.SetWindowSize(1 ,x, y);
 	this->PlayerModel = PlayerModel;
+
+	// Leben an Schwierigkeit anpassen.
+	if(XMLDoc.loadSchwierigkeit() == "Mittel")
+		this->Player.MinusLeben();
+	else if(XMLDoc.loadSchwierigkeit() == "Schwer")
+	{
+		this->Player.MinusLeben();
+		this->Player.MinusLeben();
+	}
 
 	// Standard Werte Setzen.
 	Font;
@@ -50,6 +59,7 @@ void Game::run()
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 	Player.setName(XMLDoc.loadPlayerName());
 	Player.setPosition(200,200);
+	begin = clock();
 
 	// Solange das Fenster Offen ist.
 	while (Window.isOpen())
@@ -61,20 +71,29 @@ void Game::run()
 		// Auswertung Kollision.
 		if(World.checkKollision())
 		{
-			Player.setPosition(Player.getX() - 30, Player.getY());
 			Player.MinusLeben();
 		}
 
 		// Überprüfung ob man gewonnen hat.
 		if(World.checkGoal())
 		{
-			InfoFenster.Window_Success();
+			bool RankingSuccess = false;
+			end = clock(); // Zeit messung ende.
+			// Zeit in Sekunden ausrechnen.
+			elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+			// Zum Zeit in Int umwandeln für die Sekunden.
+			if(checkRanking((int)elapsed_secs))
+			{
+				RankingSuccess = true;
+			}
 			Window.close();
+			InfoFenster.Window_Success(RankingSuccess);
 		}
 
 		// Game Over wenn 0 Leben.
 		if(Player.getLeben() == 0)
 		{
+			Window.close();
 			InfoFenster.Abspann(600, 600);
 		}
 
@@ -138,7 +157,7 @@ void Game::processEvents()
 				{
 					if(XMLDoc.loadSteuerung() == "Maus")
 					{
-						MausSteuerung(true);
+						MausSteuerung();
 						break;
 					}
 					break;
@@ -147,7 +166,7 @@ void Game::processEvents()
 				{
 					if(XMLDoc.loadSteuerung() == "Maus")
 					{
-						MausSteuerung(false);
+						MausSteuerung();
 						break;
 					}
 					break;
@@ -202,37 +221,29 @@ void Game::initPlayerPosition()
 	sf::Vector2f PlayerCoords;
 	PlayerCoords.x = Player.getX();
 	PlayerCoords.y = Player.getY();
-	std::cout << "PosX: " << Player.getX() << " PosY: " << Player.getY() << std::endl;
 	World.set_player_pos(PlayerCoords);
 }
 
-void Game::MausSteuerung(bool isPressed)
+void Game::MausSteuerung()
 {
-	// Speichern der Mausposition X,Y im Fenster.
-	localPositionMouse = sf::Mouse::getPosition(Window); 
+	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) ==  true && StopJump == true)
+	{
+		StartJump = true;
+		StopJump = false;
+		
+		return;
+	}
 
-	if(localPositionMouse.x > Player.getX() && isPressed == true)
+	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) == true)
 	{
 		IsMovingRight = true;
 		return;
-	}
-	else
+	}else
 	{
 		IsMovingRight = false;
-	}
-
-	// Ansonsten Prüfen ob die Maus weiter rechts als der Player ist.
-	if(localPositionMouse.y < Player.getY() + 10 && isPressed == true)
-	{
-		if(StopJump = true)
-		{
-			StartJump = true;
-			StopJump = false;
-		}
 		return;
 	}
 }
-
 void Game::GravityUp()
 {
 	// Wenn Sprung Gedrückt, solange nach Oben bis Sprungmax erreicht ist.
@@ -276,4 +287,23 @@ void Game::GravityFall()
 void Game::viewUpdate()
 {
 	viewPlayer.setCenter(Player.getX() + 300, 520);
+}
+
+// Ranking prüfen und neues Ranking einstellen.
+bool Game::checkRanking(float Zeit)
+{
+	std::string ZeitasString;
+	float RankingZeitOld;
+	for(int i = 0; i < 10; i++)
+	{
+		ZeitasString = XMLDoc.loadRanking(i + 1, 1);
+		RankingZeitOld = atof(ZeitasString.c_str());
+		// Wenn die Zeit besser ist als das Vorhanden Ranking dann Speichern.
+		if(RankingZeitOld > Zeit)
+		{
+			XMLDoc.saveRanking(Player.getName(), Zeit, i+1);
+			return true;
+		}
+	}
+	return false;
 }

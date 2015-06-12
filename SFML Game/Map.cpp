@@ -4,6 +4,10 @@
 Map::Map()
 {
 	//create_map(1);
+	goal.loadFromFile("Resources/Textures/Goal/Goal1.png");
+
+	Goal.setTexture(goal);
+	Goal.setPosition(6500.f, 355.f);
 }
 
 Map::Map(int lv_num, int WinX, int WinY, sf::Vector2f CoordinatePlayer)
@@ -16,7 +20,7 @@ Map::Map(int lv_num, int WinX, int WinY, sf::Vector2f CoordinatePlayer)
 	create_map(lv_num);
 }
 
-void Map::set_player_pos(sf::Vector2f CoordinatePlayers)
+void Map::set_player_pos(sf::Vector2f CoordinatePlayer)
 {
 	this->CoordinatePlayer = CoordinatePlayer;
 }
@@ -43,12 +47,15 @@ void Map::create_map(int lv_num)
 	{
 	case 1:
 		create_lv1();
+		bodenHindernisse(lv_num);
 		break;
 	case 2:
 		create_lv2();
+		bodenHindernisse(lv_num);
 		break;
 	default:
 		create_lv1();
+		bodenHindernisse(1);
 		break;
 	}
 }
@@ -56,56 +63,114 @@ void Map::create_map(int lv_num)
 
 void Map::create_lv1()
 {
-	bodenHindernisse(1);
-	//Die Textur für den Boden wird geladen
-	if (!t_floor.loadFromFile("Resources/Textures/Ground/Grass2.png", sf::IntRect(0, 0, 1024, 64)))
+	if( WinX == 1024)
 	{
-		// handle error
-	}
-
-	//Es soll geglättet werden
-	t_floor.setSmooth(true);
+		//Die Textur für den Boden wird geladen
+		if (!t_floor.loadFromFile("Resources/Textures/Ground/Grass2.png"))
+		{
+			// handle error
+		}	
+			
+		//Es soll geglättet werden
+		t_floor.setSmooth(true);
 	
-	//Ein neues Sprite für den Boden
-	sf::Sprite new_tile;
+		//Ein neues Sprite für den Boden
+		sf::Sprite new_tile;
 	
-	//Setzt dem Sprite die Textur des Bodens
-	new_tile.setTexture(t_floor);
+		//Setzt dem Sprite die Textur des Bodens
+		new_tile.setTexture(t_floor);
 
-	for(int i=0; i<3; i++)
+		for(int i=0; i<9; i++)
+		{
+			//Hier werden mehrere Kopien des neuen Bodenteils an den Boden angefügt
+			new_tile.setPosition(i*WinX, WinY-236);
+			s_floor.push_back(new_tile);
+		}
+
+	}
+	else
 	{
-		//Hier werden mehrere Kopien des neuen Bodenteils an den Boden angefügt
-		new_tile.setPosition(i*1024, WinY-64);
-		s_floor.push_back(new_tile);
+		//Die Textur für den Boden wird geladen
+		if (!t_floor.loadFromFile("Resources/Textures/Ground/Grass2.png", sf::IntRect(0, 0, 800, 64)))
+		{// handle error
+		}
+		//Es soll geglättet werden
+		t_floor.setSmooth(true);
+		
+		//Ein neues Sprite für den Boden
+		sf::Sprite new_tile;
+	
+		//Setzt dem Sprite die Textur des Bodens
+		new_tile.setTexture(t_floor);
+
+		for(int i=0; i<9; i++)
+		{
+			//Hier werden mehrere Kopien des neuen Bodenteils an den Boden angefügt
+			new_tile.setPosition(i*WinX, WinY-64);
+			s_floor.push_back(new_tile);
+		}
 	}
 
-	//Die Textur für den Hintergrund wird geladen
-	if (!t_bg.loadFromFile("Resources/Textures/Ground/GrassGround.png", sf::IntRect(0, 45, 476, 45)))
+	if(WinX == 800)
 	{
-		// handle error
-	}
+		//Die Textur für den Hintergrund wird geladen
+		if (!t_bg.loadFromFile("Resources/Background/himmel600.png"))
+		{
+			// handle error
+		}
 
+	}
+	else
+	{
+		//Die Textur für den Hintergrund wird geladen
+		if (!t_bg.loadFromFile("Resources/Background/himmel.png"))
+		{
+			// handle error
+		}
+	}
 	//Es soll geglättet werden
 	t_bg.setSmooth(true);
-
+	
 	//Ein neues Sprite für den hintergrund
 	sf::Sprite new_bg;
-
 	//Die Textur für den Background wird gewählt
 	new_bg.setTexture(t_bg);
 
-	//Bis der Hintergrund ausgefüllt ist sollen auf der Y Achse ...
-	for(int ii=0; ii<WinY; ii=ii+45)
+	// ... und auf der X-Achse kopien des Hintergrund-Sprites erstellt werden
+	for(int i=0; i<9000; i=i+4049)
 	{
-		// ... und auf der X-Achse kopien des Hintergrund-Sprites erstellt werden
-		for(int i=0; i<WinX; i=i+476)
+		//Die Position des Hintergrundes wird gewählt und dann wird eine Kopie des Spites an
+		//den Hintergrund angefügt
+		new_bg.setPosition(i,0);
+		s_bg.push_back(new_bg);
+	}
+
+	//Die Textur für das Ziel
+	/*std::string selectedGoal = "Goal1.png";
+	switch(Random(0, 1))
+	{
+	case 0:
 		{
-			//Die Position des Hintergrundes wird gewählt und dann wird eine Kopie des Spites an
-			//den Hintergrund angefügt
-			new_bg.setPosition(i,ii);
-			s_bg.push_back(new_bg);
+			selectedGoal = "Goal1.png";
+			break;
+		}
+	case 1:
+		{
+			selectedGoal = "Goal2.png";
+			break;
+		}
+	default:
+		{
+			selectedGoal = "Goal1.png";
+			break;
 		}
 	}
+	if (!t_bg.loadFromFile("Resources/Textures/Goal/" + selectedGoal))
+	{
+		// handle error
+	}
+	Goal.setTexture(goal);
+	Goal.setPosition(6500, 535);*/
 }
 
 
@@ -178,7 +243,7 @@ void Map::bodenHindernisse(int lvl)
 		// Zufälliger Abstand zwischen 80 und 150 px auf der X Achse.
 		groundObstacle.setPosition(xPos, 470);
 
-		//Eine Kopie der Wand wird der Map hinzugefügt
+		//Eine Kopie des Hindernisses wird der Map hinzugefügt
 		s_obstacle.push_back(groundObstacle);
 	}
 }
@@ -214,7 +279,8 @@ bool Map::checkKollision()
 	// Hindernisse kollisionsabfrage.
 	for(int i=0; i < s_obstacle.size(); i++)
 	{
-		if(s_obstacle[i].getBoundingBox().contains(CoordinatePlayer))
+		sf::FloatRect boundingBox = s_obstacle[i].getBoundingBox();
+		if(boundingBox.contains(CoordinatePlayer))
 		{
 			return true;
 		}
@@ -222,7 +288,8 @@ bool Map::checkKollision()
 
 	for(int i=0; i < s_wall.size(); i++)
 	{
-		if(s_wall[i].getBoundingBox().contains(CoordinatePlayer))
+		sf::FloatRect boundingBox = s_obstacle[i].getBoundingBox();
+		if(boundingBox.contains(CoordinatePlayer))
 		{
 			return true;
 		}
@@ -233,7 +300,8 @@ bool Map::checkKollision()
 
 bool Map::checkGoal()
 {
-	if(Goal.getGlobalBounds().contains(CoordinatePlayer))
+	sf::FloatRect boundingBox = Goal.getGlobalBounds();
+	if(boundingBox.contains(CoordinatePlayer))
 	{
 		return true;
 	}
@@ -270,4 +338,7 @@ void Map::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		target.draw(s_obstacle[i],states);
 	}
+
+	// Zeichnen des Ziels.
+	target.draw(Goal,states);
 }

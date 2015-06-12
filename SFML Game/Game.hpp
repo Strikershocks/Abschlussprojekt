@@ -20,12 +20,12 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <ctime>
 #include "Include\StringHelpers.hpp"
 #include "Spieler.hpp"
 #include "Map.hpp"
 #include "Meldungen.hpp"
 #include "XMLHandler.hpp"
-#include <iostream>
 
 class Game : private sf::NonCopyable
 {
@@ -40,6 +40,9 @@ class Game : private sf::NonCopyable
 		//Gravitation nach Unten
 		void GravityFall();
 
+		// Ranking überprüfen.
+		bool checkRanking(float Zeit);
+
 		// Gravitation nach Oben
 		void GravityUp();
 
@@ -47,7 +50,7 @@ class Game : private sf::NonCopyable
 		void viewUpdate();
 
 		// Maussteuerung
-		void MausSteuerung(bool isPressed);
+		void MausSteuerung();
 
 		// Aktualisieren Playerposition.
 		void initPlayerPosition();
@@ -78,6 +81,11 @@ class Game : private sf::NonCopyable
 
 		// Laden des Spielers
 		Spieler Player;
+		
+		// Zeitmessung.
+		clock_t begin;
+		clock_t end;
+		double elapsed_secs;
 
 		sf::RenderWindow Window;
 		sf::Font Font;
