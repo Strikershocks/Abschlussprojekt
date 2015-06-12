@@ -68,12 +68,6 @@ void Game::run()
 		timeSinceLastUpdate += frameTime;
 		initPlayerPosition();
 
-		// Auswertung Kollision.
-		if(World.checkKollision())
-		{
-			Player.MinusLeben();
-		}
-
 		// Überprüfung ob man gewonnen hat.
 		if(World.checkGoal())
 		{
@@ -108,6 +102,13 @@ void Game::run()
 		GravityFall();
 		GravityUp();
 		
+		// Auswertung Kollision.
+		if(World.checkKollision())
+		{
+			Player.MinusLeben();
+			movement.x =- 5000.f;
+		}
+
 		//Bewegung ausführen
 		Player.AnimationTest(movement, frameTime, 0, PlayerModel);
 
